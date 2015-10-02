@@ -77,6 +77,7 @@ public class MainActivity extends Activity
          quizFragment.resetQuiz();
          preferencesChanged = false; 
       }
+
    } // end method onStart
 
    // show menu if app is running on a phone or a portrait-oriented tablet

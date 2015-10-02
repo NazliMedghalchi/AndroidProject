@@ -98,21 +98,6 @@ public class QuizFragment extends Fragment
       answerTextView = (TextView) view.findViewById(R.id.answerTextView);
 
 
-      //add listener for flagImage
-      flagImageView.setOnClickListener(new View.OnClickListener(){
-         @Override
-         public void onClick(View v) {
-            //Following lines till  end of matrix --> flag disappears onClick
-//            Matrix flag = new Matrix();
-//            flagImageView.setScaleType(ImageView.ScaleType.MATRIX);
-//            flag.postRotate( 90, 0, 0);
-//            flagImageView.setImageMatrix(flag);
-            //load rotation on click on flag --> just like animation
-            flagImageView.startAnimation(clkRotate);
-            //Rotate 90 degree
-            flagImageView.setRotation(flagImageView.getRotation()+90);
-         }
-      });
 
       // configure listeners for the guess Buttons
       for (LinearLayout row : guessLinearLayouts)
@@ -210,7 +195,23 @@ public class QuizFragment extends Fragment
       // get file name of the next flag and remove it from the list
       String nextImage = quizCountriesList.remove(0);
       correctAnswer = nextImage; // update the correct answer
-      answerTextView.setText(""); // clear answerTextView 
+      answerTextView.setText(""); // clear answerTextView
+      //add listener for flagImage
+      flagImageView.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            //Following lines till  end of matrix --> flag disappears onClick
+//            Matrix flag = new Matrix();
+//            flagImageView.setScaleType(ImageView.ScaleType.MATRIX);
+//            flag.postRotate( 90, 0, 0);
+//            flagImageView.setImageMatrix(flag);
+            //load rotation on click on flag --> just like animation
+//               flagImageView.startAnimation(clkRotate);
+            //Rotate 90 degree
+            flagImageView.setRotation(flagImageView.getRotation() + 90);
+         }
+      });
+
 
       // display current question number
       questionNumberTextView.setText(
@@ -274,8 +275,9 @@ public class QuizFragment extends Fragment
    private String getCountryName(String name)
    {
       return name.substring(name.indexOf('-') + 1).replace('_', ' ');
-   } 
-   
+   }
+
+
    // called when a guess Button is touched
    private OnClickListener guessButtonListener = new OnClickListener() 
    {
@@ -287,7 +289,7 @@ public class QuizFragment extends Fragment
          String guess = guessButton.getText().toString();
          String answer = getCountryName(correctAnswer);
          ++totalGuesses; // increment number of guesses the user has made
-         
+
          if (guess.equals(answer)) // if the guess is correct
          {
             ++correctAnswers; // increment the number of correct answers

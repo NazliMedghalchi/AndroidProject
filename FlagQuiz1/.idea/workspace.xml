@@ -41,6 +41,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c700b88-7ad1-40a9-b9e3-fd712f27cfd7" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/MainActivity$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/MainActivity$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/MainActivity.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/MainActivity.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$2$1$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$2$1$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$2$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$2$1.class" />
@@ -50,25 +52,17 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TipCalculator1/.gradle/2.2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/../TipCalculator1/.gradle/2.2.1/taskArtifacts/cache.properties.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/dex/debug/classes.dex" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TipCalculator1/build/intermediates/gradle_project_sync_data.bin" afterPath="$PROJECT_DIR$/../TipCalculator1/build/intermediates/gradle_project_sync_data.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/resources-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/res/resources-debug.ap_" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/QuizFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/QuizFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/anim/clk_rotate.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/anim/clk_rotate.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/anim/clk_rotate.xml" afterPath="$PROJECT_DIR$/app/src/main/res/anim/clk_rotate.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout/fragment_quiz.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout/fragment_quiz.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_quiz.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_quiz.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TipCalculator1/local.properties" afterPath="$PROJECT_DIR$/../TipCalculator1/local.properties" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResourcesdebug/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResourcesdebug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values/values.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values/values.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TipCalculator/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../TipCalculator/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TipCalculator1/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../TipCalculator1/.idea/workspace.xml" />
     </list>
     <ignored path="FlagQuiz.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -102,16 +96,37 @@
       <file leaf-file-name="QuizFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/QuizFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="32.22222">
-              <caret line="112" column="70" selection-start-line="112" selection-start-column="70" selection-end-line="112" selection-end-column="70" />
+            <state vertical-scroll-proportion="-8.0">
+              <caret line="210" column="68" selection-start-line="210" selection-start-column="68" selection-end-line="210" selection-end-column="68" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4007#4617#0" expanded="true" />
-                <element signature="e#4616#4617#0" expanded="true" />
-                <element signature="e#5051#5112#0" expanded="true" />
-                <element signature="e#10767#14453#0" expanded="true" />
-                <element signature="e#14452#14453#0" expanded="true" />
+                <element signature="e#4364#4425#0" expanded="true" />
+                <element signature="e#7526#8144#0" expanded="true" />
+                <element signature="e#8143#8144#0" expanded="true" />
+                <element signature="e#8237#8330#0" expanded="true" />
+                <element signature="e#10772#14449#0" expanded="true" />
+                <element signature="e#11795#13303#0" expanded="true" />
+                <element signature="e#12288#12404#0" expanded="true" />
+                <element signature="e#12559#12578#0" expanded="true" />
+                <element signature="e#13302#13303#0" expanded="true" />
+                <element signature="e#13707#13918#0" expanded="true" />
+                <element signature="e#13917#13918#0" expanded="true" />
+                <element signature="e#14196#14221#0" expanded="true" />
+                <element signature="e#14448#14449#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_main.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.7586207">
+              <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -122,19 +137,30 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.37617555">
-              <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
-              <folding />
+            <state vertical-scroll-proportion="0.61128527">
+              <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+              <folding>
+                <element signature="e#913#948#0" expanded="true" />
+                <element signature="e#984#1019#0" expanded="true" />
+                <element signature="e#1053#1069#0" expanded="true" />
+                <element signature="e#1179#1206#0" expanded="true" />
+                <element signature="e#1564#1580#0" expanded="true" />
+                <element signature="e#1646#1669#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="clk_rotate.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/clk_rotate.xml">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="34" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
-              <folding />
+            <state vertical-scroll-proportion="-0.7777778">
+              <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
+              <folding>
+                <element signature="e#5335#5384#0" expanded="true" />
+                <element signature="e#5541#5572#0" expanded="true" />
+                <element signature="e#5703#5727#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1457,6 +1483,7 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/anim/clk_rotate.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/QuizFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_quiz.xml" />
       </list>
@@ -2266,25 +2293,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37617555">
-          <caret line="8" column="33" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="87" column="51" selection-start-line="87" selection-start-column="50" selection-end-line="87" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2303,24 +2311,55 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/clk_rotate.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="0.30172414">
           <caret line="7" column="34" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.7777778">
+          <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
+          <folding>
+            <element signature="e#5335#5384#0" expanded="true" />
+            <element signature="e#5541#5572#0" expanded="true" />
+            <element signature="e#5703#5727#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/QuizFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="32.22222">
-          <caret line="112" column="70" selection-start-line="112" selection-start-column="70" selection-end-line="112" selection-end-column="70" />
+        <state vertical-scroll-proportion="-8.0">
+          <caret line="210" column="68" selection-start-line="210" selection-start-column="68" selection-end-line="210" selection-end-column="68" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4007#4617#0" expanded="true" />
-            <element signature="e#4616#4617#0" expanded="true" />
-            <element signature="e#5051#5112#0" expanded="true" />
-            <element signature="e#10767#14453#0" expanded="true" />
-            <element signature="e#14452#14453#0" expanded="true" />
+            <element signature="e#4364#4425#0" expanded="true" />
+            <element signature="e#7526#8144#0" expanded="true" />
+            <element signature="e#8143#8144#0" expanded="true" />
+            <element signature="e#8237#8330#0" expanded="true" />
+            <element signature="e#10772#14449#0" expanded="true" />
+            <element signature="e#11795#13303#0" expanded="true" />
+            <element signature="e#12288#12404#0" expanded="true" />
+            <element signature="e#12559#12578#0" expanded="true" />
+            <element signature="e#13302#13303#0" expanded="true" />
+            <element signature="e#13707#13918#0" expanded="true" />
+            <element signature="e#13917#13918#0" expanded="true" />
+            <element signature="e#14196#14221#0" expanded="true" />
+            <element signature="e#14448#14449#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.7586207">
+          <caret line="15" column="35" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2329,9 +2368,16 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37617555">
-          <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
-          <folding />
+        <state vertical-scroll-proportion="0.61128527">
+          <caret line="28" column="23" selection-start-line="28" selection-start-column="23" selection-end-line="28" selection-end-column="23" />
+          <folding>
+            <element signature="e#913#948#0" expanded="true" />
+            <element signature="e#984#1019#0" expanded="true" />
+            <element signature="e#1053#1069#0" expanded="true" />
+            <element signature="e#1179#1206#0" expanded="true" />
+            <element signature="e#1564#1580#0" expanded="true" />
+            <element signature="e#1646#1669#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
