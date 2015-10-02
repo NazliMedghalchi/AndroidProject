@@ -9,7 +9,8 @@ package com.deitel.flagquiz;
 
 public final class R {
     public static final class anim {
-        public static final int incorrect_shake=0x7f050000;
+        public static final int clk_rotate=0x7f050000;
+        public static final int incorrect_shake=0x7f050001;
     }
     public static final class array {
         public static final int guesses_list=0x7f090000;

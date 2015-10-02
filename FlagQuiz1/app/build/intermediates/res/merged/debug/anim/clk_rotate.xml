@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <set xmlns:android="http://schemas.android.com/apk/res/android"
+        android:interpolator="@android:anim/decelerate_interpolator">
+        <!--Rotate image clockwise -90 degree to the right-->
+
+        <rotate
+            android:fromDegrees="0"
+            android:toDegrees="90"
+            android:pivotX="50%"
+            android:pivotY="50%"
+        />
+    </set><!-- From: file:/Users/nazlimedghalchi/Documents/coding/AndroidProjects/FlagQuiz1/app/src/main/res/anim/clk_rotate.xml -->

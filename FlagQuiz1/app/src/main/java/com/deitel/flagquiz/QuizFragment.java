@@ -17,6 +17,7 @@ import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,6 +27,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -49,6 +51,7 @@ public class QuizFragment extends Fragment
    private SecureRandom random; // used to randomize the quiz
    private Handler handler; // used to delay loading next flag
    private Animation shakeAnimation; // animation for incorrect guess
+   private Animation clkRotate; // animation on click on flag -- rotate clockwise
    
    private TextView questionNumberTextView; // shows current question #
    private ImageView flagImageView; // displays a flag
@@ -67,8 +70,11 @@ public class QuizFragment extends Fragment
       fileNameList = new ArrayList<String>();
       quizCountriesList = new ArrayList<String>();
       random = new SecureRandom(); 
-      handler = new Handler(); 
+      handler = new Handler();
 
+
+      //Load clk_rotate animation
+      clkRotate = AnimationUtils.loadAnimation(getActivity(), R.anim.clk_rotate);
       // load the shake animation that's used for incorrect answers
       shakeAnimation = AnimationUtils.loadAnimation(getActivity(), 
          R.anim.incorrect_shake); 
@@ -87,6 +93,17 @@ public class QuizFragment extends Fragment
          (LinearLayout) view.findViewById(R.id.row3LinearLayout);
       answerTextView = (TextView) view.findViewById(R.id.answerTextView);
 
+
+      //add listener for flagImage
+      flagImageView.setOnClickListener(new View.OnClickListener(){
+         @Override
+         public void onClick(View v) {
+            //load rotation on click on flag
+            flagImageView.getDrawable();
+            flagImageView.clearAnimation();
+         }
+      });
+
       // configure listeners for the guess Buttons
       for (LinearLayout row : guessLinearLayouts)
       {
@@ -102,7 +119,7 @@ public class QuizFragment extends Fragment
          getResources().getString(R.string.question, 1, FLAGS_IN_QUIZ));
       return view; // returns the fragment's view for display
    } // end method onCreateView
-   
+
    // update guessRows based on value in SharedPreferences
    public void updateGuessRows(SharedPreferences sharedPreferences)
    {
@@ -255,6 +272,7 @@ public class QuizFragment extends Fragment
       @Override
       public void onClick(View v) 
       {
+
          Button guessButton = ((Button) v); 
          String guess = guessButton.getText().toString();
          String answer = getCountryName(correctAnswer);
