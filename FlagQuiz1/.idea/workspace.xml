@@ -41,26 +41,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c700b88-7ad1-40a9-b9e3-fd712f27cfd7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/anim/clk_rotate.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$1$1$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$1$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$1$2.class" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$2$1$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$2$1$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$2$1.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$2$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$2$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$2$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$2.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/QuizFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$anim.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$anim.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$array.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$array.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$attr.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$attr.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$color.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$color.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$dimen.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$dimen.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$drawable.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$drawable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$id.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$layout.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$layout.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$menu.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$menu.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$mipmap.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$mipmap.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$string.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$string.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$style.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$style.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$xml.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R$xml.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R.class" afterPath="$PROJECT_DIR$/app/build/intermediates/classes/debug/com/deitel/flagquiz/R.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug-unaligned.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/app-debug.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/cache.properties.lock" />
@@ -70,13 +56,10 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/resources-debug.ap_" afterPath="$PROJECT_DIR$/app/build/intermediates/res/resources-debug.ap_" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/QuizFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/QuizFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/deitel/flagquiz/R.java" afterPath="$PROJECT_DIR$/app/build/generated/source/r/debug/com/deitel/flagquiz/R.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout/fragment_quiz.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout/fragment_quiz.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_quiz.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_quiz.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/anim/clk_rotate.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/anim/clk_rotate.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/anim/clk_rotate.xml" afterPath="$PROJECT_DIR$/app/src/main/res/anim/clk_rotate.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResourcesdebug/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeResourcesdebug/merger.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TipCalculator1/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../TipCalculator1/.idea/workspace.xml" />
     </list>
     <ignored path="FlagQuiz.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -99,41 +82,49 @@
     <leaf>
       <file leaf-file-name="fragment_quiz.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_quiz.xml">
-          <provider selected="true" editor-type-id="android-designer">
+          <provider editor-type-id="android-designer">
             <state />
           </provider>
-          <provider editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="7.2413793">
               <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="QuizFragment.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/MainActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="86" column="34" selection-start-line="86" selection-start-column="33" selection-end-line="86" selection-end-column="34" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QuizFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/QuizFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.6168225">
-              <caret line="76" column="60" selection-start-line="76" selection-start-column="60" selection-end-line="76" selection-end-column="60" />
+            <state vertical-scroll-proportion="-1.1851852">
+              <caret line="100" column="34" selection-start-line="100" selection-start-column="34" selection-end-line="100" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3873#4107#0" expanded="true" />
-                <element signature="e#4106#4107#0" expanded="true" />
-                <element signature="e#4541#4602#0" expanded="true" />
-                <element signature="e#10257#13943#0" expanded="true" />
-                <element signature="e#11289#12797#0" expanded="true" />
-                <element signature="e#12796#12797#0" expanded="true" />
-                <element signature="e#13942#13943#0" expanded="true" />
+                <element signature="e#4007#4516#0" expanded="true" />
+                <element signature="e#4515#4516#0" expanded="true" />
+                <element signature="e#4950#5011#0" expanded="true" />
+                <element signature="e#10666#14352#0" expanded="true" />
+                <element signature="e#14351#14352#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="clk_rotate.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="clk_rotate.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/clk_rotate.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="2" column="67" selection-start-line="2" selection-start-column="67" selection-end-line="2" selection-end-column="67" />
+            <state vertical-scroll-proportion="0.6034483">
+              <caret line="14" column="10" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -1456,8 +1447,8 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/anim/rotate.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/anim/clk_rotate.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_quiz.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/anim/clk_rotate.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/QuizFragment.java" />
       </list>
     </option>
@@ -1601,36 +1592,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="values-sw720dp-land" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FlagQuiz" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FlagQuiz1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1848,6 +1809,8 @@
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.WIDTH" value="389" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteToolWindowManager.WIDTH" value="162" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../TipCalculator1" />
+    <property name="settings.editor.selected.configurable" value="preferences.general" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="android.template.packageName">
@@ -2104,7 +2067,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="3" />
+      <option name="time" value="4" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -2144,14 +2107,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/SettingsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0862069">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -2257,17 +2212,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33333334">
-          <caret line="26" column="55" selection-start-line="26" selection-start-column="52" selection-end-line="26" selection-end-column="55" />
-          <folding>
-            <element signature="e#4112#5808#0" expanded="true" />
-            <element signature="e#5807#5808#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_settings.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -2314,47 +2258,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/SettingsFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/SettingsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38793105">
-          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="24" column="9" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/clk_rotate.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/SettingsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2" column="67" selection-start-line="2" selection-start-column="67" selection-end-line="2" selection-end-column="67" />
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="24" column="9" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_quiz.xml">
-      <provider selected="true" editor-type-id="android-designer">
+      <provider editor-type-id="android-designer">
         <state />
       </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="7.2413793">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="86" column="34" selection-start-line="86" selection-start-column="33" selection-end-line="86" selection-end-column="34" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/deitel/flagquiz/QuizFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.6168225">
-          <caret line="76" column="60" selection-start-line="76" selection-start-column="60" selection-end-line="76" selection-end-column="60" />
+        <state vertical-scroll-proportion="-1.1851852">
+          <caret line="100" column="34" selection-start-line="100" selection-start-column="34" selection-end-line="100" selection-end-column="34" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3873#4107#0" expanded="true" />
-            <element signature="e#4106#4107#0" expanded="true" />
-            <element signature="e#4541#4602#0" expanded="true" />
-            <element signature="e#10257#13943#0" expanded="true" />
-            <element signature="e#11289#12797#0" expanded="true" />
-            <element signature="e#12796#12797#0" expanded="true" />
-            <element signature="e#13942#13943#0" expanded="true" />
+            <element signature="e#4007#4516#0" expanded="true" />
+            <element signature="e#4515#4516#0" expanded="true" />
+            <element signature="e#4950#5011#0" expanded="true" />
+            <element signature="e#10666#14352#0" expanded="true" />
+            <element signature="e#14351#14352#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/anim/clk_rotate.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6034483">
+          <caret line="14" column="10" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
+          <folding />
         </state>
       </provider>
     </entry>

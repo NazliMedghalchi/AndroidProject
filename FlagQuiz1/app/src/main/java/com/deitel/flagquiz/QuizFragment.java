@@ -15,8 +15,12 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -98,9 +102,14 @@ public class QuizFragment extends Fragment
       flagImageView.setOnClickListener(new View.OnClickListener(){
          @Override
          public void onClick(View v) {
-            //load rotation on click on flag
-            flagImageView.getDrawable();
-            flagImageView.clearAnimation();
+            //Following lines till  end of matrix --> flag disappears onClick
+//            Matrix flag = new Matrix();
+//            flagImageView.setScaleType(ImageView.ScaleType.MATRIX);
+//            flag.postRotate( 90, 0, 0);
+//            flagImageView.setImageMatrix(flag);
+            //load rotation on click on flag --> just like animation
+            flagImageView.startAnimation(clkRotate);
+
          }
       });
 

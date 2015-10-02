@@ -9,5 +9,7 @@
             android:toDegrees="90"
             android:pivotX="50%"
             android:pivotY="50%"
+            android:duration="100"
+            android:startOffset="0"
         />
     </set><!-- From: file:/Users/nazlimedghalchi/Documents/coding/AndroidProjects/FlagQuiz1/app/src/main/res/anim/clk_rotate.xml -->
