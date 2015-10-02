@@ -109,7 +109,8 @@ public class QuizFragment extends Fragment
 //            flagImageView.setImageMatrix(flag);
             //load rotation on click on flag --> just like animation
             flagImageView.startAnimation(clkRotate);
-
+            //Rotate 90 degree
+            flagImageView.setRotation(flagImageView.getRotation()+90);
          }
       });
 
