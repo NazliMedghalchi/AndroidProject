@@ -84,6 +84,7 @@ public class QuizFragment extends Fragment
          R.anim.incorrect_shake); 
       shakeAnimation.setRepeatCount(3); // animation repeats 3 times 
 
+
       // get references to GUI components
       questionNumberTextView = 
          (TextView) view.findViewById(R.id.questionNumberTextView);
@@ -107,8 +108,22 @@ public class QuizFragment extends Fragment
             Button button = (Button) row.getChildAt(column);
             button.setOnClickListener(guessButtonListener);
          }
-      }  
-      
+      }
+      //add listener for flagImage
+      flagImageView.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            //Following lines till  end of matrix --> flag disappears onClick
+//            Matrix flag = new Matrix();
+//            flagImageView.setScaleType(ImageView.ScaleType.MATRIX);
+//            flag.postRotate( 90, 0, 0);
+//            flagImageView.setImageMatrix(flag);
+            //load rotation on click on flag --> just like animation
+//               flagImageView.startAnimation(clkRotate);
+            //Rotate 90 degree
+            flagImageView.setRotation(flagImageView.getRotation() + 90);
+         }
+      });
       // set questionNumberTextView's text
       questionNumberTextView.setText(
          getResources().getString(R.string.question, 1, FLAGS_IN_QUIZ));
@@ -196,22 +211,6 @@ public class QuizFragment extends Fragment
       String nextImage = quizCountriesList.remove(0);
       correctAnswer = nextImage; // update the correct answer
       answerTextView.setText(""); // clear answerTextView
-      //add listener for flagImage
-      flagImageView.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            //Following lines till  end of matrix --> flag disappears onClick
-//            Matrix flag = new Matrix();
-//            flagImageView.setScaleType(ImageView.ScaleType.MATRIX);
-//            flag.postRotate( 90, 0, 0);
-//            flagImageView.setImageMatrix(flag);
-            //load rotation on click on flag --> just like animation
-//               flagImageView.startAnimation(clkRotate);
-            //Rotate 90 degree
-            flagImageView.setRotation(flagImageView.getRotation() + 90);
-         }
-      });
-
 
       // display current question number
       questionNumberTextView.setText(
@@ -229,10 +228,11 @@ public class QuizFragment extends Fragment
          // get an InputStream to the asset representing the next flag
          InputStream stream = 
             assets.open(region + "/" + nextImage + ".png");
-         
+
          // load the asset as a Drawable and display on the flagImageView
          Drawable flag = Drawable.createFromStream(stream, nextImage);
-         flagImageView.setImageDrawable(flag);                       
+         flagImageView.setImageDrawable(flag);
+
       } 
       catch (IOException exception)  
       {
