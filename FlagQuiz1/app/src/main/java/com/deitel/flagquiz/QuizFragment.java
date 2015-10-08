@@ -121,7 +121,7 @@ public class QuizFragment extends Fragment
             //load rotation on click on flag --> just like animation
 //               flagImageView.startAnimation(clkRotate);
             //Rotate 90 degree
-            flagImageView.setRotation(flagImageView.getRotation() + 90);
+            flagImageView.setRotation(flagImageView.getRotation()+90);
          }
       });
       // set questionNumberTextView's text
@@ -240,6 +240,11 @@ public class QuizFragment extends Fragment
       } 
 
       Collections.shuffle(fileNameList); // shuffle file names
+
+
+         // check rotation angel
+         if (flagImageView.callOnClick() == true)
+            flagImageView.setRotation(0);
 
       // put the correct answer at the end of fileNameList
       int correct = fileNameList.indexOf(correctAnswer);
