@@ -4,7 +4,6 @@ import com.example.nazli.quizapp.util.SystemUiHider;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -106,10 +105,8 @@ public class FullscreenActivity extends Activity {
                 } else {
                     mSystemUiHider.show();
                 }
-                Intent intentLogin = new Intent(view.getContext(), LoginScreen.class);
-                startActivity(intentLogin);
             }
-});
+        });
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away

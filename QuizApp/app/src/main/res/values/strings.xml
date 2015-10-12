@@ -3,12 +3,4 @@
 
     <string name="dummy_button">Quiz App</string>
     <string name="dummy_content">ECE655\nProject#3</string>
-    <string name="login_text">Log In to Quiz</string>
-    <string name="username_text">Username:</string>
-    <string name="pass_text">Password:</string>
-    <string name="QM_text">Quiz Master?</string>
-    <string name="QT_text">Quiz Taker?</string>
-    <string name="email_textInput">Email Address</string>
-    <string name="pass_textInput">Password</string>
-
 </resources>

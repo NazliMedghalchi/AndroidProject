@@ -18,11 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoginScreen"
-            android:configChanges="orientation|keyboard|screenSize"
-            android:label="@string/login_text">
-            </activity>
     </application>
 
 </manifest>
