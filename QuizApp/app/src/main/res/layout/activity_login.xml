@@ -109,13 +109,77 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|fill_horizontal|left"
-        android:layout_weight="0.45"
-        android:id="@+id/QM">
+        android:layout_weight="0.29"
+        android:id="@+id/QM"
+        android:padding="2dp">
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/QuizMaster"></LinearLayout>
+            android:layout_width="fill_parent"
+            android:layout_height="37dp"
+            android:id="@+id/QuizMater" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/QM_text"
+                android:id="@+id/QM"
+                android:gravity="center|fill_horizontal"
+                android:padding="1dp"
+                android:foregroundGravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/usernameQM"
+            android:weightSum="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="39dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/username_text"
+                android:id="@+id/QM_username"
+                android:layout_gravity="center"
+                android:foregroundGravity="right"
+                android:gravity="center_vertical|left" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/userQM"
+                android:clickable="true"
+                android:gravity="left|top"
+                android:hint="@string/username_hint"
+                android:layout_gravity="right|top" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="356dp"
+            android:layout_height="46dp"
+            android:id="@+id/passwordQM" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/pass_text"
+                android:id="@+id/QM_password"
+                android:layout_gravity="bottom"
+                android:gravity="center_vertical|center_horizontal|left"
+                android:foregroundGravity="right" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/passQM"
+                android:layout_weight="1"
+                android:hint="@string/password_hint" />
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
