@@ -12,5 +12,6 @@
     <string name="pass_textInput">Password</string>
     <string name="username_hint">Email Address</string>
     <string name="password_hint">Password</string>
+    <string name="signIn_button">Sign In</string>
 
 </resources>
