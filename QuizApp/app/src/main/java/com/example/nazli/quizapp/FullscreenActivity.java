@@ -106,7 +106,7 @@ public class FullscreenActivity extends Activity {
                 } else {
                     mSystemUiHider.show();
                 }
-                Intent intentLogin = new Intent(view.getContext(), LoginScreen.class);
+                Intent intentLogin = new Intent(view.getContext(), LoginMain.class);
                 startActivity(intentLogin);
             }
 });
