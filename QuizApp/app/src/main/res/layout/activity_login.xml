@@ -60,7 +60,7 @@
                         android:id="@+id/QT_user"
                         android:layout_gravity="center"
                         android:foregroundGravity="right"
-                        android:gravity="left" />
+                        android:gravity="center_vertical|left" />
 
                     <EditText
                         android:layout_width="fill_parent"
@@ -86,7 +86,7 @@
                         android:text="@string/pass_text"
                         android:id="@+id/QT_pass"
                         android:layout_gravity="bottom"
-                        android:gravity="center_horizontal|left"
+                        android:gravity="center_vertical|center_horizontal|left"
                         android:foregroundGravity="right" />
 
                     <EditText
