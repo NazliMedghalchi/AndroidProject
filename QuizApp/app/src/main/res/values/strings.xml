@@ -10,5 +10,7 @@
     <string name="QT_text">Quiz Taker?</string>
     <string name="email_textInput">Email Address</string>
     <string name="pass_textInput">Password</string>
+    <string name="username_hint">Email Address</string>
+    <string name="password_hint">Password</string>
 
 </resources>
