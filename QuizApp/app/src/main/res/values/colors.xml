@@ -4,5 +4,6 @@
     <color name="background_text">#ffdb00</color>
     <color name="signIn_button_text">#F2E91B</color>
     <color name="signIn_button_background">#5A5A58</color>
+    <color name="bg_quiz_list">#F9E56D</color>
 
 </resources>

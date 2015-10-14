@@ -64,7 +64,8 @@
                     android:clickable="true"
                     android:gravity="left|top"
                     android:hint="@string/username_hint"
-                    android:layout_gravity="right|top" />
+                    android:layout_gravity="right|top"
+                    android:inputType="textEmailAddress" />
 
             </LinearLayout>
 
@@ -108,7 +109,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/signIn_button"
-                    android:id="@+id/signinButton"
+                    android:id="@+id/signinButtonQT"
                     android:gravity="center"
                     android:hint="@string/signIn_button"
                     android:textAlignment="gravity"
@@ -173,7 +174,8 @@
                 android:clickable="true"
                 android:gravity="left|top"
                 android:hint="@string/username_hint"
-                android:layout_gravity="right|top" />
+                android:layout_gravity="right|top"
+                android:inputType="textEmailAddress" />
         </LinearLayout>
 
         <LinearLayout
@@ -206,12 +208,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/signIn_button"
-            android:id="@+id/button"
+            android:id="@+id/signIn_QM"
             android:gravity="center"
             android:hint="@string/signIn_button"
             android:textAlignment="gravity"
             android:textColor="@color/signIn_button_text"
             android:background="@color/signIn_button_background" />
     </LinearLayout>
-
 </LinearLayout>
