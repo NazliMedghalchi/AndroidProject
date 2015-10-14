@@ -208,7 +208,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/signIn_button"
-            android:id="@+id/signIn_QM"
+            android:id="@+id/signInButtonQM"
             android:gravity="center"
             android:hint="@string/signIn_button"
             android:textAlignment="gravity"

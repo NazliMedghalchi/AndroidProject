@@ -2,6 +2,7 @@ package com.example.nazli.quizapp;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.renderscript.Sampler;
 import android.view.View;
@@ -23,8 +24,8 @@ public class LoginMain extends Activity{
     private List<String> QuizMasters;
     private PasswordAuthentication passwordAuthenticationsQT;
 
-    private Button signinButtonQT;
-    private Button signinButtonQM;
+    final Button signinButtonQT = (Button) findViewById(R.id.signinButtonQT);
+    final Button signinButtonQM = (Button) findViewById(R.id.signInButtonQM);
     final EditText userQT = (EditText) findViewById(R.id.userQT);
     final EditText userQM = (EditText) findViewById(R.id.userQM);
     final EditText passQT = (EditText) findViewById(R.id.passQT);
@@ -34,6 +35,7 @@ public class LoginMain extends Activity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+            signinButtonQM.setOnClickListener(LissingInCLK);
     }
 
     public void setUserQuizTaker(List<String> userQT) {
@@ -44,7 +46,7 @@ public class LoginMain extends Activity{
             errorUserQT.setPositiveButton("Try Again", null);
             errorUserQT.create().show();
         }
-        else if (passwordAuthenticationsQT.contains(this.passQT))
+        else if (passwordAuthenticationsQT.equals(this.passQT))
             setContentView(R.layout.fragment_quizmaster);
         else {
             AlertDialog.Builder errorLogin = new AlertDialog.Builder(this);
@@ -55,6 +57,9 @@ public class LoginMain extends Activity{
         }
 
     }
+
+
+
     public void setUserQuizMaster(List<String> userQM) {
         if (!QuizTakers.contains(this.userQM)){
             AlertDialog.Builder errorUserQM = new AlertDialog.Builder(this);
@@ -63,8 +68,8 @@ public class LoginMain extends Activity{
             errorUserQM.setPositiveButton("Try Again", null);
             errorUserQM.create().show();
         }
-        else if (passwordAuthenticationsQT.contains(this.passQT))
-            setContentView(R.layout.fragment_quiztaker;
+        else if (passwordAuthenticationsQT.equals(this.passQT))
+            setContentView(R.layout.fragment_quiztaker);
         else {
             AlertDialog.Builder errorLogin = new AlertDialog.Builder(this);
             errorLogin.setMessage(R.string.error_login_QT);
@@ -75,5 +80,4 @@ public class LoginMain extends Activity{
 
     }
 
-    PasswordAuthentication(this.userQT, this.passQT);
 }

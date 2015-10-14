@@ -14,6 +14,7 @@ public class quizTakerFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(R.layout.fragment_quiztaker, container, savedInstanceState);
+        return inflater.inflate(R.layout.fragment_quiztaker, container, false);
     }
+
 }
