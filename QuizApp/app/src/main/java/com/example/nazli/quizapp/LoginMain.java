@@ -55,6 +55,25 @@ public class LoginMain extends Activity{
         }
 
     }
+    public void setUserQuizMaster(List<String> userQM) {
+        if (!QuizTakers.contains(this.userQM)){
+            AlertDialog.Builder errorUserQM = new AlertDialog.Builder(this);
+            errorUserQM.setMessage(R.string.error_username_QT);
+            errorUserQM.setTitle("Username not found");
+            errorUserQM.setPositiveButton("Try Again", null);
+            errorUserQM.create().show();
+        }
+        else if (passwordAuthenticationsQT.contains(this.passQT))
+            setContentView(R.layout.fragment_quiztaker;
+        else {
+            AlertDialog.Builder errorLogin = new AlertDialog.Builder(this);
+            errorLogin.setMessage(R.string.error_login_QT);
+            errorLogin.setTitle("Password error");
+            errorLogin.setPositiveButton("Try Again", null);
+            errorLogin.create().show();
+        }
+
+    }
 
     PasswordAuthentication(this.userQT, this.passQT);
 }

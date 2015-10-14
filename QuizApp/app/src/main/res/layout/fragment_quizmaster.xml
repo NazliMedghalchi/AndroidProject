@@ -65,12 +65,25 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Add"
-                        android:id="@+id/button_add_quiz"
+                        android:id="@+id/button_add"
                         android:padding="1dp"
-                        android:hint="Add quiz"
+                        android:hint="Add item"
                         android:gravity="center"
                         android:clickable="true"
-                        android:layout_margin="1dp" />
+                        android:layout_margin="1dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Remove"
+                        android:id="@+id/button_remove"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:hint="Remove item"
+                        android:padding="1dp"
+                        android:layout_weight="1" />
                 </LinearLayout>
 
                 <ListView
