@@ -21,10 +21,10 @@ import java.util.Hashtable;
 /**
  * Created by nazlimedghalchi on 15-10-08.
  */
-public class LoginMain extends Activity{
-    private Hashtable <String, String> QuizTakers = new Hashtable<>();
+public class LoginMain extends Activity {
+    private Hashtable<String, String> QuizTakers = new Hashtable<>();
     private PasswordAuthentication passwordAuthenticationsQM;
-    private Hashtable<String, String > QuizMasters = new Hashtable<>();
+    private Hashtable<String, String> QuizMasters = new Hashtable<>();
     private PasswordAuthentication passwordAuthenticationsQT;
 
     final EditText userQT = (EditText) findViewById(R.id.userQT);
@@ -32,46 +32,72 @@ public class LoginMain extends Activity{
     final EditText passQT = (EditText) findViewById(R.id.passQT);
     final EditText passQM = (EditText) findViewById(R.id.passQM);
     Button signinButtonQT = (Button) findViewById(R.id.signinButtonQT);
-    signinButtonQT.
+    Button signinButtonQM = (Button) findViewById(R.id.signInButtonQM);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
-
+        signinButtonQT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (checkUserQuizTaker()) {
                     setContentView(R.layout.fragment_quiz);
-                }
+                } else
+                    setContentView(R.layout.activity_login);
             }
-        Button signinButtonQM = (Button) findViewById(R.id.signInButtonQM);
-        View.OnClickListener siginQMListener = new View.OnClickListener()
-
-
+        });
+        signinButtonQM.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkUserQuizMaster()) {
+                    setContentView(R.layout.fragment_quizmaster);
+                } else
+                    setContentView(R.layout.activity_login);
+            }
+        });
 
     }
-//
+
+    //
 //        //username and password check
 //        private void registerUser(){
 //            QuizTakers.put(this.userQT.getText().toString(), this.passQT.getText().toString());
 //        }
-
-    }
     private boolean checkUserQuizTaker() {
-        if (!QuizTakers.contains(this.userQT)){
-            AlertDialog.Builder errorUserQT = new AlertDialog.Builder(signin_error);
+        if (!QuizTakers.contains(this.userQT)) {
+            AlertDialog.Builder errorUserQT = new AlertDialog.Builder(this);
             errorUserQT.setMessage(R.string.error_username_QT);
             errorUserQT.setTitle("Username not found");
             errorUserQT.setPositiveButton("Try Again", null);
             errorUserQT.create().show();
-        }
-        else if (passwordAuthenticationsQT.equals(this.passQT)){
+        } else if (passwordAuthenticationsQT.equals(this.passQT)) {
             QuizTakers.put(this.userQT.getText().toString(), this.passQT.getText().toString());
             return true;
+        } else {
+            AlertDialog.Builder errorLogin = new AlertDialog.Builder(this);
+            errorLogin.setMessage(R.string.error_login_QT);
+            errorLogin.setTitle("Password error");
+            errorLogin.setPositiveButton("Try Again", null);
+            errorLogin.create().show();
         }
+        return false;
+    }
+
+    public boolean checkUserQuizMaster() {
+        //incorrect  username
+        if (!QuizTakers.contains(this.userQM)) {
+            AlertDialog.Builder errorUserQM = new AlertDialog.Builder(this);
+            errorUserQM.setMessage(R.string.error_username_QT);
+            errorUserQM.setTitle("Username not found");
+            errorUserQM.setPositiveButton("Try Again", null);
+            errorUserQM.create().show();
+        }
+        //correct username and password
+        else if (passwordAuthenticationsQT.equals(this.passQT))
+            return true;
+            //incorrect username and password
         else {
             AlertDialog.Builder errorLogin = new AlertDialog.Builder(this);
             errorLogin.setMessage(R.string.error_login_QT);
@@ -82,29 +108,12 @@ public class LoginMain extends Activity{
         return false;
     }
 
-    public boolean setUserQuizMaster() {
-        //incorrect  username
-        if (!QuizTakers.contains(this.userQM)){
-            AlertDialog.Builder errorUserQM = new AlertDialog.Builder();
-            errorUserQM.setMessage(R.string.error_username_QT);
-            errorUserQM.setTitle("Username not found");
-            errorUserQM.setPositiveButton("Try Again", null);
-            errorUserQM.create().show();
-        }
-        //correct username and password
-        else if (passwordAuthenticationsQT.equals(this.passQT))
-            return true;
-        //incorrect username and password
-        else {
-            AlertDialog.Builder errorLogin = new AlertDialog.Builder;
-            errorLogin.setMessage(R.string.error_login_QT);
-            errorLogin.setTitle("Password error");
-            errorLogin.setPositiveButton("Try Again", null);
-            errorLogin.create().show();
-        }
-        return false;
-    }
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+    }
+}
 //    private void registerUser(){
 //        QuizTakers.put(this.userQT.getText().toString(), this.passQT.getText().toString());
 //    }
