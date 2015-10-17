@@ -103,7 +103,9 @@
                 android:layout_weight="0.89"
                 android:weightSum="10"
                 android:padding="2dp"
-                android:id="@+id/Signin_button">
+                android:id="@+id/Signin_button"
+                android:longClickable="true"
+                android:clickable="true">
 
                 <Button
                     android:layout_width="match_parent"
@@ -213,6 +215,7 @@
             android:hint="@string/signIn_button"
             android:textAlignment="gravity"
             android:textColor="@color/signIn_button_text"
-            android:background="@color/signIn_button_background" />
+            android:background="@color/signIn_button_background"
+            android:clickable="true" />
     </LinearLayout>
 </LinearLayout>

@@ -3,7 +3,6 @@ package com.example.nazli.quizapp;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.location.GpsStatus;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +11,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView.OnItemClickListener;
-
+import java.util.List;
 import com.google.android.gms.cast.Cast;
 
 import java.net.PasswordAuthentication;
 import java.util.Hashtable;
-import java.util.List;
+
 
 /**
  * Created by nazlimedghalchi on 15-10-08.
@@ -33,9 +32,7 @@ public class LoginMain extends Activity{
     final EditText passQT = (EditText) findViewById(R.id.passQT);
     final EditText passQM = (EditText) findViewById(R.id.passQM);
     Button signinButtonQT = (Button) findViewById(R.id.signinButtonQT);
-    signinButtonQT.setOnClickListener(signin);
-
-
+    signinButtonQT.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
