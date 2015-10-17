@@ -15,5 +15,7 @@
     <string name="signIn_button">Sign In</string>
     <string name="error_username_QT">The username is not found! Please try again!</string>
     <string name="error_login_QT">The entered password does not match to the user</string>
+    <string name="title_activity_quiz">QuizActivity</string>
+    <string name="quiz_name">Sample Quiz</string>
 
 </resources>

@@ -1,6 +1,7 @@
 <resources>
 
     <color name="black_overlay">#66000000</color>
+    <color name="fullscreen_bg">#FFEB2A</color>
     <color name="background_text">#ffdb00</color>
     <color name="signIn_button_text">#F2E91B</color>
     <color name="signIn_button_background">#5A5A58</color>
