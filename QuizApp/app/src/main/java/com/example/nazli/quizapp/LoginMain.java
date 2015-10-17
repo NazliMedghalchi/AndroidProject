@@ -39,6 +39,7 @@ public class LoginMain extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         signinButtonQT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +112,6 @@ public class LoginMain extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-
     }
 }
 //    private void registerUser(){

@@ -20,5 +20,6 @@
 
     <!---Quiz Fragment-->
     <string name="chornometer_quiz">Remaining Time:</string>
+    <string name="quiz_result">Your score is:</string>
 
 </resources>

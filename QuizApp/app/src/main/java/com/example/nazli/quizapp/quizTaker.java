@@ -22,10 +22,12 @@ public class quizTaker extends Activity {
 
     private TextView lable_quiz = (TextView) findViewById(R.id.label_quiz);
     private Chronometer chronometer_quiz = (Chronometer) findViewById(R.id.chronometer_quiz);
+    private TextView textView_question = (TextView) findViewById(R.id.textView_question);
     private RadioButton[] guessAnswer; // row of multiple choice
     private LinearLayout questionNumberTextView;
     private LinearLayout linearlayoutH_result = (LinearLayout) findViewById(R.id.linearlayoutH_result);
-    SharedPreferences quizList
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public class quizTaker extends Activity {
 
         // get references to GUI components
 
-        guessAnswer = new LinearLayout[4];
+        guessAnswer = new RadioButton[4];
         guessAnswer[0] =
                 (RadioButton) findViewById(R.id.radioButton1_choice);
         guessAnswer[1] =
@@ -44,14 +46,23 @@ public class quizTaker extends Activity {
                 (RadioButton) findViewById(R.id.radioButton3_choice);
         guessAnswer[3] =
                 (RadioButton) findViewById(R.id.radioButton4_choice);
+
         for (RadioButton row : guessAnswer){
-            for (int line =0; line <row.getChildCount(); line++){
-                row.setOnClickListener(guessAnswerListener);
-            }
+            row.setText(String.valueOf(getText(toString(R.array.multiple_choice))));
+            row.setClickable(true);
+            View.OnClickListener radioButtonListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+
+                }
+            };
         }
-        TextView answerTextView = (TextView) findViewById(R.id.answerTextView);
 
 
     }
 
+    private void onCreateQuiz (){
+        lable_quiz.setText(getTex);
+    }
 }
