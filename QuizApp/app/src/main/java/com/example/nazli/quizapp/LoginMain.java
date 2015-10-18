@@ -31,8 +31,8 @@ public class LoginMain extends Activity {
     final EditText userQM = (EditText) findViewById(R.id.userQM);
     final EditText passQT = (EditText) findViewById(R.id.passQT);
     final EditText passQM = (EditText) findViewById(R.id.passQM);
-    Button signinButtonQT = (Button) findViewById(R.id.signinButtonQT);
-    Button signinButtonQM = (Button) findViewById(R.id.signInButtonQM);
+    private Button signinButtonQT = (Button) findViewById(R.id.signinButtonQT);
+    private Button signinButtonQM = (Button) findViewById(R.id.signInButtonQM);
 
 
     @Override

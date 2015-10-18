@@ -69,77 +69,77 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="227dp"
+            android:layout_height="162dp"
             android:layout_gravity="center"
             android:divider="@color/material_grey_900"
             android:id="@+id/multiple_choice"
             android:scrollIndicators="bottom"
             android:weightSum="2">
 
-            <LinearLayout
-                android:orientation="horizontal"
+            <RadioGroup
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal|top"
-                android:id="@+id/row1_choice"
-                android:layout_weight=".44">
+                android:layout_height="match_parent">
 
-                <RadioButton
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="New RadioButton"
-                    android:id="@+id/radioButton1_choice"
-                    android:clickable="true" />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|top"
+                    android:id="@+id/row1_choice">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:id="@+id/row2_choice"
-                android:layout_weight=".44">
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New RadioButton"
+                        android:id="@+id/radioButton1_choice"
+                        android:clickable="true" />
+                </LinearLayout>
 
-                <RadioButton
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="New RadioButton"
-                    android:id="@+id/radioButton2_choice"
-                    android:clickable="true" />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:id="@+id/row2_choice">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:id="@+id/row3_choice"
-                android:layout_weight="0.44">
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New RadioButton"
+                        android:id="@+id/radioButton2_choice"
+                        android:clickable="true" />
+                </LinearLayout>
 
-                <RadioButton
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="New RadioButton"
-                    android:id="@+id/radioButton3_choice"
-                    android:clickable="true" />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:id="@+id/row3_choice">
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|right"
-                android:id="@+id/row4_choice"
-                android:layout_weight=".44">
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New RadioButton"
+                        android:id="@+id/radioButton3_choice"
+                        android:clickable="true" />
+                </LinearLayout>
 
-                <RadioButton
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="New RadioButton"
-                    android:id="@+id/radioButton4_choice"
-                    android:clickable="true" />
-            </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:id="@+id/row4_choice">
 
+                    <RadioButton
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="New RadioButton"
+                        android:id="@+id/radioButton4_choice"
+                        android:clickable="true" />
+                </LinearLayout>
+            </RadioGroup>
         </LinearLayout>
 
         <LinearLayout
@@ -152,18 +152,33 @@
             android:layout_margin="2dp"
             android:background="@color/bg_quiz_list"
             android:padding="2dp"
-            android:scrollIndicators="bottom">
+            android:scrollIndicators="bottom"
+            android:weightSum="1">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="170dp"
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/quiz_result"
                 android:id="@+id/quizResult"
-                android:layout_gravity="center"
+                android:layout_gravity="center|left"
                 android:gravity="center"
                 android:hint="Quiz Result"
-                android:padding="1dp" />
+                android:padding="1dp"
+                android:layout_margin="2dp"
+                android:layout_weight="0.18" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/score_textView"
+                android:gravity="center|fill_horizontal"
+                android:layout_margin="4dp"
+                android:layout_gravity="center|left"
+                android:padding="2dp" />
+
         </LinearLayout>
 
     </FrameLayout>

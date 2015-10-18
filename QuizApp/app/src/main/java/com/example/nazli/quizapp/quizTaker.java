@@ -14,18 +14,25 @@ import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.content.Context;
 
 /**
  * Created by nazlimedghalchi on 2015-10-14.
  */
 public class quizTaker extends Activity {
 
+    //UI componnets
     private TextView lable_quiz = (TextView) findViewById(R.id.label_quiz);
     private Chronometer chronometer_quiz = (Chronometer) findViewById(R.id.chronometer_quiz);
     private TextView textView_question = (TextView) findViewById(R.id.textView_question);
+    private RadioButton row1_choice = (RadioButton) findViewById(R.id.row1_choice);
+    private RadioButton row2_choice = (RadioButton) findViewById(R.id.row2_choice);
+    private RadioButton row3_choice = (RadioButton) findViewById(R.id.row3_choice);
+    private RadioButton row4_choice = (RadioButton) findViewById(R.id.row4_choice);
     private RadioButton[] guessAnswer; // row of multiple choice
     private LinearLayout questionNumberTextView;
     private LinearLayout linearlayoutH_result = (LinearLayout) findViewById(R.id.linearlayoutH_result);
+    private TextView score_textview = (TextView) findViewById(R.id.score_textView);
 
 
     @Nullable
