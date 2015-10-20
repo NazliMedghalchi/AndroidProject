@@ -31,6 +31,8 @@ public class quizTaker extends Activity {
     private LinearLayout linearlayoutH_result = (LinearLayout) findViewById(R.id.linearlayoutH_result);
     private TextView score_textview = (TextView) findViewById(R.id.score_textView);
 
+    //
+
 
     @Nullable
     @Override

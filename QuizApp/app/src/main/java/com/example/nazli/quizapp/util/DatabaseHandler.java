@@ -113,11 +113,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS  " + TABLE_question);
        // Add and check user
         ContentValues values = new ContentValues();
-        values.put();
-        values.put(USER_QT, "username");
-
-
-
+        values.put(USER_QT, R.id.user_QT);
+        values.put(PASS_QT, R.id.pass_QT);
 
 
         db.close();
