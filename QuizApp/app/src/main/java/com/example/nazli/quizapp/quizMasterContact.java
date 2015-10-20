@@ -14,7 +14,7 @@ public class quizMasterContact {
         _password = password;
     }
     public boolean registerQM (){
-        _userId.(this);
+        _userId.(getUserId());
 
     }
     public String getUserId(){

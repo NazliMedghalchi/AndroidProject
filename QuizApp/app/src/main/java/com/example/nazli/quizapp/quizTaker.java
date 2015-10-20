@@ -1,20 +1,17 @@
 package com.example.nazli.quizapp;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.TextView;
-import android.content.Context;
+
+import com.example.nazli.quizapp.util.DatabaseHandler;
 
 /**
  * Created by nazlimedghalchi on 2015-10-14.
@@ -54,8 +51,9 @@ public class quizTaker extends Activity {
         guessAnswer[3] =
                 (RadioButton) findViewById(R.id.radioButton4_choice);
 
+        DatabaseHandler masterDB = new DatabaseHandler();
         for (RadioButton row : guessAnswer){
-            row.setText(String.valueOf(getText(toString(R.array.multiple_choice))));
+            row.setText();
             row.setClickable(true);
             View.OnClickListener radioButtonListener = new View.OnClickListener() {
                 @Override
@@ -70,6 +68,6 @@ public class quizTaker extends Activity {
     }
 
     private void onCreateQuiz (){
-        lable_quiz.setText(getTex);
+        lable_quiz.setText();
     }
 }

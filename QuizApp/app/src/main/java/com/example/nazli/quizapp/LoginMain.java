@@ -96,7 +96,7 @@ public class LoginMain extends Activity {
             errorUserQM.create().show();
         }
         //correct username and password
-        else if (passwordAuthenticationsQT.equals(this.passQT))
+        else if (passwordAuthenticationsQT.equals(this.passQM))
             return true;
             //incorrect username and password
         else {
