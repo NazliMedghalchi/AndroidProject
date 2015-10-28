@@ -1,6 +1,8 @@
 package com.example.nazli.quizapp.util;
 
 import android.app.Fragment;
+import android.content.ContentValues;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -19,4 +21,5 @@ public class quizMasterFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_quizmaster, container, false);
     }
+
 }

@@ -96,8 +96,10 @@ public class LoginMain extends Activity {
             errorUserQM.create().show();
         }
         //correct username and password
-        else if (passwordAuthenticationsQT.equals(this.passQM))
+        else if (passwordAuthenticationsQT.equals(this.passQM)) {
+            QuizMasters.put(this.userQM.getText().toString(), this.passQM.getText().toString());
             return true;
+        }
             //incorrect username and password
         else {
             AlertDialog.Builder errorLogin = new AlertDialog.Builder(this);

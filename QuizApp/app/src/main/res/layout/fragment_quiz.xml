@@ -89,7 +89,7 @@
 
                     <RadioButton
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:text="New RadioButton"
                         android:id="@+id/radioButton1_choice"
                         android:clickable="true" />
@@ -133,13 +133,20 @@
                     android:id="@+id/row4_choice">
 
                     <RadioButton
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="New RadioButton"
                         android:id="@+id/radioButton4_choice"
                         android:clickable="true" />
                 </LinearLayout>
             </RadioGroup>
+
+            <TextView
+                android:layout_width="207dp"
+                android:layout_height="44dp"
+                android:text="@string/attempts"
+                android:id="@+id/textview_attemps"
+                android:gravity="center|bottom" />
         </LinearLayout>
 
         <LinearLayout
@@ -156,7 +163,7 @@
             android:weightSum="1">
 
             <TextView
-                android:layout_width="170dp"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="@string/quiz_result"
@@ -172,7 +179,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text"
                 android:id="@+id/score_textView"
                 android:gravity="center|fill_horizontal"
                 android:layout_margin="4dp"

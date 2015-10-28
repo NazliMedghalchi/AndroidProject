@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:id="@+id/db_tablelayout">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Users LIst"
+                android:id="@+id/textView_userlist"
+                android:layout_column="1"
+                android:textSize="20dp"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:padding="1dp" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delete User"
+                android:id="@+id/button_del_user"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:textColor="@color/bg_quiz_list"
+                android:background="@color/black_overlay"
+                android:layout_margin="1dp" />
+
+        </TableRow>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/columns">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/content_users">
+
+                <ListView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/listView_qt_list"
+                    android:choiceMode="multipleChoice" />
+            </TableLayout>
+        </LinearLayout>
+
+    </TableLayout>
+</LinearLayout>

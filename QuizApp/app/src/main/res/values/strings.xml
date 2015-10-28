@@ -21,5 +21,20 @@
     <!---Quiz Fragment-->
     <string name="chornometer_quiz">Remaining Time:</string>
     <string name="quiz_result">Your score is:</string>
+    <string name="attempts">Number of Attempts:</string>
+
+    <!---Quiz Creation values-->
+    <string name="quiz_name_title">Enter Quiz Name:</string>
+    <string name="quiz_lenght">Enter Number of Questions including:</string>
+
+    <!---Question Creation values-->
+    <string name="btn_save">SAVE</string>
+    <string name="btn_clear">CLEAR ALL</string>
+    <string name="question_title">Enter Question:</string>
+    <string name="question_timer">Enter Question Timer:</string>
+    <string name="question_correct">Enter Correct Answer:</string>
+    <string name="question_incorrect1">Enter Incorrect Answer 1:</string>
+    <string name="question_incorrect2">Enter Incorrect Answer 2:</string>
+    <string name="question_incorrect3">Enter Incorrect Answer 3:</string>
 
 </resources>
