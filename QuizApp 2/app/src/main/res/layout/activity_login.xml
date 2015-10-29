@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:id="@+id/R"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/quizTaker_login"
+        android:padding="5dp"
+        android:weightSum="1"
+        android:layout_margin="5dp"
+        android:baselineAligned="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="37dp"
+                android:id="@+id/QuizTaker"
+                android:layout_gravity="center|top">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/QT_text"
+                    android:id="@+id/QT"
+                    android:gravity="center|fill_horizontal"
+                    android:padding="1dp"
+                    android:foregroundGravity="center"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/Username"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="39dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/username_text"
+                    android:id="@+id/QT_user"
+                    android:layout_gravity="center"
+                    android:foregroundGravity="right"
+                    android:gravity="center_vertical|left" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/userQT"
+                    android:clickable="true"
+                    android:gravity="left|top"
+                    android:hint="@string/username_hint"
+                    android:layout_gravity="right|top"
+                    android:inputType="textEmailAddress" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="356dp"
+                android:layout_height="46dp"
+                android:id="@+id/Password">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/pass_text"
+                    android:id="@+id/QT_pass"
+                    android:layout_gravity="bottom"
+                    android:gravity="center_vertical|center_horizontal|left"
+                    android:foregroundGravity="right" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:inputType="textPassword"
+                    android:ems="10"
+                    android:id="@+id/passQT"
+                    android:layout_weight="1"
+                    android:hint="@string/password_hint" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.89"
+                android:weightSum="10"
+                android:padding="2dp"
+                android:id="@+id/Signin_button"
+                android:longClickable="true"
+                android:clickable="true">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/signIn_button"
+                    android:id="@+id/signinButtonQT"
+                    android:gravity="center"
+                    android:hint="@string/signIn_button"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/signIn_button_text"
+                    android:background="@color/signIn_button_background" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|fill_horizontal|left"
+        android:id="@+id/quizMaster"
+        android:padding="2dp"
+        android:focusable="false"
+        android:layout_margin="5dp"
+        android:layout_weight="0.28"
+        android:baselineAligned="true">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="37dp"
+            android:id="@+id/QuizMater"
+            android:layout_gravity="center|top">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/QM_text"
+                android:id="@+id/QM"
+                android:gravity="center|fill_horizontal"
+                android:padding="1dp"
+                android:foregroundGravity="center"
+                android:layout_gravity="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/usernameQM"
+            android:weightSum="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="39dp"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/username_text"
+                android:id="@+id/QM_username"
+                android:layout_gravity="center"
+                android:foregroundGravity="right"
+                android:gravity="center_vertical|left" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/userQM"
+                android:clickable="true"
+                android:gravity="left|top"
+                android:hint="@string/username_hint"
+                android:layout_gravity="right|top"
+                android:inputType="textEmailAddress" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="356dp"
+            android:layout_height="46dp"
+            android:id="@+id/passwordQM" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/pass_text"
+                android:id="@+id/QM_password"
+                android:layout_gravity="bottom"
+                android:gravity="center_vertical|center_horizontal|left"
+                android:foregroundGravity="right" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/passQM"
+                android:layout_weight="1"
+                android:hint="@string/password_hint" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/signIn_button"
+            android:id="@+id/signInButtonQM"
+            android:gravity="center"
+            android:hint="@string/signIn_button"
+            android:textAlignment="gravity"
+            android:textColor="@color/signIn_button_text"
+            android:background="@color/signIn_button_background"
+            android:clickable="true" />
+    </LinearLayout>
+</LinearLayout>
