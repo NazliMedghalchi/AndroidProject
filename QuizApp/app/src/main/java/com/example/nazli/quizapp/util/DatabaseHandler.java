@@ -154,7 +154,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         valuesQuiz.put(QUIZ_ID, R.id.textView_question);
         valuesQuiz.put(QST_TIMER, R.id.chronometer_quiz);
         valuesQuiz.put(QUIZ_ATTEMPT, R.id.textView_question);
-        valuesQuiz.put(CORRECT_ANSWR, R.id.correct_textView);
+        valuesQuiz.put(CORRECT_ANSWR, R.id.textView_correct);
 //        valuesQuiz.put(CORRECT_ANSWR, ); //correct answer
 
         db.insert(TABLE_quiz, null, valuesQuiz);

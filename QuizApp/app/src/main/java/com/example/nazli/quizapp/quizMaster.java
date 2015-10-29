@@ -94,6 +94,8 @@ public class quizMaster extends Activity{
     }
 
     public void deleteUser(){
+        View.OnClickListener listener;
+        Button del = findViewById(R.id.button_del_user).setOnClickListener(listener);
 
     }
 
