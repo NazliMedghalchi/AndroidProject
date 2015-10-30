@@ -107,4 +107,34 @@ public class databaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + GROUPS);
         onCreate(db);
     }
+    // start a new conversation
+    public void newConversation (){
+
+    }
+
+    // join to group
+    public void joinGroup () {
+
+    }
+
+    // leave a group
+    public void leaveGroup () {
+
+    }
+
+    // delete a member from group
+    public void deleteMember () {
+
+    }
+
+    // delete thread
+    public void delThread (){
+
+    }
+
+    // show group
+    public void showGroupMem(){
+
+    }
+
 }
