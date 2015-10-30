@@ -1,5 +1,72 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:id="@+id/fragment"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLAyout"
     android:name="com.example.nazli.imessaging.MainActivityFragment"
-    tools:layout="@layout/fragment_main" android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    tools:layout="@layout/fragment_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/hint_style">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/login_layout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:id="@+id/textView_login"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            android:theme="@style/textView_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/username"
+            android:id="@+id/textView_usrname"
+            android:theme="@style/textView_color" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/uname"
+            android:clickable="true"
+            android:editable="true"
+            android:hint="@string/uname_hint"
+            android:theme="@style/hint_style" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/password"
+            android:id="@+id/pass"
+            android:clickable="true"
+            android:editable="true"
+            android:theme="@style/textView_color" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/password"
+            android:hint="@string/pass_hint"
+            android:enabled="true"
+            android:clickable="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/signin_btn"
+            android:id="@+id/signin"
+            android:layout_gravity="center_horizontal"
+            android:theme="@style/btn_Send_bg" />
+
+    </LinearLayout>
+</RelativeLayout>
