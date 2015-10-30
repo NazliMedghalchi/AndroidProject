@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Imessaging</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="hello_world">Welcome to iMessaging</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Text on tabs-->
+    <string name="tab_chats">Recent chats</string>
+    <string name="tab_friends">Friends list</string>
+    <string name="tab_setting">Settings</string>
+
 </resources>
