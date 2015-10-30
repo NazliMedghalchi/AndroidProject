@@ -21,7 +21,12 @@
 
     <!--Buttons-->
     <string name="signin_btn">Sign In</string>
+    <string name="send_btn">Send</string>
 
     <!--Feature Title-->
     <string name="conversation">Conversations</string>
+
+    <!--AlretDialogebOx on failed login-->
+    <string name="alert_title">Incorrect username or password</string>
+    <string name="alert_message">Please Try Again!</string>
 </resources>

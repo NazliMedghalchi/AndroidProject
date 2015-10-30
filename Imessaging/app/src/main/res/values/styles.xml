@@ -20,4 +20,16 @@
         <item name="android:textColor">#D8D8D5</item>
     </style>
 
+    <!--Thread style sender-->
+    <style name="thread_text">
+        <item name="android:background">#D8D8D5</item>
+        <item name="andorid:textColor">#000000</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:padding">10dp</item>
+    </style>
+    <!--Thread style receiver-->
+    <style name="thread_receiver">
+        <item name="android:background">#76756D</item>
+        <item name="android:text">#FFFFFF</item>
+    </style>
 </resources>
