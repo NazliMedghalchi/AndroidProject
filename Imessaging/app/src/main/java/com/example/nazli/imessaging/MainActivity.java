@@ -1,9 +1,11 @@
 package com.example.nazli.imessaging;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MainActivity extends Activity {
 
@@ -32,6 +34,19 @@ public class MainActivity extends Activity {
         if (id == R.id.action_settings) {
             return true;
         }
+        else if (id == R.id.action_friedns) {
+            setContentView(R.layout.list_of_friends);
+        }
+        else if (id == R.id.action_groups) {
+            setContentView(R.layout.list_of_groups);
+        }
+        else if (id == R.id.conversation) {
+            setContentView(R.layout.list_of_conversations);
+        }
+        else if (id == R.id.logOut) {
+            setContentView(R.layout.activity_main);
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
