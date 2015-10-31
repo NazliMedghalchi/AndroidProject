@@ -10,13 +10,13 @@ import java.sql.Time;
 /**
  * Created by nazlimedghalchi on 2015-10-29.
  */
-public class databaseHelper extends SQLiteOpenHelper {
+public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "iMessage";
     private static final int DATABASE_VERION = 1;
 
     // tables and containing columns
-    private final String CONVERSATION = "conversation";
-    private final String ACCOUTNS = "account";
+    private final String CONVERSATION = "Conversation";
+    private final String ACCOUNTS = "account";
     private final String GROUPS = "groups";
     private final String THREADS = "threads";
     private final String FRIENDS = "friends";
@@ -35,7 +35,7 @@ public class databaseHelper extends SQLiteOpenHelper {
     private final String GROUP_OWNER = "group_owner";
     private final String GROUP_TITLE = "group_title";
 
-    // conversation columns
+    // Conversation columns
     private final String CONV_ID = "conv_id";
     private final String CONV_NAME = "conv_name";
     private final String THREAD_ID = "thread_id";
@@ -54,14 +54,14 @@ public class databaseHelper extends SQLiteOpenHelper {
     private final String USER2 = "user_2";
     private final String FLIST_ID = "flist_id";
 
-    public databaseHelper(Context context){
+    public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERION);
     }
 
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + ACCOUTNS + "(" +
+        db.execSQL("CREATE TABLE " + ACCOUNTS + "(" +
                         USER_ID + "INTEGER PRIMARY KEY" +
                         USERNAME + "STRING" +
                         PASSWORD + "STRING" +
@@ -100,16 +100,18 @@ public class databaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + ACCOUTNS);
+        db.execSQL("DROP TABLE IF EXISTS " + ACCOUNTS);
         db.execSQL("DROP TABLE IF EXISTS " + CONVERSATION);
         db.execSQL("DROP TABLE IF EXISTS " + THREADS);
         db.execSQL("DROP TABLE IF EXISTS " + FRIENDS);
         db.execSQL("DROP TABLE IF EXISTS " + GROUPS);
         onCreate(db);
     }
-    // start a new conversation
-    public void newConversation (){
 
+    //// TODO: 2015-10-30
+
+    // start a new Conversation
+    public void newConversation (){
     }
 
     // join to group
@@ -134,6 +136,9 @@ public class databaseHelper extends SQLiteOpenHelper {
 
     // show group
     public void showGroupMem(){
+
+    }
+    public void showConversation(){
 
     }
 

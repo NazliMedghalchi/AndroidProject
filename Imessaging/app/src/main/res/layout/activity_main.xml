@@ -1,6 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/RelativeLAyout"
+    android:id="@+id/RelativeLayout"
     android:name="com.example.nazli.imessaging.MainActivityFragment"
     tools:layout="@layout/fragment_main"
     android:layout_width="match_parent"
@@ -67,7 +67,8 @@
             android:id="@+id/signin"
             android:layout_gravity="center_horizontal"
             android:theme="@style/btn_Send_bg"
-            android:clickable="true" />
+            android:clickable="true"
+            android:onClick="@string/login" />
 
     </LinearLayout>
 </RelativeLayout>

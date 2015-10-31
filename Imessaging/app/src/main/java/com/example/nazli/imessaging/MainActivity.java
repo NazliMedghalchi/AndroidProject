@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.sqlite.SQLiteDatabase;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.preference.DialogPreference;
@@ -14,31 +15,47 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
     private String usrname = "admin";
     private String pass = "password";
-    private Button signin = (Button) findViewById(R.id.signin);
-    private EditText username = (EditText) findViewById(R.id.uname);
-    private EditText password = (EditText) findViewById(R.id.password);
-    private String alertTitle = getResources().getString(R.string.alert_title);
-    private String alertMessage = getResources().getString(R.string.alert_message);
+    private String error_message;
 
+// Toast or inflate error message on Incorrect useername or password
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        EditText uname = (EditText) findViewById(R.id.uname);
+        EditText password = (EditText) findViewById(R.id.password);
+
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    protected void onStart () {
+        Button signin = (Button) findViewById(R.id.signin);
+        super.onStart();
+        signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logIn();
+            }
+        });
     }
+
+
+//
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -67,38 +84,14 @@ public class MainActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+//
+    public void logIn () {
+        EditText etUsername = (EditText) findViewById(R.id.uname);
+        EditText etPassword = (EditText) findViewById(R.id.password);
 
-    public void signIn (View view) {
-        signin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if ( (username.getText().toString()
-                        == usrname) && (password.getText().toString() == pass)) {
-                    setContentView(R.layout.list_of_conversations);
-                } else {
-
-//                    // Alert DialogBox
-//                    AlertDialog.Builder failedLogin = new AlertDialog.Builder(appContext);
-//                    // Title
-//                    failedLogin.setMessage(alertTitle);
-//                    failedLogin.setMessage(alertMessage);
-//                    // cancel alert
-//                    failedLogin.setCancelable(false);
-//                    //
-//                    failedLogin.setPositiveButton("OKAY", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int id) {
-//                            dialog.cancel();
-//                        }
-//                    });
-//                    AlertDialog error = failedLogin.create();
-//                    error.show();
-                    username.setText("");
-                    password.setText("");
-                }
-            }
-        });
-
+        if  ((etUsername.getText().toString()).equals(usrname) && (etPassword.getText().toString()).equals(pass)){
+            setContentView(R.layout.list_of_conversations);
+        } else
+            Toast.makeText(this, error_message, Toast.LENGTH_LONG);
     }
-
 }
