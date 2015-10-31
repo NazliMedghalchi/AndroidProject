@@ -7,35 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b449c861-36f7-40e4-bd11-a760c1e7e9c4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../Imessaging/app/src/main/java/com/example/nazli/imessaging/Conversation.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/uw_logo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/uw_logo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/uw_logo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/uw_logo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/uw_logo.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Imessaging/app/src/androidTest/java/com/example/nazli/imessaging/ApplicationTest.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../Imessaging/app/src/main/java/com/example/nazli/imessaging/MainActivityFragment.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/../Imessaging/app/src/main/java/com/example/nazli/imessaging/databaseHelper.java" afterPath="$PROJECT_DIR$/../Imessaging/app/src/main/java/com/example/nazli/imessaging/DatabaseHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AddressBook1/.gradle/2.2.1/taskArtifacts/cache.properties.lock" afterPath="$PROJECT_DIR$/../AddressBook1/.gradle/2.2.1/taskArtifacts/cache.properties.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AddressBook1/.gradle/2.2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/../AddressBook1/.gradle/2.2.1/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AddressBook1/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/../AddressBook1/.gradle/2.2.1/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AddressBook1/build/intermediates/gradle_project_sync_data.bin" afterPath="$PROJECT_DIR$/../AddressBook1/build/intermediates/gradle_project_sync_data.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AddressBook1/.gradle/2.2.1/taskArtifacts/outputFileStates.bin" afterPath="$PROJECT_DIR$/../AddressBook1/.gradle/2.2.1/taskArtifacts/outputFileStates.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AddressBook1/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-bbc5763b8d6282450826f6a021832fcf2859ef1d.jar" afterPath="$PROJECT_DIR$/../AddressBook1/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-bbc5763b8d6282450826f6a021832fcf2859ef1d.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../AddressBook1/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/../AddressBook1/.gradle/2.2.1/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Imessaging/app/src/main/java/com/example/nazli/imessaging/MainActivity.java" afterPath="$PROJECT_DIR$/../Imessaging/app/src/main/java/com/example/nazli/imessaging/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Imessaging/app/src/main/res/layout/activity_chat.xml" afterPath="$PROJECT_DIR$/../Imessaging/app/src/main/res/layout/activity_chat.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Imessaging/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/../Imessaging/app/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Imessaging/app/src/main/res/layout/list_of_conversations.xml" afterPath="$PROJECT_DIR$/../Imessaging/app/src/main/res/layout/list_of_conversations.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Imessaging/app/src/main/res/layout/list_of_friends.xml" afterPath="$PROJECT_DIR$/../Imessaging/app/src/main/res/layout/list_of_friends.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Imessaging/app/src/main/res/layout/list_of_groups.xml" afterPath="$PROJECT_DIR$/../Imessaging/app/src/main/res/layout/list_of_groups.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../Imessaging/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/../Imessaging/app/src/main/res/values/styles.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FlagQuiz1.iws" />
     <ignored path=".idea/workspace.xml" />

@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
 
     private String usrname = "admin";
     private String pass = "password";
-    private String error_message;
+    private String error_message = "Incorrect username or password";
 
 // Toast or inflate error message on Incorrect useername or password
 
@@ -91,7 +91,11 @@ public class MainActivity extends Activity {
 
         if  ((etUsername.getText().toString()).equals(usrname) && (etPassword.getText().toString()).equals(pass)){
             setContentView(R.layout.list_of_conversations);
-        } else
-            Toast.makeText(this, error_message, Toast.LENGTH_LONG);
+        } else {
+            Toast.makeText(getApplicationContext(), error_message, Toast.LENGTH_LONG).show();
+            etUsername.setText("");
+            etPassword.setText("");
+        }
+
     }
 }
