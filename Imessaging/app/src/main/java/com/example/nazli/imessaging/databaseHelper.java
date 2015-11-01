@@ -138,7 +138,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void showGroupMem(){
 
     }
+    // show list of all conversations
     public void showConversation(){
+
+    }
+
+    // search a contact to send new message
+    public void searchContact() {
 
     }
 

@@ -37,4 +37,12 @@
     <style name="error_message">
         <item name="android:textColor">#FD1900</item>
     </style>
+
+    <!-- Conversation style for btn and text-->
+    <style name="ConversationList">
+        <item name="android:background">#FFDE17</item>
+        <item name="android:textColor">#151303</item>
+        <item name="android:text">Start New Conversation</item>
+        <item name="android:padding">15dp</item>
+    </style>
 </resources>

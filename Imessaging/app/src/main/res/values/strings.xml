@@ -29,4 +29,13 @@
     <!--AlretDialogebOx on failed login-->
     <string name="alert_title">Incorrect username or password</string>
     <string name="alert_message">Please Try Again!</string>
+
+    <!--Conversation activity string (text&btn)-->
+    <string name="add_conv">Create new</string>
+    <string name="send_to">To:</string>
+
+    <!-- Friend List-->
+    <string name="contact_list_title">Contacts</string>
+
+
 </resources>

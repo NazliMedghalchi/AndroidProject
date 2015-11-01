@@ -15,39 +15,75 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView_conv_title"
             android:theme="@style/textView_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="@string/send_to"
+            android:id="@+id/textView2"
+            android:theme="@style/textView_color" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:layout_width="294dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/editText_address"
+                android:layout_weight="0.15" />
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="95dp"
+                android:layout_height="wrap_content"
+                android:text="search"
+                android:id="@+id/search_btn"
+                android:theme="@style/btn_Send_bg" />
+        </LinearLayout>
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="309dp"
+        android:layout_height="wrap_content"
         android:id="@+id/scrollView"
         android:layout_gravity="center_horizontal"
         android:padding="5dp"
-        android:layout_margin="3dp">
+        android:layout_margin="3dp"
+        android:layout_weight="0.50">
 
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="911dp"
+            android:id="@+id/listView_chat"
+            android:alpha="1"
+            android:divider="#fff707"
+            android:listSelector="#f8ffa0"
+            android:layoutMode="clipBounds"
+            android:accessibilityLiveRegion="polite"
+            android:backgroundTintMode="add"
+            android:foregroundGravity="clip_horizontal" />
     </ScrollView>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="208dp"
+        android:weightSum="1">
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="297dp"
             android:layout_height="match_parent"
-            android:id="@+id/editText_message"
-            android:layout_gravity="center_horizontal"
-            android:scrollIndicators="right"
-            android:visibility="visible"
-            android:minWidth="@dimen/activity_horizontal_margin"
-            android:minHeight="@dimen/activity_vertical_margin"
-            android:layout_margin="2dp"
-            android:layout_weight="3" />
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/editText_msg" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="122dp"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
             android:text="@string/send_btn"
             android:id="@+id/btn_send"
             android:layout_gravity="right"

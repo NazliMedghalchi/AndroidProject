@@ -1,43 +1,49 @@
 package com.example.nazli.imessaging;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.database.sqlite.SQLiteDatabase;
-import android.hardware.Camera;
 import android.os.Bundle;
-import android.preference.DialogPreference;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class MainActivity extends Activity {
 
     private String usrname = "admin";
     private String pass = "password";
+    private ArrayAdapter<Integer> adapter;
+    private List<Integer> conversation_id;
+    private Boolean loginStatus = false;
+
+    // Toast or inflate error message on Incorrect useername or password
     private String error_message = "Incorrect username or password";
 
-// Toast or inflate error message on Incorrect useername or password
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText uname = (EditText) findViewById(R.id.uname);
-        EditText password = (EditText) findViewById(R.id.password);
+        // create ArrayAdapter and use it to bind data to listView
+        adapter = new ArrayAdapter<Integer>(this, R.layout.list_of_conversations, conversation_id);
+    }
 
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        exit();
     }
 
     @Override
-    protected void onStart () {
+    protected void onStart() {
         Button signin = (Button) findViewById(R.id.signin);
         super.onStart();
         signin.setOnClickListener(new View.OnClickListener() {
@@ -48,14 +54,46 @@ public class MainActivity extends Activity {
         });
     }
 
+    // Log in to conversation list
+    public Boolean logIn() {
+        EditText etUsername = (EditText) findViewById(R.id.uname);
+        EditText etPassword = (EditText) findViewById(R.id.password);
+        Boolean status;
 
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
+        if ((etUsername.getText().toString()).equals(usrname) && (etPassword.getText().toString()).equals(pass)
+                && loginStatus == false) {
+            setContentView(R.layout.list_of_conversations);
+            loginStatus = true;
+
+        } else {
+            Toast.makeText(getApplicationContext(), error_message, Toast.LENGTH_LONG).show();
+            etUsername.setText("");
+            etPassword.setText("");
+            loginStatus= false;
+        }
+        return status = loginStatus;
+
+    }
+
+    // Exit the application
+    public void exit() {
+        EditText etUsername = (EditText) findViewById(R.id.uname);
+        EditText etPassword = (EditText) findViewById(R.id.password);
+
+        setContentView(R.layout.activity_main);
+        etUsername.setText("");
+        etPassword.setText("");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the acti    on bar if it is present.
+//        while (loginStatus == true) {
+            getMenuInflater().inflate(R.menu.menu_main, menu);
+            return true;
+//        }
+//        return false;
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -64,38 +102,19 @@ public class MainActivity extends Activity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        else if (id == R.id.action_friedns) {
-            setContentView(R.layout.list_of_friends);
-        }
-        else if (id == R.id.action_groups) {
-            setContentView(R.layout.list_of_groups);
-        }
-        else if (id == R.id.conversation) {
-            setContentView(R.layout.list_of_conversations);
-        }
-        else if (id == R.id.logOut) {
-            setContentView(R.layout.activity_main);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-//
-    public void logIn () {
-        EditText etUsername = (EditText) findViewById(R.id.uname);
-        EditText etPassword = (EditText) findViewById(R.id.password);
-
-        if  ((etUsername.getText().toString()).equals(usrname) && (etPassword.getText().toString()).equals(pass)){
-            setContentView(R.layout.list_of_conversations);
-        } else {
-            Toast.makeText(getApplicationContext(), error_message, Toast.LENGTH_LONG).show();
-            etUsername.setText("");
-            etPassword.setText("");
+            //noinspection SimplifiableIfStatement
+            if (id == R.id.action_settings) {
+                return true;
+            } else if (id == R.id.action_friedns && loginStatus == true) {
+                setContentView(R.layout.list_of_contacts);
+            } else if (id == R.id.action_groups && loginStatus == true) {
+                setContentView(R.layout.list_of_groups);
+            } else if (id == R.id.conversation && loginStatus == true) {
+                setContentView(R.layout.list_of_conversations);
+            } else if (id == R.id.logOut) {
+                setContentView(R.layout.activity_main);
+            }
+            return super.onOptionsItemSelected(item);
         }
 
     }
-}

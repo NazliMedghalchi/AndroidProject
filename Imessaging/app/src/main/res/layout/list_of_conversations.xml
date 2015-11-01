@@ -4,12 +4,40 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/linearV"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:name="com.example.nazli.imessaging.Conversation"
     tools:layout="@layout/list_of_conversations">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_conv"
+        android:id="@+id/button"
+        style="@style/ConversationList"
+        android:clickable="true" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/scroll_conv" />
+        android:id="@+id/scroll_conv"
+        android:clickable="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1">
+
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical">
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="416dp"
+                android:id="@+id/listView_conv"
+                android:layout_gravity="center_horizontal" />
+        </TableLayout>
+    </ScrollView>
+
 </LinearLayout>
