@@ -1,10 +1,13 @@
 package com.example.nazli.imessaging;
 
 import android.app.Activity;
+import android.content.Entity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.media.session.MediaSession;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.Menu;
@@ -30,28 +33,25 @@ public class MainActivity extends Activity {
     private List<Integer> conversation_id;
     private Boolean loginStatus = false;
 
+    // check connection to GSM
+    private Boolean connected;
 
     // Toast or inflate error message on Incorrect useername or password
     private String error_message = "Incorrect username or password";
 
+    // Connect to Network
+//    private ConnectivityManager connect =  (ConnectivityManager)
+//            this.getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // create ArrayAdapter and use it to bind data to listView
-        adapter = new ArrayAdapter<Integer>(this, R.layout.list_of_conversations, conversation_id);
-
-
+        Intent intent = getIntent();
+//        MainActivity.this.startActivity(intent);
     }
 
-
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        exit();
-//    }
 
     @Override
     protected void onStart() {
@@ -61,23 +61,22 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 logIn();
-
             }
         });
-
     }
 
     // Log in to conversation list
     public Boolean logIn() {
         EditText etUsername = (EditText) findViewById(R.id.uname);
         EditText etPassword = (EditText) findViewById(R.id.password);
-//        Boolean status;
+        // Boolean status;
 
         if ((etUsername.getText().toString()).equals(usrname) && (etPassword.getText().toString()).equals(pass)
                 && loginStatus == false) {
             setContentView(R.layout.list_of_conversations);
+            Intent intentConversation = new Intent(this, Conversation.class);
+            intentConversation.addCategory(NETWORK_STATS_SERVICE);
             loginStatus = true;
-
 
         } else {
             Toast.makeText(getApplicationContext(), error_message, Toast.LENGTH_LONG).show();
@@ -86,10 +85,10 @@ public class MainActivity extends Activity {
             loginStatus= false;
         }
         return  loginStatus;
-
     }
 
-    // Exit the application
+
+// Exit the application
     public void exit() {
         EditText etUsername = (EditText) findViewById(R.id.uname);
         EditText etPassword = (EditText) findViewById(R.id.password);
@@ -98,8 +97,6 @@ public class MainActivity extends Activity {
         etUsername.setText("");
         etPassword.setText("");
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -116,24 +113,39 @@ public class MainActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
-//        Intent Conversation  = new
-
             //noinspection SimplifiableIfStatement
-            if (id == R.id.action_settings) {
-                return true;
-            } else if (id == R.id.action_friedns && loginStatus == true) {
 
-                setContentView(R.layout.list_of_contacts);
-            } else if (id == R.id.action_groups && loginStatus == true) {
-                setContentView(R.layout.list_of_groups);
-            } else if (id == R.id.conversation && loginStatus == true) {
-                setContentView(R.layout.list_of_conversations);
-            } else if (id == R.id.logOut) {
-                setContentView(R.layout.activity_main);
-            }
-            return super.onOptionsItemSelected(item);
+        if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.action_friedns && loginStatus == true) {
+            setContentView(R.layout.list_of_contacts);
+            CursorAdapter cursorAdapter;
+            Cursor cursor;
+            DatabaseHelper db = new DatabaseHelper(this);
+            ListView convList = (ListView) findViewById(R.id.listView_conv);
+
+
+
+        } else if (id == R.id.action_groups && loginStatus == true) {
+            setContentView(R.layout.list_of_groups);
+            CursorAdapter cursorAdapter;
+            Cursor cursor;
+            DatabaseHelper db = new DatabaseHelper(this);
+            ListView groups = (ListView) findViewById(R.id.listView_groups);
+
+        } else if (id == R.id.conversation && loginStatus == true) {
+            setContentView(R.layout.list_of_conversations);
+            Intent convIntent = new Intent(this, Conversation.class);
+            MainActivity.this.startActivity(convIntent);
+
+        } else if (id == R.id.logOut) {
+            setContentView(R.layout.activity_main);
+            exit();
         }
+        return super.onOptionsItemSelected(item);
+    }
 
 
     }

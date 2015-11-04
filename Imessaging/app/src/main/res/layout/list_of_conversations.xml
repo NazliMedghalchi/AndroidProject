@@ -6,15 +6,34 @@
     android:id="@+id/linearV"
     android:orientation="vertical"
     android:name="com.example.nazli.imessaging.Conversation"
-    tools:layout="@layout/list_of_conversations">
+    tools:layout="@layout/list_of_conversations"
+    android:theme="@style/AppTheme.UWECEApp">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/add_conv"
-        android:id="@+id/button"
-        style="@style/ConversationList"
-        android:clickable="true" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="226dp"
+            android:layout_height="52dp"
+            android:gravity="left"
+            android:id="@+id/conVlist_title"
+            android:text="@string/conversation"
+            android:theme="@style/AppTheme.UWECEApp"
+            android:layout_weight="1"
+            android:textSize="20dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_conv"
+            android:id="@+id/button"
+            android:layout_gravity="right"
+            style="@style/AppTheme.UWECEApp"
+            android:clickable="true"
+            android:layout_weight="1" />
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"

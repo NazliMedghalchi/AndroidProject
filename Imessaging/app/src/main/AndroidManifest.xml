@@ -2,29 +2,44 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.nazli.imessaging" >
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE">
+    </uses-permission>
+    <uses-permission android:name="android.permission.BIND_CARRIER_SERVICES">
+    </uses-permission>
+    <uses-permission android:name="android.permission.SEND_SMS">
+    </uses-permission>
+    <uses-permission android:name="android.permission.receive_sms">
+    </uses-permission>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:killAfterRestore="true"
+        android:banner="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:banner="@mipmap/ic_launcher">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
                 <!-- Error on pressing back on app exit solved by Category - HOME-->
-                <category android:name="android.intent.category.HOME"/>
+                <!--<category android:name="android.intent.category.HOME"/>-->
             </intent-filter>
         </activity>
-        <activity android:name=".Conversation">
+        <!-- Conversation activity will do connection check-->
+        <activity
+            android:name=".Conversation"
+            android:banner="@style/AppTheme.UWECEApp">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
                 <category android:name="android.intent.category.APP_CONTACTS"/>
             </intent-filter>
         </activity>
+
     </application>
+
 
 </manifest>

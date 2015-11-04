@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
+        <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView_conv_title"
@@ -32,7 +32,7 @@
             <EditText
                 android:layout_width="294dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText_address"
+                android:id="@+id/editText_tel"
                 android:layout_weight="0.15" />
 
             <Button

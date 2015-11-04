@@ -2,6 +2,51 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme.UWECEApp">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/linearLayout"
+        android:padding="2dp"
+        android:theme="@style/AppTheme.UWECEApp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="226dp"
+                android:layout_height="52dp"
+                android:gravity="left"
+                android:id="@+id/textView_group"
+                android:text="@string/action_groups"
+                android:theme="@style/AppTheme.UWECEApp"
+                android:layout_weight="1"
+                android:textSize="20dp" />
+
+            <Button
+                style="@style/AppTheme.UWECEApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/add_conv"
+                android:id="@+id/button2"
+                android:layout_gravity="right"
+                android:clickable="true"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listView_groups"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:entries="@+id/listView_item" />
+
+    </LinearLayout>
 </LinearLayout>
