@@ -2,8 +2,19 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+
         <!-- Customize your theme here. -->
     </style>
+
+    <!-- Customized theme for the app IMessage-->
+    <style name="AppTheme.UWECEApp" parent="AppTheme">
+        <item name="android:backgroundTint">#FDF464</item>
+        <item name="android:textColor">#656562</item>
+        <item name="android:padding">10dp</item>
+
+        <item name="android:textAlignment">center</item>
+    </style>
+
 
     <!-- Buttons and text styles : UW style-->
     <style name="btn_Send_bg">

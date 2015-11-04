@@ -2,16 +2,24 @@ package com.example.nazli.imessaging;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteOpenHelper;
+import android.media.session.MediaSession;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CursorAdapter;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import java.sql.SQLClientInfoException;
 import java.util.List;
 
 public class MainActivity extends Activity {
@@ -21,6 +29,7 @@ public class MainActivity extends Activity {
     private ArrayAdapter<Integer> adapter;
     private List<Integer> conversation_id;
     private Boolean loginStatus = false;
+
 
     // Toast or inflate error message on Incorrect useername or password
     private String error_message = "Incorrect username or password";
@@ -33,14 +42,16 @@ public class MainActivity extends Activity {
 
         // create ArrayAdapter and use it to bind data to listView
         adapter = new ArrayAdapter<Integer>(this, R.layout.list_of_conversations, conversation_id);
+
+
     }
 
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        exit();
-    }
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        exit();
+//    }
 
     @Override
     protected void onStart() {
@@ -50,20 +61,23 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 logIn();
+
             }
         });
+
     }
 
     // Log in to conversation list
     public Boolean logIn() {
         EditText etUsername = (EditText) findViewById(R.id.uname);
         EditText etPassword = (EditText) findViewById(R.id.password);
-        Boolean status;
+//        Boolean status;
 
         if ((etUsername.getText().toString()).equals(usrname) && (etPassword.getText().toString()).equals(pass)
                 && loginStatus == false) {
             setContentView(R.layout.list_of_conversations);
             loginStatus = true;
+
 
         } else {
             Toast.makeText(getApplicationContext(), error_message, Toast.LENGTH_LONG).show();
@@ -71,7 +85,7 @@ public class MainActivity extends Activity {
             etPassword.setText("");
             loginStatus= false;
         }
-        return status = loginStatus;
+        return  loginStatus;
 
     }
 
@@ -84,6 +98,8 @@ public class MainActivity extends Activity {
         etUsername.setText("");
         etPassword.setText("");
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -101,11 +117,13 @@ public class MainActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+//        Intent Conversation  = new
 
             //noinspection SimplifiableIfStatement
             if (id == R.id.action_settings) {
                 return true;
             } else if (id == R.id.action_friedns && loginStatus == true) {
+
                 setContentView(R.layout.list_of_contacts);
             } else if (id == R.id.action_groups && loginStatus == true) {
                 setContentView(R.layout.list_of_groups);
@@ -116,5 +134,6 @@ public class MainActivity extends Activity {
             }
             return super.onOptionsItemSelected(item);
         }
+
 
     }

@@ -143,9 +143,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    // search a contact to send new message
-    public void searchContact() {
 
-    }
 
 }
