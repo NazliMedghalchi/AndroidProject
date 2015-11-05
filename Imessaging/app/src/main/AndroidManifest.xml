@@ -51,6 +51,32 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".Groups"
+            android:banner="@style/AppTheme.UWECEApp">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH"/>
+                <category android:name="android.intent.category.APP_CONTACTS"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ChatService"
+            android:banner="@style/AppTheme.UWECEApp">
+            <intent-filter>
+                <action android:name="android.intent.action.PROCESS_TEXT"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ContactList">
+            <intent-filter>
+                <action android:name="android.intent.action.SENDTO">
+                </action>
+                <data android:scheme="@string/send_to"></data>
+            </intent-filter>
+        </activity>
+
         <!-- Alternative option to register receiver-->
         <!--android:enabled="true"-->
 

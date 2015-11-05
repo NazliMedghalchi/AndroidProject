@@ -17,8 +17,8 @@ import java.nio.channels.SocketChannel;
 public abstract class Server extends BroadcastReceiver{
     
 //    // TODO: 2015-11-05 use laptop as server with DNS service or hardcoding the Ip
-    private Socket serverSocket = Socket("5000",50001);
-    private Socket clientSocket = serverSocket.
+    private Socket serverSocket = new Socket();
+//    private Socket clientSocket = serverSocket.
 
     private EditText message;
 

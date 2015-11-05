@@ -9,53 +9,54 @@ import android.view.Gravity;
 import android.widget.Toast;
 
 import java.sql.Time;
+import java.util.ArrayList;
 
 /**
  * Created by nazlimedghalchi on 2015-10-29.
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "iMessage";
-    private static final int DATABASE_VERION = 1;
+    public static final String DATABASE_NAME = "iMessage";
+    public static final int DATABASE_VERION = 1;
 
     // tables and containing columns
-    private final String CONVERSATION = "Conversation";
-    private final String ACCOUNTS = "account";
-    private final String GROUPS = "groups";
-    private final String THREADS = "threads";
-    private final String FRIENDS = "friends";
+    public final String CONVERSATION = "Conversation";
+    public final String ACCOUNTS = "account";
+    public final String GROUPS = "groups";
+    public final String THREADS = "threads";
+    public final String FRIENDS = "friends";
 
     // account's columns
-    private final String USERNAME = "useername";
-    private final String USER_ID = "user_id";
-    private final String PASSWORD = "password";
-    private final String FRIEND_LIST = "friend_list";
-    private final String GROUP_LIST = "group_list";
-    private final String USER_STATUS = "user_status";
+    public final String USERNAME = "useername";
+    public final String USER_ID = "user_id";
+    public final String PASSWORD = "password";
+    public final String FRIEND_LIST = "friend_list";
+    public final String GROUP_LIST = "group_list";
+    public final String USER_STATUS = "user_status";
 
     // group's columns
-    private final String GROUP_ID = "group_id";
-    private final String GROUP_MEMBERS = "group_members";
-    private final String GROUP_OWNER = "group_owner";
-    private final String GROUP_TITLE = "group_title";
+    public final String GROUP_ID = "group_id";
+    public final String GROUP_MEMBERS = "group_members";
+    public final String GROUP_OWNER = "group_owner";
+    public final String GROUP_TITLE = "group_title";
 
     // Conversation columns
-    private final String CONV_ID = "conv_id";
-    private final String CONV_NAME = "conv_name";
-    private final String THREAD_ID = "thread_id";
+    public final String CONV_ID = "conv_id";
+    public final String CONV_NAME = "conv_name";
+    public final String THREAD_ID = "thread_id";
 
     // threads columns
-    private final String TIME = "time";
-    private final String DATE = "date";
-    private final String SENDER = "sender";
-    private final String RECEIVER = "receiver";
-    private final String STATUS = "status";
-    private final String CONTENT = "content";
-    private final String ATTACHEMENT = "attachment";
+    public final String TIME = "time";
+    public final String DATE = "date";
+    public final String SENDER = "sender";
+    public final String RECEIVER = "receiver";
+    public final String STATUS = "status";
+    public final String CONTENT = "content";
+    public final String ATTACHEMENT = "attachment";
 
     // friends columns
-    private final String USER1 = "user_1";
-    private final String USER2 = "user_2";
-    private final String FLIST_ID = "flist_id";
+    public final String USER1 = "user_1";
+    public final String USER2 = "user_2";
+    public final String FLIST_ID = "flist_id";
 
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERION);
@@ -128,6 +129,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+
     // join to group
     public void joinGroup () {
 
@@ -149,7 +151,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     // show group
-    public void showGroupMem(){
+    public Cursor showGroup(){
+        Cursor cursor;
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + GROUPS + "=?", null);
+        return cursor;
+
 
     }
     // show list of all conversations

@@ -38,4 +38,7 @@
     <string name="contact_list_title">Contacts</string>
 
 
+    <!-- Host / server IP based on DNS-->
+    <string name="server_ip"></string>
+
 </resources>

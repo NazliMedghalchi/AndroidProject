@@ -1,24 +1,23 @@
 package com.example.nazli.imessaging;
 
-import android.app.Activity;
-import android.app.FragmentManager;
 import android.app.ListActivity;
-import android.app.ListFragment;
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.media.browse.MediaBrowser;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.NetworkRequest;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.provider.Telephony;
+import android.transition.Fade;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,7 +27,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.net.NetPermission;
 import java.util.ArrayList;
 import java.util.zip.Inflater;
 
@@ -40,17 +38,64 @@ public class Conversation extends ListActivity {
     DatabaseHelper db = new DatabaseHelper(this);
     ListView clist =  (ListView) findViewById(R.id.listView_conv);
 
+//http://stackoverflow.com/questions/4540754/dynamically-add-elements-to-a-listview-android
 //    list of lists for values of listView Items
     ArrayList<String> convListItem = new ArrayList<String>();
-//    adapter to bind data to 
-    ArrayAdapter<String>
+//    adapter to bind data to
+    ArrayAdapter<String> adapter;
 
+//    Item to be added to listItems
+
+    String title = ((TextView) findViewById(R.id.conTitle)).toString();
+    String time = ((TextView) findViewById(R.id.convTime)).toString();
+    String text = ((TextView) findViewById(R.id.convFirstLine)).toString();
+
+    @Override
+    public void onCreate(Bundle Main){
+        super.onCreate(Main);
+        setContentView(R.layout.list_of_conversations);
+// The adapter passed through Conversation by MainActivity
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, convListItem);
+        setListAdapter(adapter);
+
+//        add Item onclick listener
+        clist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int position = getSelectedItemPosition();
+                Intent itemIntent = new Intent(this, ChatService.class);
+                itemIntent;
+            }
+        });
+
+//        // add listener to entire listView
+//        clist.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Transition transition = new Fade();
+//                transition.addTarget(R.id.listView_chat);
+//                displayChat();
+//            }
+//        });
+//    }
+
+//    http://stackoverflow.com/questions/4540754/dynamically-add-elements-to-a-listview-android
+//    Handle dynamic insertion to listView
+    @Override
+    public void setAddConv(){
+        convListItem.add(title);
+        convListItem.add(time);
+        convListItem.add(text);
+        adapter.notifyDataSetChanged();
+    }
 
     @Override
     public void setContentTransitionManager(TransitionManager tm) {
         super.setContentTransitionManager(tm);
         setContentView(R.layout.list_of_conversations);
 
+        Transition transition = TransitionInflater.from(this).
+                inflateTransition(R.transition.fade_transition);
         //Check if usr is connected to GSM or not
         checkConnection();
 
@@ -60,6 +105,7 @@ public class Conversation extends ListActivity {
 
     // search a contact to send new message
     // Display List of contcts from phone
+
     public void searchContact() { // TODO: 2015-11-04 get from DB
         DatabaseHelper db = new DatabaseHelper(this);
         EditText smsreceiver;
@@ -71,8 +117,6 @@ public class Conversation extends ListActivity {
                 ContactsContract.RawContacts.CONTACT_ID + "=?",
                 new String[] {String.valueOf(ContactsContract.RawContacts.CONTACT_ID)},null);
         smsreceiver.setText(); //// TODO: 2015-11-05
-
-
     }
 
     @Override
@@ -105,15 +149,24 @@ public class Conversation extends ListActivity {
         registerReceiver(new Server(), new IntentFilter("com.example.nazli.imessaging.ACTION_") {
             @Override
             public void onReceive(Context context, Intent intent) {
-
-
+                unregisterReceiver();
             }
-        });
+            }
+        })
     }
     public void newConversation () {
+    //    items from layout needed for new conversation and transition
+        Button addBTN = (Button) findViewById(R.id.btn_send);
+        addBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Transition transition = new Fade();
+                transition.addTarget(R.layout.new_con_fragment);
+            }
+        });
+
 
     }
-
 
     public void displayChat(){
 
@@ -161,7 +214,7 @@ public class Conversation extends ListActivity {
 
 
 
-        convTitle = (findViewById(R.id.title_of_conv)).toString();
+        convTitle = (findViewById(R.id.conTitle)).toString();
 
         ContentValues values = new ContentValues();
         values.put();
@@ -177,4 +230,6 @@ public class Conversation extends ListActivity {
             db.newConversation();
         }
     }
+
+
 }

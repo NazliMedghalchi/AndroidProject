@@ -13,7 +13,7 @@
         <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView_conv_title"
+            android:id="@+id/editText_conv_title"
             android:theme="@style/textView_color" />
 
         <LinearLayout
@@ -32,7 +32,7 @@
             <EditText
                 android:layout_width="294dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/editText_"
+                android:id="@+id/editText_search"
                 android:layout_weight="0.15" />
 
             <Button
