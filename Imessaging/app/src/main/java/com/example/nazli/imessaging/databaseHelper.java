@@ -2,8 +2,11 @@ package com.example.nazli.imessaging;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
+import android.view.Gravity;
+import android.widget.Toast;
 
 import java.sql.Time;
 
@@ -111,7 +114,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //// TODO: 2015-10-30
 
     // start a new Conversation
-    public void newConversation (){
+    public void newConversation (Context c, ContentValues values){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.insert(CONVERSATION, null, values);
+
+        // Toast message on save
+        if (!sqLiteDatabase.isOpen()) {
+            Toast toast = Toast.makeText(c, "Error on database opening", Toast.LENGTH_LONG);
+            toast.show();
+            // position toast message
+            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 0);
+        }
+
     }
 
     // join to group
@@ -139,8 +153,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
     // show list of all conversations
-    public void showConversation(){
+    public Cursor showConversation(Context context){
+        Cursor cursor;
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
 
+        cursor = sqLiteDatabase.rawQuery("SELECT " + CONV_ID + "FROM " + CONVERSATION, null);
+        if (!sqLiteDatabase.isOpen()){
+            // make a toast message
+            Toast toast = Toast.makeText(context, "Error on database opening", Toast.LENGTH_LONG);
+            toast.show();
+            // position toast message
+            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0 , 0);
+        }
+        return cursor;
     }
 
 

@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+< manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.nazli.imessaging" >
+
+    <uses-permission android:name="android.permission.BIND_TELECOM_CONNECTION_SERVICE">
+    </uses-permission>
+
+    <uses-permission android:name="ANDROID.PERMISSION.INTERNET">
+    </uses-permission>
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE">
     </uses-permission>
+
     <uses-permission android:name="android.permission.BIND_CARRIER_SERVICES">
     </uses-permission>
+
     <uses-permission android:name="android.permission.SEND_SMS">
     </uses-permission>
-    <uses-permission android:name="android.permission.receive_sms">
+
+    <uses-permission android:name="android.permission.RECEIVE_SMS">
     </uses-permission>
+
 
     <application
         android:allowBackup="true"
@@ -17,7 +27,9 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         android:killAfterRestore="true"
-        android:banner="@mipmap/ic_launcher">
+        android:banner="@mipmap/ic_launcher"
+        android:enabled="true"
+        android:exported="false">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name">
@@ -38,6 +50,19 @@
                 <category android:name="android.intent.category.APP_CONTACTS"/>
             </intent-filter>
         </activity>
+
+        <!-- Alternative option to register receiver-->
+        <!--android:enabled="true"-->
+
+        <receiver
+            android:name="com.example.nazli.imessaging.Client"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+            <meta-data />
+        </receiver>
+
 
     </application>
 

@@ -130,6 +130,7 @@ public class MainActivity extends Activity {
 
         } else if (id == R.id.action_groups && loginStatus == true) {
             setContentView(R.layout.list_of_groups);
+            Intent intent = new Intent(this, Groups.class);
             CursorAdapter cursorAdapter;
             Cursor cursor;
             DatabaseHelper db = new DatabaseHelper(this);

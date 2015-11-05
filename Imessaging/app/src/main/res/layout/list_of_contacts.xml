@@ -7,30 +7,53 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:theme="@style/AppTheme.UWECEApp">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/contacts_frag">
+            android:id="@+id/contacts_frag"
+            android:theme="@style/AppTheme.UWECEApp">
 
-            <TextView
+            <LinearLayout
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/contact_list_title"
-                android:id="@+id/contact_list_title"
-                android:theme="@style/textView_color" />
+                android:layout_height="63dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left"
+                    android:text="@string/contact_list_title"
+                    android:id="@+id/contact_list_title"
+                    android:theme="@style/textView_color"
+                    android:gravity="right"
+                    android:clickable="true"
+                    android:backgroundTint="@android:color/holo_blue_light" />
+
+                <SearchView
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:layout_gravity="right"
+                    android:id="@+id/search_contact" />
+
+            </LinearLayout>
 
             <ListView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/contacts"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="10dp"
-                android:entries="@+id/listView_item"/>
+                android:entries="@+id/listView_item"
+                android:listSelector="">
+
+            </ListView>
 
         </LinearLayout>
+
     </FrameLayout>
 
 </LinearLayout>
