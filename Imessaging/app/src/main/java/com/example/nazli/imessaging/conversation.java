@@ -1,13 +1,11 @@
 package com.example.nazli.imessaging;
 
 import android.app.ListActivity;
-import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
-import android.media.browse.MediaBrowser;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.NetworkRequest;
@@ -40,13 +38,13 @@ public class Conversation extends ListActivity {
 
 //http://stackoverflow.com/questions/4540754/dynamically-add-elements-to-a-listview-android
 //    list of lists for values of listView Items
-    ArrayList<String> convListItem = new ArrayList<String>();
+    ArrayList<String> convListItem = new ArrayList<>();
 //    adapter to bind data to
     ArrayAdapter<String> adapter;
 
 //    Item to be added to listItems
 
-    String title = ((TextView) findViewById(R.id.conTitle)).toString();
+    String title = ((TextView) findViewById(R.id.threadSender)).toString();
     String time = ((TextView) findViewById(R.id.convTime)).toString();
     String text = ((TextView) findViewById(R.id.convFirstLine)).toString();
 
@@ -54,6 +52,7 @@ public class Conversation extends ListActivity {
     public void onCreate(Bundle Main){
         super.onCreate(Main);
         setContentView(R.layout.list_of_conversations);
+        setAddConv();
 // The adapter passed through Conversation by MainActivity
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, convListItem);
         setListAdapter(adapter);
@@ -65,8 +64,11 @@ public class Conversation extends ListActivity {
                 int position = getSelectedItemPosition();
                 Intent itemIntent = new Intent(this, ChatService.class);
                 itemIntent;
+                displayChat();
+
             }
         });
+
 
 //        // add listener to entire listView
 //        clist.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +83,7 @@ public class Conversation extends ListActivity {
 
 //    http://stackoverflow.com/questions/4540754/dynamically-add-elements-to-a-listview-android
 //    Handle dynamic insertion to listView
-    @Override
+
     public void setAddConv(){
         convListItem.add(title);
         convListItem.add(time);
@@ -104,19 +106,20 @@ public class Conversation extends ListActivity {
     }
 
     // search a contact to send new message
-    // Display List of contcts from phone
+    // Display List of contacts from phone
 
     public void searchContact() { // TODO: 2015-11-04 get from DB
         DatabaseHelper db = new DatabaseHelper(this);
         EditText smsreceiver;
-
-        Cursor contactsCursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
+        EditText receivedTxt = (EditText) findViewById(R.id.listView_chat);
+        Cursor contactsCursor = getContentResolver().query(ContactsContract.
+                CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
 //        String phoneNumber = findViewById(R.id.contacts).toString() ;
         Cursor contacts = getContentResolver().query(ContactsContract.RawContacts.CONTENT_URI,
                 new String[] {ContactsContract.RawContacts._ID},
                 ContactsContract.RawContacts.CONTACT_ID + "=?",
                 new String[] {String.valueOf(ContactsContract.RawContacts.CONTACT_ID)},null);
-        smsreceiver.setText(); //// TODO: 2015-11-05
+        receivedTxt.setText(); //// TODO: 2015-11-05
     }
 
     @Override
@@ -136,24 +139,23 @@ public class Conversation extends ListActivity {
 
     @Override
     protected void onDestroy() {
-        unregisterReceiver(); //todo destroy defined receiver
         exit();
         super.onResume();
     }
 
-//    Register BroadcastReceiver
+    //    Register BroadcastReceiver
 //    http://hmkcode.com/android-sending-receiving-custom-broadcasts/
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerReceiver(new Server(), new IntentFilter("com.example.nazli.imessaging.ACTION_") {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                unregisterReceiver();
-            }
-            }
-        })
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        registerReceiver(new Client(), new IntentFilter("com.example.nazli.imessaging.RECEIVE_SMS") {
+//            @Override
+//            public void onReceive(new Client, new IntentFilter("com.example.nazli.imessaging.RECEIVE_SMS")
+//
+//            )
+//
+//        });
+//    }
     public void newConversation () {
     //    items from layout needed for new conversation and transition
         Button addBTN = (Button) findViewById(R.id.btn_send);
@@ -169,10 +171,20 @@ public class Conversation extends ListActivity {
     }
 
     public void displayChat(){
+        try {
+            Intent chat = new Intent(Intent.ACTION_VIEW);
+            chat.putExtra(title, title );
+            chat.setType("vnd.android-dir/mms-sms");
+            startActivity(chat);
+        } catch (Exception e){
+            Toast.makeText(getApplicationContext(),
+                    "Failed to send - Please try again!", Toast.LENGTH_LONG);
+            e.printStackTrace();
+        }
 
-        Inflater inflater = new Inflater()
     }
 
+Inflater inflater = new Inflater()
 
     public void checkConnection(){
         Context context;
@@ -187,8 +199,8 @@ public class Conversation extends ListActivity {
         // Otherwise use WiFi
         // REf: http://www.programcreek.com/java-api-examples/android.net.ConnectivityManager
 
-//          if (!networkInfo.isAvailable())
-        networkInfo = connection.getNetworkInfo(connection.TYPE_WIFI);
+        if (!networkInfo.isAvailable())
+            networkInfo = connection.getNetworkInfo(connection.TYPE_WIFI);
         if (connection != null && networkInfo.isConnected()) {
             displayConversation();
         }
@@ -214,7 +226,7 @@ public class Conversation extends ListActivity {
 
 
 
-        convTitle = (findViewById(R.id.conTitle)).toString();
+        convTitle = (findViewById(R.id.threadSender)).toString();
 
         ContentValues values = new ContentValues();
         values.put();
@@ -229,7 +241,7 @@ public class Conversation extends ListActivity {
             Intent intent = new Intent(getApplicationContext(), ChatService, null);
             db.newConversation();
         }
-    }
+    };
 
 
 }

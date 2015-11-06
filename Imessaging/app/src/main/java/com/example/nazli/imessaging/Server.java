@@ -38,6 +38,7 @@ public abstract class Server extends BroadcastReceiver{
 
     public void connectToServer(){
 
+
     }
 
 }

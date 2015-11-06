@@ -3,6 +3,7 @@ package com.example.nazli.imessaging;
 import android.app.Activity;
 import android.content.Entity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -146,6 +147,24 @@ public class MainActivity extends Activity {
             exit();
         }
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        unregisterReceiver(client, intentFilter);
+
+    }
+    //    Register BroadcastReceiver
+//    http://hmkcode.com/android-sending-receiving-custom-broadcasts/
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(new Client(), new IntentFilter("com.example.nazli.imessaging.ACTION_") {
+            @Override
+            public void onReceive(new Client, new IntentFilter("com.example.nazli.imessaging.USER_ACTION")) {
+                unregisterReceiver(this);
+            }
+        });
     }
 
 

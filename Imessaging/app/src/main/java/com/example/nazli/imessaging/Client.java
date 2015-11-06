@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.webkit.ClientCertRequest;
 import android.widget.EditText;
 
@@ -26,10 +27,13 @@ public class Client extends BroadcastReceiver {
     Context smsContext;
     private String netStatus = Application.NETWORK_STATS_SERVICE;
 
+
+
+
 // Print intent action name on EdiitText - Toast Message
     @Override
     public void OnReceive (Context context, Intent intent) {
-        Conversation newChat = ((com.example.nazli.Imessaging) context.getApplicationContext()).Conversation;
+        ChatService newChat = ((ChatService) context.getApplicationContext()).ChatService;
 
 
     }
