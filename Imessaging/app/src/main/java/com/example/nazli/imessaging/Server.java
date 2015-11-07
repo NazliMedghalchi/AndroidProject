@@ -14,8 +14,9 @@ import java.nio.channels.SocketChannel;
 /**
  * Created by nazlimedghalchi on 2015-11-04.
  */
-public abstract class Server extends BroadcastReceiver{
-    
+public abstract class Server {
+
+
 //    // TODO: 2015-11-05 use laptop as server with DNS service or hardcoding the Ip
     private Socket serverSocket = new Socket();
 //    private Socket clientSocket = serverSocket.
@@ -37,7 +38,7 @@ public abstract class Server extends BroadcastReceiver{
     };
 
     public void connectToServer(){
-
+//        Socket socket = ""
 
     }
 

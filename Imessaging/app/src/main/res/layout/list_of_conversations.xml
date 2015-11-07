@@ -33,32 +33,15 @@
             style="@style/AppTheme.UWECEApp"
             android:clickable="true"
             android:layout_weight="1" />
+
     </LinearLayout>
 
-    <ScrollView
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scroll_conv"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView_conv"
+        android:listSelector="@android:color/transparent"
         android:clickable="true"
-        android:layout_marginTop="15dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_weight="1">
-
-        <TableLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical">
-
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="416dp"
-                android:id="@+id/listView_conv"
-                android:layout_gravity="center_horizontal"
-                android:listSelector="@android:color/transparent"
-                android:clickable="true" />
-        </TableLayout>
-    </ScrollView>
+        android:layout_column="18" />
 
 </LinearLayout>

@@ -1,15 +1,18 @@
 package com.example.nazli.imessaging;
 
 import android.app.Activity;
+import android.app.Service;
 import android.content.Entity;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.media.session.MediaSession;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,6 +31,8 @@ import java.util.List;
 
 public class MainActivity extends Activity {
 
+// For each instance of application that is running for users
+    Thread thread = new Thread();
     private String usrname = "admin";
     private String pass = "password";
     private ArrayAdapter<Integer> adapter;
@@ -40,6 +45,9 @@ public class MainActivity extends Activity {
     // Toast or inflate error message on Incorrect useername or password
     private String error_message = "Incorrect username or password";
 
+    Client client;
+    IntentFilter intentFilter;
+
     // Connect to Network
 //    private ConnectivityManager connect =  (ConnectivityManager)
 //            this.getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
@@ -49,6 +57,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Client client = new Client();
+        IntentFilter intentFilter = new IntentFilter("com.example.nazli.imessaging");
         Intent intent = getIntent();
 //        MainActivity.this.startActivity(intent);
     }
@@ -77,6 +87,13 @@ public class MainActivity extends Activity {
             setContentView(R.layout.list_of_conversations);
             Intent intentConversation = new Intent(this, Conversation.class);
             intentConversation.addCategory(NETWORK_STATS_SERVICE);
+            Service connect = new Service() {
+                @Override
+                public IBinder onBind(Intent intent) {
+                    return null;
+                }
+            };
+            bindService(intentConversation, (ServiceConnection) connect, BIND_AUTO_CREATE);
             loginStatus = true;
 
         } else {
@@ -139,8 +156,12 @@ public class MainActivity extends Activity {
 
         } else if (id == R.id.conversation && loginStatus == true) {
             setContentView(R.layout.list_of_conversations);
-            Intent convIntent = new Intent(this, Conversation.class);
-            MainActivity.this.startActivity(convIntent);
+            Intent[] appIntents = {new Intent(this, Conversation.class),
+                    new Intent(this, ChatService.class),
+                    new Intent(this, Groups.class),
+                    new Intent(this, ContactList.class)};
+
+            MainActivity.this.startActivities(appIntents);
 
         } else if (id == R.id.logOut) {
             setContentView(R.layout.activity_main);
@@ -151,20 +172,17 @@ public class MainActivity extends Activity {
     @Override
     protected void onPause(){
         super.onPause();
-        unregisterReceiver(client, intentFilter);
+        // TODO: 2015-11-06 unregister bCastReceiver
+        unregisterReceiver(new Client());
 
     }
-    //    Register BroadcastReceiver
+
+//        Register BroadcastReceiver
 //    http://hmkcode.com/android-sending-receiving-custom-broadcasts/
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(new Client(), new IntentFilter("com.example.nazli.imessaging.ACTION_") {
-            @Override
-            public void onReceive(new Client, new IntentFilter("com.example.nazli.imessaging.USER_ACTION")) {
-                unregisterReceiver(this);
-            }
-        });
+        registerReceiver(new Client(), new IntentFilter("com.example.nazli.imessaging.RECEIVE_SMS"));
     }
 
 

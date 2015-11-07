@@ -39,6 +39,8 @@
 
 
     <!-- Host / server IP based on DNS-->
-    <string name="server_ip"></string>
+    <string name="server_ip">
+
+    </string>
 
 </resources>

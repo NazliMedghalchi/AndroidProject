@@ -1,42 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:weightSum="1">
+
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:clickable="true">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clickable="false"
-            android:editable="false"
-            android:id="@+id/threadSender"
-            android:textSize="30sp"
-            android:padding="5dp"
-            android:theme="@style/AppTheme.UWECEApp" />
+        android:clickable="true"
+        android:background="#555A65"
+        android:layout_weight="11.85">
 
-        <EditText
+        <TextSwitcher
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/threadText"
+            android:id="@+id/sentItem"
             android:theme="@style/AppTheme.UWECEApp"
             android:textSize="12sp"
             android:padding="5dp" />
 
-        <TextView
+        <TextSwitcher
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:editable="false"
+            android:id="@+id/sent"
+            android:textSize="30sp"
+            android:padding="5dp"
+            android:theme="@style/AppTheme.UWECEApp" />
+
+        <TextSwitcher
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/threadTime"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="203dp"
             android:padding="5dp"
             android:gravity="right"
             android:textSize="12sp"
-            android:theme="@style/AppTheme.UWECEApp" />
-
+            android:theme="@style/AppTheme.UWECEApp"
+            android:layout_alignParentStart="true" />
     </RelativeLayout>
 </LinearLayout>
-

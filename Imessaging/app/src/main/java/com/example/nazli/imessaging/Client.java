@@ -23,6 +23,12 @@ import java.net.Socket;
 * */
 public class Client extends BroadcastReceiver {
 
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+
     // todo one service manages the tCP connextion
     Context smsContext;
     private String netStatus = Application.NETWORK_STATS_SERVICE;
@@ -33,13 +39,13 @@ public class Client extends BroadcastReceiver {
 // Print intent action name on EdiitText - Toast Message
     @Override
     public void OnReceive (Context context, Intent intent) {
-        ChatService newChat = ((ChatService) context.getApplicationContext()).ChatService;
-
-
+        Client client = new Client();
+        client.onReceive(context, intent);
     }
+
 //    private EditText title = (EditText) R
 
-    private Socket socket = new Socket("500", );
+    private Socket socket = new Socket();
     private EditText message;
 
     private InputStream inputStream = new InputStream() {

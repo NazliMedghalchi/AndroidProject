@@ -44,15 +44,14 @@
                 android:theme="@style/btn_Send_bg" />
 
         </LinearLayout>
+
     </LinearLayout>
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/scrollView"
-        android:padding="5dp"
-        android:layout_margin="3dp"
-        android:layout_weight="0.50">
+        android:layout_weight="1">
 
         <ListView
             android:layout_width="match_parent"
@@ -69,28 +68,30 @@
             android:drawSelectorOnTop="false"
             android:elevation="@dimen/activity_horizontal_margin"
             android:fastScrollAlwaysVisible="false"
-            android:fastScrollEnabled="true" />
+            android:fastScrollEnabled="true"
+            android:layout_margin="10dp" />
     </ScrollView>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="165dp"
+        android:layout_height="wrap_content"
         android:weightSum="1"
-        android:layout_weight="0.03">
+        android:padding="5dp"
+        android:layout_weight="1">
 
         <EditText
-            android:layout_width="297dp"
-            android:layout_height="match_parent"
+            android:layout_width="313dp"
+            android:layout_height="108dp"
             android:inputType="textMultiLine"
             android:ems="10"
             android:id="@+id/editText_msg"
-            android:layout_weight="0.89" />
+            android:layout_weight="1" />
 
         <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
-            android:layout_height="159dp"
+            android:layout_height="87dp"
             android:text="@string/send_btn"
             android:id="@+id/btn_send"
             android:layout_margin="2dp"
