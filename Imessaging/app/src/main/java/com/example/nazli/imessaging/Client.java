@@ -25,22 +25,26 @@ public class Client extends BroadcastReceiver {
 
 
     public Socket getSocket() {
+
         return socket;
     }
 
 
-    // todo one service manages the tCP connextion
+    // todo one service manages the tCP connection
     Context smsContext;
     private String netStatus = Application.NETWORK_STATS_SERVICE;
 
 
 
-
 // Print intent action name on EdiitText - Toast Message
     @Override
-    public void OnReceive (Context context, Intent intent) {
-        Client client = new Client();
-        client.onReceive(context, intent);
+    public void onReceive (Context context, Intent intent) {
+//        Client client = new Client();
+//        client.onReceive(context, intent);
+        String receivedTXT;
+        socket.getLocalSocketAddress();
+
+        receivedTXT = inputStream.toString();
     }
 
 //    private EditText title = (EditText) R
@@ -58,6 +62,7 @@ public class Client extends BroadcastReceiver {
     private OutputStream outputStream = new OutputStream() {
         @Override
         public void write(int oneByte) throws IOException {
+
 
         }
     };

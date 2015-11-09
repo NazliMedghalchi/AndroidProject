@@ -18,9 +18,9 @@ public class RunnableApp implements Runnable {
     public void run(){
  /*This approach reduces the resource competition for between the runnable object's
  * and the UI thread */
-       android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
-        MainActivity.CONNECTIVITY_SERVICE.
+        Thread thread = new Thread();
+                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+//        MainActivity.CONNECTIVITY_SERVICE.
     }
 
     }
-}

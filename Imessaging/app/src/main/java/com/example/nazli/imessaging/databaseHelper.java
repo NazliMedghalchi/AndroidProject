@@ -175,6 +175,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor;
     }
 
+    // Show all conversations
+    public Cursor showAllConversation(Context context){
+        Cursor c;
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        c = sqLiteDatabase.rawQuery("SELECT * FROM " + CONVERSATION, null);
+        return c;
+    }
+
 
 
 }

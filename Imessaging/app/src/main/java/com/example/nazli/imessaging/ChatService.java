@@ -27,11 +27,11 @@ import java.net.Socket;
  */
 public class ChatService extends Activity {
 
-    // receievr
-    Client client;
+    // receiver
+    private Client client;
     IntentFilter intentFilter;
 
-    String title = ((EditText) findViewById(R.id.textView_conv_title)).toString();
+//    String title = ((EditText) findViewById(R.id.contact_list_title)).toString();
     EditText search = (EditText) findViewById(R.id.editText_search);
     Button searchBTN = (Button) findViewById(R.id.search_btn);
     Button sendBTN = (Button) findViewById(R.id.btn_send); // on click on sendBTN the message will be sent to recipient (user)
@@ -42,13 +42,13 @@ public class ChatService extends Activity {
     String textMSG = message.toString();
 
     ListView threadsList = (ListView) findViewById(R.id.listView_chat);
-    EditText thread = (EditText) findViewById(R.id.threadText); // received from user
+//    EditText thread = (EditText) findViewById(R.id.threadText); // received from user
 
     Socket serverSocket = new Socket();
 
     @Override
     public ComponentName startService(Intent service) {
-
+        client.getSocket();
         return super.startService(service);
     }
 
@@ -104,20 +104,14 @@ public class ChatService extends Activity {
 //    http://hmkcode.com/android-sending-receiving-custom-broadcasts/
     @Override
     protected void onResume() {
-        super.onDestroy();
+        super.onResume();
         if (serverSocket != null)
             try {
                 serverSocket.close();
             } catch (IOException e){
                 e.printStackTrace();
             }
-        registerReceiver(new Client(), new IntentFilter("com.example.nazli.imessaging.ACTION_") {
-            @Override
-            public void onReceive()) {
-                client.onReceive(new Client, new IntentFilter("com.example.nazli.imessaging.USER_ACTION");
-                unregisterReceiver(this);
-            }
-        });
+
     }
 
     public void sendMessage(){

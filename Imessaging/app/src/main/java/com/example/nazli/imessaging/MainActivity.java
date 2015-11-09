@@ -2,32 +2,25 @@ package com.example.nazli.imessaging;
 
 import android.app.Activity;
 import android.app.Service;
-import android.content.Entity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.database.Cursor;
-import android.database.CursorIndexOutOfBoundsException;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.media.session.MediaSession;
-import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.sql.SQLClientInfoException;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.SocketHandler;
 
 public class MainActivity extends Activity {
 
@@ -52,22 +45,50 @@ public class MainActivity extends Activity {
 //    private ConnectivityManager connect =  (ConnectivityManager)
 //            this.getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
 
+//    private ServiceConnection mConnection = new ServiceConnection() {
+//        public void onServiceConnected(ComponentName className, IBinder service) {
+//            // This is called when the connection with the service has been
+//            // established, giving us the service object we can use to
+//            // interact with the service.  Because we have bound to a explicit
+//            // service that we know is running in our own process, we can
+//            // cast its IBinder to a concrete class and directly access it.
+//            imService = ((IMService.IMBinder)service).getService();
+//
+//            if (imService.isUserAuthenticated() == true)
+//            {
+//                Intent i = new Intent(Login.this, FriendList.class);
+//                startActivity(i);
+//                Login.this.finish();
+//            }
+//        }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Server server = new Server() {
+            @Override
+            public void connectToServer() {
+                super.connectToServer();
+            }
+        };
         Client client = new Client();
         IntentFilter intentFilter = new IntentFilter("com.example.nazli.imessaging");
         Intent intent = getIntent();
 //        MainActivity.this.startActivity(intent);
+        try {
+            SocketHandler socketHandler = new SocketHandler();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
     @Override
     protected void onStart() {
-        Button signin = (Button) findViewById(R.id.signin);
         super.onStart();
+
+        Button signin = (Button) findViewById(R.id.signin);
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,6 +185,7 @@ public class MainActivity extends Activity {
             MainActivity.this.startActivities(appIntents);
 
         } else if (id == R.id.logOut) {
+            super.onResume();
             setContentView(R.layout.activity_main);
             exit();
         }

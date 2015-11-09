@@ -1,8 +1,5 @@
-package com.example.nazli.imessaging;
+package com.example.nazlimedghalchi.myapplication.backend;
 
-import android.content.BroadcastReceiver;
-import android.content.ServiceConnection;
-import android.widget.EditText;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,7 +35,8 @@ public abstract class Server {
     };
 
     public void connectToServer(){
-//        Socket socket = ""
+        Socket socket = new Socket();
+//        outputStream.write(MidiDeviceInfo.PortInfo.TYPE_OUTPUT);
 
     }
 

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.NetworkRequest;
@@ -97,7 +98,7 @@ public class Conversation extends ListActivity {
                 TextView convID = (TextView) findViewById(R.id.threadSender);
                 Intent itemIntent = new Intent(intent);
                 itemIntent.hasExtra(getString(position));
-                displayConversation(convID);
+                displayConversation(convID.toString());
             }
         });
     }
@@ -192,21 +193,39 @@ public class Conversation extends ListActivity {
         if (!networkInfo.isAvailable())
             networkInfo = connection.getNetworkInfo(connection.TYPE_WIFI);
         if (connection != null && networkInfo.isConnected()) {
-            displayConversation();
+            displayConversationAll();
         }
         if (connection == null)
             Toast.makeText(this, "Connection Failed", Toast.LENGTH_LONG).show();
     }
 
+    private void displayConversationAll() {
+        DatabaseHelper db = new DatabaseHelper(this);
+
+        Cursor cursor;
+        CursorAdapter convAll;
+        String convTitle;
+        Integer convId;
+        ArrayList<Integer> members = new ArrayList<>();
+
+        // show all conversations
+        final Cursor convDBCursor = db.showConversation(this.getApplicationContext());
+        String firstLineTxt;
+        String lastTxtTime;
+        convTitle = (findViewById(R.id.threadSender)).toString();
+        ContentValues values = new ContentValues();
+        db.showAllConversation(this);
+    }
+
     public void displayConversation(String convID) {
         DatabaseHelper db = new DatabaseHelper(this);
         Cursor cursor;
-        CursorAdapter convAdapter = CursorAdapter;
+        CursorAdapter convAdapter;
         String convTitle;
         Integer convId;
         ArrayList<Integer> members = new ArrayList<>();
         // show conversations
-        final Cursor convDBCursor = db.showConversation();
+        final Cursor convDBCursor = db.showConversation(this.getApplicationContext());
         String firstLineTxt;
         String lastTxtTime;
         convTitle = (findViewById(R.id.threadSender)).toString();

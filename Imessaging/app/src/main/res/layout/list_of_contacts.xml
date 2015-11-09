@@ -49,7 +49,7 @@
                 android:id="@+id/contacts"
                 android:layout_gravity="center_horizontal"
                 android:entries="@+id/listView_item"
-                android:listSelector="">
+                android:listSelector="@drawable/ic_launcher">
 
             </ListView>
 
