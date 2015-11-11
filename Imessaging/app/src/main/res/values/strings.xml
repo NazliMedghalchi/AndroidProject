@@ -37,6 +37,13 @@
     <!-- Friend List-->
     <string name="contact_list_title">Contacts</string>
 
+    <!-- Group layout strings and buttons-->
+    <string name="create_group">Add Group</string>
+    <string name="quit_group">Leave Group</string>
+    <string name="join_group">Join Group</string>
+    <string name="show_group">Show Group</string>
+
+
 
     <!-- Host / server IP based on DNS-->
     <string name="server_ip"></string>

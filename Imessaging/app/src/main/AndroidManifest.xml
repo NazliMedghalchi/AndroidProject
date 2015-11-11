@@ -20,8 +20,7 @@
         android:killAfterRestore="true"
         android:label="@string/app_name"
         android:process="com.example.nazli.imessaging"
-        android:theme="@style/AppTheme"
-        android:name="@+string/IMessageing">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -30,7 +29,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
                 <!-- Error on pressing back on app exit solved by Category - HOME -->
-                <!-- <category android:name="android.intent.category.HOME"/> -->
+                <category android:name="android.intent.category.HOME" />
             </intent-filter>
         </activity>
         <!-- Conversation activity will do connection check -->
@@ -88,8 +87,13 @@
             </intent-filter>
         </receiver>
 
+        <!-- <service -->
+        <!-- android:name="" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true" > -->
+        <!-- </service> -->
         <service
-            android:name=".MyService"
+            android:name=".MyServiceCheckTxt"
             android:enabled="true"
             android:exported="true" >
         </service>

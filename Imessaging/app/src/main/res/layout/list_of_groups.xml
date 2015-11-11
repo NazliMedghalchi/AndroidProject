@@ -20,20 +20,46 @@
 
             <TextView
                 android:layout_width="226dp"
-                android:layout_height="52dp"
+                android:layout_height="wrap_content"
                 android:gravity="left"
                 android:id="@+id/textView_group"
                 android:text="@string/action_groups"
                 android:theme="@style/AppTheme.UWECEApp"
-                android:layout_weight="1"
                 android:textSize="20dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <Button
                 style="@style/AppTheme.UWECEApp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_conv"
-                android:id="@+id/button2"
+                android:text="@string/show_group"
+                android:id="@+id/showGroup"
+                android:layout_gravity="right"
+                android:clickable="true"
+                android:layout_weight="1" />
+
+            <Button
+                style="@style/AppTheme.UWECEApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_group"
+                android:id="@+id/addGroup"
+                android:layout_gravity="right"
+                android:clickable="true"
+                android:layout_weight="1" />
+
+            <Button
+                style="@style/AppTheme.UWECEApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/quit_group"
+                android:id="@+id/quitGroup"
                 android:layout_gravity="right"
                 android:clickable="true"
                 android:layout_weight="1" />

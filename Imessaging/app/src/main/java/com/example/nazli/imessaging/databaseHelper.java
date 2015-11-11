@@ -3,6 +3,7 @@ package com.example.nazli.imessaging;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.Gravity;
@@ -18,12 +19,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "iMessage";
     public static final int DATABASE_VERION = 1;
 
-    // tables and containing columns
+    // tables
     public final String CONVERSATION = "Conversation";
     public final String ACCOUNTS = "account";
     public final String GROUPS = "groups";
     public final String THREADS = "threads";
     public final String FRIENDS = "friends";
+    public final String USERGROUP = "usergroup";
 
     // account's columns
     public final String USERNAME = "useername";
@@ -67,6 +69,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + ACCOUNTS + "(" +
                         USER_ID + "INTEGER PRIMARY KEY" +
+                        GROUP_ID + "INTEGER FOREIGN KEY" +
                         USERNAME + "STRING" +
                         PASSWORD + "STRING" +
                         FRIEND_LIST + "INTEGER" +
@@ -75,9 +78,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         );
         db.execSQL("CREATE TABLE " + GROUPS + "(" +
                         GROUP_ID + "INTEGER PRIMARY KEY" +
-                        GROUP_MEMBERS + "INTEGER FOREIGN KEY" +
+                        USER_ID + "INTEGER FOREIGN KEY" +
                         GROUP_OWNER + "STRING" +
                         GROUP_TITLE + "STRING" + ")"
+        );
+        db.execSQL("CREATE TABLE " + USERGROUP + "(" +
+                        GROUP_ID + "INTEGER PRIMARY KEY" +
+                        USER_ID + "INTEGER FOREIGN KEY" + ")"
         );
         db.execSQL("CREATE TABLE " + CONVERSATION + "(" +
                         CONV_ID + "INTEGER PRIMARY KEY" +
@@ -111,9 +118,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + GROUPS);
         onCreate(db);
     }
-
-    //// TODO: 2015-10-30
-
+    
     // start a new Conversation
     public void newConversation (Context c, ContentValues values){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
@@ -129,15 +134,37 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+//    Show Accounts as Contacts
+    public String getACCOUNTS() {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        Cursor c = sqLiteDatabase;
+        sqLiteDatabase.execSQL("SELECT * FROM " + ACCOUNTS);
+        return ACCOUNTS;
+    }
 
+    //  Create a new Group
+    public void addGroup(ContentValues values){
+
+
+    }
     // join to group
-    public void joinGroup () {
+//    public void joinGroup (ContentValues values) {
+//        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+//        sqLiteDatabase.insert(GROUPS, null, values);
+//    }
+
+    // leave a group
+    public void leaveGroup (Integer groupID) {
+        SQLiteDatabase sql = this.getWritableDatabase();
+        Cursor cursor;
+        cursor = sql.rawQuery("DELETE FROM " + USERGROUP + "WHERE GROUP_ID = ", groupID);
 
     }
 
-    // leave a group
-    public void leaveGroup () {
-
+//    join to an existing Group
+    public void joinGroup (ContentValues value){
+        SQLiteDatabase sqlite = this.getWritableDatabase();
+        sqlite.insert(USERGROUP, null, value);
     }
 
     // delete a member from group

@@ -9,3 +9,11 @@ package com.example.nazli.imessaging;
 /**
  * Created by nazlimedghalchi on 2015-11-03.
  */
+public class ContactsList extends Activity{
+        @Override
+        protected void onStart() {
+                super.onStart();
+                DatabaseHelper db = new DatabaseHelper(this);
+                db.
+        }
+}

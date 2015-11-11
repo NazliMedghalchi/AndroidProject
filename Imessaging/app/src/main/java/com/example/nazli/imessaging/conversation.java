@@ -253,8 +253,4 @@ public class Conversation extends ListActivity {
         adapter.notifyDataSetChanged();
         startActivity(intent);
     }
-
-    public void sendMessage(){
-
-    }
 }

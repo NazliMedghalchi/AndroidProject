@@ -14,13 +14,13 @@ import android.widget.Switch;
 public class RunnableApp implements Runnable {
 
     Client.PendingResult pendingResult = new Client().goAsync();
+
     @Override
     public void run(){
  /*This approach reduces the resource competition for between the runnable object's
  * and the UI thread */
         Thread thread = new Thread();
-                android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
-//        MainActivity.CONNECTIVITY_SERVICE.
+        android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
     }
 
     }

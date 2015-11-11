@@ -10,17 +10,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.database.DataSetObserver;
 import android.provider.ContactsContract;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.charset.Charset;
 
 /**
  * Created by nazlimedghalchi on 2015-11-03.
@@ -29,19 +34,21 @@ public class ChatService extends Activity {
 
     // receiver
     private Client client;
-    IntentFilter intentFilter;
 
 //    String title = ((EditText) findViewById(R.id.contact_list_title)).toString();
     EditText search = (EditText) findViewById(R.id.editText_search);
     Button searchBTN = (Button) findViewById(R.id.search_btn);
+
     Button sendBTN = (Button) findViewById(R.id.btn_send); // on click on sendBTN the message will be sent to recipient (user)
     EditText message = (EditText) findViewById(R.id.editText_msg); // sent from user
     TextView itemText = (TextView) findViewById(R.id.convFirstLine);
+    Boolean side = false;
 
     ContentValues values = new ContentValues();
     String textMSG = message.toString();
 
     ListView threadsList = (ListView) findViewById(R.id.listView_chat);
+    ChatArrayAdapter chatArrayAdapter;
 //    EditText thread = (EditText) findViewById(R.id.threadText); // received from user
 
     Socket serverSocket = new Socket();
@@ -56,6 +63,20 @@ public class ChatService extends Activity {
     public void onCreate(Bundle main) {
         super.onCreate(main);
         setContentView(R.layout.activity_chat);
+
+        chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(), R.layout.chat_item_sent);
+        threadsList.setAdapter(chatArrayAdapter);
+        message.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN
+                        && keyCode == KeyEvent.KEYCODE_ENTER) {
+                    return sendChatMessage();
+                }
+                return false;
+            }
+        });
+
         searchBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,22 +104,44 @@ public class ChatService extends Activity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (event.getAction() == android.view.KeyEvent.ACTION_DOWN &&
                         keyCode == android.view.KeyEvent.KEYCODE_ENTER) {
-                    sendMessage();
-                    return true;
+                    return sendChatMessage();
                 }
 
                 return false;
             }
         });
+        sendBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                sendChatMessage();
+            }
+        });
+        threadsList.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+
+//        set to scroll on data change
+        chatArrayAdapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                threadsList.setSelection(chatArrayAdapter.getCount()-1);
+            }
+        });
+
     } // endOf onCreate
 
     @Override
     public void onStart(){
         serverSocket.getChannel().isOpen();
-
-
     }
 
+    public boolean sendChatMessage(){
+        // TODO: 2015-11-11 chat message to send: https://trinitytuts.com/simple-chat-application-using-listview-in-android/
+        ChatMessage object = new ChatMessage(side, message.getText().toString());
+        chatArrayAdapter.add(object);
+        message.setText("");
+        side = !side;
+        return true;
+    }
 
     //    Register BroadcastReceiver
 //    http://hmkcode.com/android-sending-receiving-custom-broadcasts/
@@ -114,16 +157,17 @@ public class ChatService extends Activity {
 
     }
 
+    public void newChat(){
+
+    }
     public void sendMessage(){
         sendBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 values.put(textMSG , message.toString());
-
             }
         });
-
     }
-
-
 }
+
+

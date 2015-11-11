@@ -2,12 +2,17 @@ package com.example.nazli.imessaging;
 
 import android.app.Activity;
 import android.app.Service;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +25,8 @@ import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.SocketHandler;
 
 public class MainActivity extends Activity {
@@ -32,6 +39,7 @@ public class MainActivity extends Activity {
     private List<Integer> conversation_id;
     private Boolean loginStatus = false;
 
+
     // check connection to GSM
     private Boolean connected;
 
@@ -42,8 +50,8 @@ public class MainActivity extends Activity {
     IntentFilter intentFilter;
 
     // Connect to Network
-//    private ConnectivityManager connect =  (ConnectivityManager)
-//            this.getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
+    private ConnectivityManager connect =  (ConnectivityManager)
+            this.getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
 
 //    private ServiceConnection mConnection = new ServiceConnection() {
 //        public void onServiceConnected(ComponentName className, IBinder service) {
@@ -66,14 +74,20 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Server server = new Server() {
+        NetworkInfo network = connect.getActiveNetworkInfo();
+        connect.getActiveNetwork();
+        if (network.isConnected()) {
+
+        }
+        ServerMain serverMain = new ServerMain() {
             @Override
             public void connectToServer() {
                 super.connectToServer();
             }
         };
-        Client client = new Client();
-        IntentFilter intentFilter = new IntentFilter("com.example.nazli.imessaging");
+//        Register BroadcastReceiver
+//        Client client = new Client();
+//        IntentFilter intentFilter = new IntentFilter("com.example.nazli.imessaging");
         Intent intent = getIntent();
 //        MainActivity.this.startActivity(intent);
         try {
@@ -111,6 +125,7 @@ public class MainActivity extends Activity {
             Service connect = new Service() {
                 @Override
                 public IBinder onBind(Intent intent) {
+                    startService(intent);
                     return null;
                 }
             };
@@ -158,22 +173,14 @@ public class MainActivity extends Activity {
 
         if (id == R.id.action_settings) {
             return true;
-        } else if (id == R.id.action_friedns && loginStatus == true) {
+        } else if (id == R.id.action_friends && loginStatus == true) {
             setContentView(R.layout.list_of_contacts);
-            CursorAdapter cursorAdapter;
-            Cursor cursor;
-            DatabaseHelper db = new DatabaseHelper(this);
-            ListView convList = (ListView) findViewById(R.id.listView_conv);
-
-
-
+            Intent intent = new Intent(this, ContactList.class);
+            MainActivity.this.startActivity(intent);
         } else if (id == R.id.action_groups && loginStatus == true) {
             setContentView(R.layout.list_of_groups);
             Intent intent = new Intent(this, Groups.class);
-            CursorAdapter cursorAdapter;
-            Cursor cursor;
-            DatabaseHelper db = new DatabaseHelper(this);
-            ListView groups = (ListView) findViewById(R.id.listView_groups);
+            MainActivity.this.startActivity(intent);
 
         } else if (id == R.id.conversation && loginStatus == true) {
             setContentView(R.layout.list_of_conversations);
@@ -187,6 +194,7 @@ public class MainActivity extends Activity {
         } else if (id == R.id.logOut) {
             super.onResume();
             setContentView(R.layout.activity_main);
+            startActivity(getIntent());
             exit();
         }
         return super.onOptionsItemSelected(item);
@@ -206,6 +214,9 @@ public class MainActivity extends Activity {
         super.onResume();
         registerReceiver(new Client(), new IntentFilter("com.example.nazli.imessaging.RECEIVE_SMS"));
     }
-
-
+    @Override
+    public void onDestroy(){
+        stopService(this.getIntent());
+        super.onDestroy();
     }
+}
