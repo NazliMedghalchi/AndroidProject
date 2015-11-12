@@ -13,7 +13,7 @@ import android.widget.Switch;
  */
 public class RunnableApp implements Runnable {
 
-    Client.PendingResult pendingResult = new Client().goAsync();
+//    Client.PendingResult pendingResult = new Client().goAsync();
 
     @Override
     public void run(){

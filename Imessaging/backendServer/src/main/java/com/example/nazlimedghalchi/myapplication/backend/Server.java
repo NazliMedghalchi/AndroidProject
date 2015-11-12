@@ -18,48 +18,31 @@ import java.util.Scanner;
  */
 public abstract class Server {
 
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         //    // TODO: 2015-11-05 use laptop as server with DNS service or hardcoding the Ip
         ServerSocket serverSocket;
         // Read from keyboard
         Scanner scanner = new Scanner(System.in);
 
-
-
-
         // send out
         final BufferedWriter out;
-        Socket serverSocket;
-
-        // create server address by means of port number
-        try {
-            serverSocket = new ServerSocket(5000).accept();
-            out = new PrintWriter(serverSocket.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
 
 //    private Socket clientSocket = serverSocket.
-    private InputStream inputStream = new InputStream() {
-        @Override
-        public int read() throws IOException {
-            final BufferedReader in;
+        InputStream inputStream = new InputStream() {
+            @Override
+            public int read() throws IOException {
+                final BufferedReader in;
 
-            return 0;
-        }
-    };
+                return 0;
+            }
+        };
 
-    private OutputStream outputStream = new OutputStream() {
-        @Override
-        public void write(int oneByte) throws IOException {
+        OutputStream outputStream = new OutputStream() {
+            @Override
+            public void write(int oneByte) throws IOException {
 
-        }
-    };
+            }
+        };
+    }
 }

@@ -74,29 +74,25 @@
         <!-- Alternative option to register receiver -->
         <!-- android:enabled="true" -->
 
-        <receiver
-            android:name=".Client"
-            android:enabled="true"
-            android:exported="false"
-            android:icon="@drawable/ic_launcher"
-            android:permission="" >
-            <intent-filter>
-                <action android:name="android.intent.action.USER_PRESENT" />
+        <!--<receiver-->
+            <!--android:name=".Clie"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="false"-->
+            <!--android:icon="@drawable/ic_launcher"-->
+            <!--android:permission="" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.USER_PRESENT" />-->
 
-                <category android:name="android.intent.category.NORMAL" />
-            </intent-filter>
-        </receiver>
+                <!--<category android:name="android.intent.category.NORMAL" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+        <!-- -->
+        <!--<service-->
+            <!--android:name=".MyServiceCheckTxt"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true" >-->
+        <!--</service>-->
 
-        <!-- <service -->
-        <!-- android:name="" -->
-        <!-- android:enabled="true" -->
-        <!-- android:exported="true" > -->
-        <!-- </service> -->
-        <service
-            android:name=".MyServiceCheckTxt"
-            android:enabled="true"
-            android:exported="true" >
-        </service>
     </application>
 
 </manifest>

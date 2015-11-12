@@ -23,13 +23,6 @@ public class ContactList extends Activity {
     ContactsContract contactsContract = new ContactsContract();
 
 
-    @Override
-    private void onCreate(){
-        convList.setAdapter(cursorAdapter);
-        db.getACCOUNTS();
-
-    }
-
     public CursorAdapter getContactsContract() {
         DatabaseHelper db = new DatabaseHelper(this);
 

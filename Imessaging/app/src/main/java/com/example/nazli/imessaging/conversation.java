@@ -18,6 +18,7 @@ import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -42,7 +43,6 @@ import java.util.zip.Inflater;
 
 public class Conversation extends ListActivity {
 
-    DatabaseHelper db = new DatabaseHelper(this);
     ListView clist = (ListView) findViewById(R.id.listView_conv);
     Button addNewconv;
 
@@ -78,18 +78,13 @@ public class Conversation extends ListActivity {
             }
         });
 
-        Button addBTN = (Button) findViewById(R.id.btn_send);
-        addBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                newConversation();
-            }
-        });
        /*
        * onClick on every Item of conversation list view the item which is the entire conversation
        * will open as in ChatService activity and related layout
        * The intentfilter and context should be declared
        * */
+
+
         clist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -102,7 +97,6 @@ public class Conversation extends ListActivity {
             }
         });
     }
-
 
     @Override
         public void setContentTransitionManager (TransitionManager tm){
@@ -131,7 +125,7 @@ public class Conversation extends ListActivity {
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         exit();
         super.onResume();
     }
@@ -140,16 +134,14 @@ public class Conversation extends ListActivity {
     // Display List of contacts from phone
     public void searchContact() { // TODO: 2015-11-04 get from DB
         DatabaseHelper db = new DatabaseHelper(this);
-        EditText smsreceiver;
-        EditText receivedTxt = (EditText) findViewById(R.id.listView_chat);
-        Cursor contactsCursor = getContentResolver().query(ContactsContract.
-                CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
+
+//                CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
 //        String phoneNumber = findViewById(R.id.contacts).toString() ;
-        Cursor contacts = getContentResolver().query(ContactsContract.RawContacts.CONTENT_URI,
-                new String[]{ContactsContract.RawContacts._ID},
-                ContactsContract.RawContacts.CONTACT_ID + "=?",
-                new String[]{String.valueOf(ContactsContract.RawContacts.CONTACT_ID)}, null);
-        receivedTxt.setText(contacts.toString()); //// TODO: 2015-11-05
+//        Cursor contacts = getContentResolver().query(ContactsContract.RawContacts.CONTENT_URI,
+//                new String[]{ContactsContract.RawContacts._ID},
+//                ContactsContract.RawContacts.CONTACT_ID + "=?",
+//                new String[]{String.valueOf(ContactsContract.RawContacts.CONTACT_ID)}, null);
+//        receivedTxt.setText(contacts.toString()); //// TODO: 2015-11-05
     }
 
     public void newConversation() {
@@ -178,13 +170,8 @@ public class Conversation extends ListActivity {
 
 
     public void checkConnection() {
-        Context context;
         ConnectivityManager connection = (ConnectivityManager) this.getSystemService(CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = null;
-        Boolean connected;
-
-        NetworkRequest networkRequest;
-        ConnectivityManager.NetworkCallback networkCallback;
 
         //check GSM if it's available
         // Otherwise use WiFi
@@ -201,7 +188,7 @@ public class Conversation extends ListActivity {
 
     private void displayConversationAll() {
         DatabaseHelper db = new DatabaseHelper(this);
-
+// TODO: 2015-11-12 Database - cursor
         Cursor cursor;
         CursorAdapter convAll;
         String convTitle;
@@ -219,6 +206,8 @@ public class Conversation extends ListActivity {
 
     public void displayConversation(String convID) {
         DatabaseHelper db = new DatabaseHelper(this);
+
+        // TODO: 2015-11-12 databse Cursor
         Cursor cursor;
         CursorAdapter convAdapter;
         String convTitle;

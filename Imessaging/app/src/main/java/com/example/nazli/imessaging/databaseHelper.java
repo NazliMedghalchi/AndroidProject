@@ -135,11 +135,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 //    Show Accounts as Contacts
-    public String getACCOUNTS() {
+    public ContentValues getACCOUNTS() {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor c = sqLiteDatabase;
-        sqLiteDatabase.execSQL("SELECT * FROM " + ACCOUNTS);
-        return ACCOUNTS;
+//        Cursor c = sqLiteDatabase;
+        ContentValues values = new ContentValues();
+//        values.putAll(sqLiteDatabase.execSQL("SELECT * FROM " + ACCOUNTS));
+        return values;
     }
 
     //  Create a new Group
@@ -154,10 +155,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //    }
 
     // leave a group
-    public void leaveGroup (Integer groupID) {
+    public void leaveGroup (String groupID) {
         SQLiteDatabase sql = this.getWritableDatabase();
-        Cursor cursor;
-        cursor = sql.rawQuery("DELETE FROM " + USERGROUP + "WHERE GROUP_ID = ", groupID);
+        String GROUPID = groupID.toString();
+//        Cursor cursor = sql.rawQuery("DELETE FROM " + USERGROUP + "WHERE GROUP_ID = " + GROUPID);
 
     }
 

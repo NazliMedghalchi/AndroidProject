@@ -9,7 +9,9 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
+import android.net.Network;
 import android.net.NetworkInfo;
+import android.net.NetworkRequest;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.ContactsContract;
@@ -24,6 +26,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.charset.MalformedInputException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -46,57 +50,16 @@ public class MainActivity extends Activity {
     // Toast or inflate error message on Incorrect useername or password
     private String error_message = "Incorrect username or password";
 
-    Client client;
-    IntentFilter intentFilter;
-
     // Connect to Network
-    private ConnectivityManager connect =  (ConnectivityManager)
-            this.getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
 
-//    private ServiceConnection mConnection = new ServiceConnection() {
-//        public void onServiceConnected(ComponentName className, IBinder service) {
-//            // This is called when the connection with the service has been
-//            // established, giving us the service object we can use to
-//            // interact with the service.  Because we have bound to a explicit
-//            // service that we know is running in our own process, we can
-//            // cast its IBinder to a concrete class and directly access it.
-//            imService = ((IMService.IMBinder)service).getService();
-//
-//            if (imService.isUserAuthenticated() == true)
-//            {
-//                Intent i = new Intent(Login.this, FriendList.class);
-//                startActivity(i);
-//                Login.this.finish();
-//            }
-//        }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        NetworkInfo network = connect.getActiveNetworkInfo();
-        connect.getActiveNetwork();
-        if (network.isConnected()) {
-
-        }
-        ServerMain serverMain = new ServerMain() {
-            @Override
-            public void connectToServer() {
-                super.connectToServer();
-            }
-        };
-//        Register BroadcastReceiver
-//        Client client = new Client();
-//        IntentFilter intentFilter = new IntentFilter("com.example.nazli.imessaging");
-        Intent intent = getIntent();
-//        MainActivity.this.startActivity(intent);
-        try {
-            SocketHandler socketHandler = new SocketHandler();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Toast.makeText(getApplicationContext(), "Connected to Network", Toast.LENGTH_LONG);
+        HTTPgetRequest httPgetRequest = new HTTPgetRequest();
+        httPgetRequest.execute();
     }
-
 
     @Override
     protected void onStart() {
@@ -120,19 +83,12 @@ public class MainActivity extends Activity {
         if ((etUsername.getText().toString()).equals(usrname) && (etPassword.getText().toString()).equals(pass)
                 && loginStatus == false) {
             setContentView(R.layout.list_of_conversations);
-            Intent intentConversation = new Intent(this, Conversation.class);
-            intentConversation.addCategory(NETWORK_STATS_SERVICE);
-            Service connect = new Service() {
-                @Override
-                public IBinder onBind(Intent intent) {
-                    startService(intent);
-                    return null;
-                }
-            };
-            bindService(intentConversation, (ServiceConnection) connect, BIND_AUTO_CREATE);
+            Intent intentConversation = getIntent();
+            startActivity(intentConversation, null);
             loginStatus = true;
 
-        } else {
+        }
+        else {
             Toast.makeText(getApplicationContext(), error_message, Toast.LENGTH_LONG).show();
             etUsername.setText("");
             etPassword.setText("");
@@ -173,28 +129,32 @@ public class MainActivity extends Activity {
 
         if (id == R.id.action_settings) {
             return true;
-        } else if (id == R.id.action_friends && loginStatus == true) {
+        }
+        else if (id == R.id.action_friends && loginStatus == true) {
             setContentView(R.layout.list_of_contacts);
-            Intent intent = new Intent(this, ContactList.class);
-            MainActivity.this.startActivity(intent);
-        } else if (id == R.id.action_groups && loginStatus == true) {
+            Intent intentContact = new Intent(this, ContactList.class);
+            startActivity(intentContact);
+        }
+        else if (id == R.id.action_groups && loginStatus == true) {
             setContentView(R.layout.list_of_groups);
-            Intent intent = new Intent(this, Groups.class);
-            MainActivity.this.startActivity(intent);
+            Intent intentGroup = new Intent(this, Groups.class);
+            startActivity(intentGroup, null);
 
-        } else if (id == R.id.conversation && loginStatus == true) {
+        }
+        else if (id == R.id.conversation && loginStatus == true) {
             setContentView(R.layout.list_of_conversations);
             Intent[] appIntents = {new Intent(this, Conversation.class),
                     new Intent(this, ChatService.class),
                     new Intent(this, Groups.class),
                     new Intent(this, ContactList.class)};
 
-            MainActivity.this.startActivities(appIntents);
+            MainActivity.this.startActivities(appIntents, null);
 
-        } else if (id == R.id.logOut) {
+        }
+        else if (id == R.id.logOut) {
             super.onResume();
             setContentView(R.layout.activity_main);
-            startActivity(getIntent());
+            startActivity(getIntent(), null);
             exit();
         }
         return super.onOptionsItemSelected(item);
@@ -203,7 +163,7 @@ public class MainActivity extends Activity {
     protected void onPause(){
         super.onPause();
         // TODO: 2015-11-06 unregister bCastReceiver
-        unregisterReceiver(new Client());
+//        unregisterReceiver(new Client());
 
     }
 
@@ -212,7 +172,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(new Client(), new IntentFilter("com.example.nazli.imessaging.RECEIVE_SMS"));
+//        registerReceiver(new Client(), new IntentFilter("com.example.nazli.imessaging.RECEIVE_SMS"));
     }
     @Override
     public void onDestroy(){

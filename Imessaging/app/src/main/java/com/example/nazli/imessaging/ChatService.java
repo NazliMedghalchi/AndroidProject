@@ -10,12 +10,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.database.Cursor;
 import android.database.DataSetObserver;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.provider.ContactsContract;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.os.Bundle;
 import android.widget.ListView;
@@ -32,11 +38,11 @@ import java.nio.charset.Charset;
  */
 public class ChatService extends Activity {
 
-    // receiver
-    private Client client;
+
+    private Client client; // receiver
 
 //    String title = ((EditText) findViewById(R.id.contact_list_title)).toString();
-    EditText search = (EditText) findViewById(R.id.editText_search);
+    EditText search = (EditText) findViewById(R.id.editText_search); // search contact here
     Button searchBTN = (Button) findViewById(R.id.search_btn);
 
     Button sendBTN = (Button) findViewById(R.id.btn_send); // on click on sendBTN the message will be sent to recipient (user)
@@ -49,13 +55,22 @@ public class ChatService extends Activity {
 
     ListView threadsList = (ListView) findViewById(R.id.listView_chat);
     ChatArrayAdapter chatArrayAdapter;
-//    EditText thread = (EditText) findViewById(R.id.threadText); // received from user
+
+//  EditText thread = (EditText) findViewById(R.id.threadText); // received from user
 
     Socket serverSocket = new Socket();
 
+
+    private ConnectivityManager connect =  (ConnectivityManager)
+            this.getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
+
+
     @Override
     public ComponentName startService(Intent service) {
-        client.getSocket();
+        HTTPgetRequest httPgetRequest = new HTTPgetRequest();
+        switch (httPgetRequest.doInBackground()) {
+
+        }
         return super.startService(service);
     }
 
@@ -64,19 +79,26 @@ public class ChatService extends Activity {
         super.onCreate(main);
         setContentView(R.layout.activity_chat);
 
-        chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(), R.layout.chat_item_sent);
-        threadsList.setAdapter(chatArrayAdapter);
-        message.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN
-                        && keyCode == KeyEvent.KEYCODE_ENTER) {
-                    return sendChatMessage();
-                }
-                return false;
-            }
-        });
 
+        NetworkInfo network = connect.getActiveNetworkInfo();
+        connect.getActiveNetwork();
+
+        if (network.isConnected()) {
+            chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(), R.layout.chat_item_sent);
+            threadsList.setAdapter(chatArrayAdapter);
+            message.setOnKeyListener(new View.OnKeyListener() {
+                @Override
+                public boolean onKey(View v, int keyCode, KeyEvent event) {
+                    if (event.getAction() == KeyEvent.ACTION_DOWN
+                            && keyCode == KeyEvent.KEYCODE_ENTER) {
+                        return sendChatMessage();
+                    }
+                    return false;
+                }
+            });
+        }
+
+        // search for contact
         searchBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +111,7 @@ public class ChatService extends Activity {
             * Hopefully user enters correct number
             * */
 
+                ContactsContract contactsContract = new ContactsContract();
             }
         }); // first clickListener
 
@@ -131,13 +154,14 @@ public class ChatService extends Activity {
 
     @Override
     public void onStart(){
+        super.onStart();
         serverSocket.getChannel().isOpen();
     }
 
     public boolean sendChatMessage(){
         // TODO: 2015-11-11 chat message to send: https://trinitytuts.com/simple-chat-application-using-listview-in-android/
         ChatMessage object = new ChatMessage(side, message.getText().toString());
-        chatArrayAdapter.add(object);
+        chatArrayAdapter.add(this);
         message.setText("");
         side = !side;
         return true;
@@ -154,19 +178,11 @@ public class ChatService extends Activity {
             } catch (IOException e){
                 e.printStackTrace();
             }
-
     }
 
     public void newChat(){
-
-    }
-    public void sendMessage(){
-        sendBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                values.put(textMSG , message.toString());
-            }
-        });
+        message.setText("");
+        search.setText("");
     }
 }
 

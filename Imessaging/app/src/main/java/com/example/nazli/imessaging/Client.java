@@ -1,74 +1,64 @@
 package com.example.nazli.imessaging;
-
-import android.app.Application;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.webkit.ClientCertRequest;
-import android.widget.EditText;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
+import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 
 /**
- * Created by nazlimedghalchi on 2015-11-04.
+ * Created by nazlimedghalchi on 2015-11-10.
+ * Ref: https://www.youtube.com/watch?v=d-eD6EDa3io
  */
+public class Client {
+    public static void main(String[] args) {
+        // TODO: 2015-11-05 use laptop as server with DNS service or hardcoding the Ip
+        Socket socketClient;
 
-/*
-* Client is defined as sender/receiver in a chat process
-* Server would manage all connections
-* */
-public class Client extends BroadcastReceiver {
+//        Socket serverSocket;
+        final BufferedReader in;
+        final PrintWriter out;
+        // Read from keyboard
+        final Scanner scanner = new Scanner(System.in);
+        try {
+            socketClient = new Socket("127.0.0.1", 5000);
 
-
-    public Socket getSocket() {
-
-        return socket;
-    }
-
-
-    // todo one service manages the tCP connection
-    Context smsContext;
-    private String netStatus = Application.NETWORK_STATS_SERVICE;
-
-
-
-// Print intent action name on EdiitText - Toast Message
-    @Override
-    public void onReceive (Context context, Intent intent) {
-//        Client client = new Client();
-//        client.onReceive(context, intent);
-        String receivedTXT;
-        socket.getLocalSocketAddress();
-
-        receivedTXT = inputStream.toString();
-    }
-
-//    private EditText title = (EditText) R
-
-    private Socket socket = new Socket();
-    private EditText message;
-
-    private InputStream inputStream = new InputStream() {
-        @Override
-        public int read() throws IOException {
-
-            return 0;
+            // send out
+            out = new PrintWriter(socketClient.getOutputStream());
+            // for receiving
+            in = new BufferedReader(new InputStreamReader(socketClient.getInputStream()));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    };
-    private OutputStream outputStream = new OutputStream() {
-        @Override
-        public void write(int oneByte) throws IOException {
+        Thread send = new Thread(new Runnable() {
+            PrintStream out;
+            String text = "Hello server, it's client";
 
+            @Override
+            public void run() {
+                while (true) {
+                    text = scanner.next();
+                    out.println(text);
+                    out.flush();
 
-        }
-    };
+                }
+            }
+        });
+        send.start();
+        Thread receive = new Thread(new Runnable() {
+            String text;
+            BufferedReader in;
 
-    public void connectToServer(){
-
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        text = in.readLine();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("Client: " + text);
+                }
+            }
+        });
+        receive.start();
     }
-
 }
