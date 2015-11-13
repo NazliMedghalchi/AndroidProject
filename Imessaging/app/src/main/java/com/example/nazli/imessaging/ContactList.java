@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
@@ -18,15 +19,30 @@ import android.widget.ListView;
 public class ContactList extends Activity {
     CursorAdapter cursorAdapter;
     Cursor cursor;
-    DatabaseHelper db = new DatabaseHelper(this);
-    ListView convList = (ListView) findViewById(R.id.listView_conv);
-    ContactsContract contactsContract = new ContactsContract();
+    DatabaseHelper db;
+    ListView convList;
+    ContactsContract contactsContract;
 
 
     public CursorAdapter getContactsContract() {
-        DatabaseHelper db = new DatabaseHelper(this);
+        convList = (ListView) findViewById(R.id.listView_conv);
+        contactsContract = new ContactsContract();
+        db = new DatabaseHelper(this);
+// TODO: 2015-11-12 bind accounts to clist
+        CursorAdapter cursorAdapter = new CursorAdapter(getApplicationContext(),cursor) {
+            @Override
+            public View newView(Context context, Cursor cursor, ViewGroup parent) {
+                return null;
+            }
 
-        Intent intent = this.getIntent();
+            @Override
+            public void bindView(View view, Context context, Cursor cursor) {
+
+            }
+        };
+
+        convList.setAdapter(cursorAdapter);
+
         return cursorAdapter;
     }
 

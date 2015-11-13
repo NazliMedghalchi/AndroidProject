@@ -65,14 +65,12 @@ public class Groups extends Activity {
                         addGroup();
                     }
                 });
-
                 quitGroup.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         leaveGroup();
                     }
                 });
-
                 showGroup.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -81,12 +79,9 @@ public class Groups extends Activity {
                 });
             }
         });
-
-
-
     }
 
-    // Display Groups in listview
+//     Display Groups in listview
     public void displayGroup(){
         SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.id.listView_groups,
                 groupAdapter, groupCol, groupWidgets, 0);

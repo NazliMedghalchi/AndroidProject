@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.nazli.imessaging" >
+    package="com.example.nazli.imessaging">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.BIND_TELECOM_CONNECTION_SERVICE" />
@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -32,35 +33,44 @@
                 <category android:name="android.intent.category.HOME" />
             </intent-filter>
         </activity>
+
         <!-- Conversation activity will do connection check -->
         <activity
             android:name=".Conversation"
-            android:banner="@style/AppTheme.UWECEApp" >
+            android:banner="@style/AppTheme.UWECEApp"
+            android:label="Conversations">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
 
                 <category android:name="android.intent.category.APP_CONTACTS" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Groups"
-            android:banner="@style/AppTheme.UWECEApp" >
+            android:banner="@style/AppTheme.UWECEApp"
+            android:label="Groups">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
 
                 <category android:name="android.intent.category.APP_CONTACTS" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ChatService"
-            android:banner="@style/AppTheme.UWECEApp" >
+            android:banner="@style/AppTheme.UWECEApp"
+            android:label="Start Chat">
             <intent-filter>
                 <action android:name="android.intent.action.RUN" />
 
                 <category android:name="android.intent.category.NORMAL" />
             </intent-filter>
         </activity>
-        <activity android:name=".ContactList" >
+
+        <activity
+            android:name=".ContactList"
+            android:label="Contacts List on iMessaging">
             <intent-filter>
                 <action android:name="android.intent.action.SENDTO" >
                 </action>

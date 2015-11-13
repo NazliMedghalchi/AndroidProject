@@ -38,9 +38,6 @@ import java.nio.charset.Charset;
  */
 public class ChatService extends Activity {
 
-
-    private Client client; // receiver
-
 //    String title = ((EditText) findViewById(R.id.contact_list_title)).toString();
     EditText search = (EditText) findViewById(R.id.editText_search); // search contact here
     Button searchBTN = (Button) findViewById(R.id.search_btn);
@@ -57,28 +54,21 @@ public class ChatService extends Activity {
     ChatArrayAdapter chatArrayAdapter;
 
 //  EditText thread = (EditText) findViewById(R.id.threadText); // received from user
-
     Socket serverSocket = new Socket();
-
-
     private ConnectivityManager connect =  (ConnectivityManager)
             this.getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
 
 
     @Override
     public ComponentName startService(Intent service) {
-        HTTPgetRequest httPgetRequest = new HTTPgetRequest();
-        switch (httPgetRequest.doInBackground()) {
-
-        }
         return super.startService(service);
     }
 
     @Override
-    public void onCreate(Bundle main) {
-        super.onCreate(main);
+    public void onCreate(Bundle savaedInstance) {
+        super.onCreate(savaedInstance);
         setContentView(R.layout.activity_chat);
-
+        HTTPgetRequest httPgetRequest = new HTTPgetRequest();
 
         NetworkInfo network = connect.getActiveNetworkInfo();
         connect.getActiveNetwork();

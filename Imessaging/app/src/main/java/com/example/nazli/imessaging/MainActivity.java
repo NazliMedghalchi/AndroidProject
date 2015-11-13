@@ -143,7 +143,7 @@ public class MainActivity extends Activity {
         }
         else if (id == R.id.conversation && loginStatus == true) {
             setContentView(R.layout.list_of_conversations);
-            Intent[] appIntents = {new Intent(this, Conversation.class),
+            Intent[] appIntents = {new Intent(getApplicationContext(), Conversation.class),
                     new Intent(this, ChatService.class),
                     new Intent(this, Groups.class),
                     new Intent(this, ContactList.class)};

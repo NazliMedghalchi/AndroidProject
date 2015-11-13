@@ -43,7 +43,7 @@ import java.util.zip.Inflater;
 
 public class Conversation extends ListActivity {
 
-    ListView clist = (ListView) findViewById(R.id.listView_conv);
+    ListView clist;
     Button addNewconv;
 
 
@@ -52,9 +52,9 @@ public class Conversation extends ListActivity {
     ArrayAdapter<String> adapter;
 
     //    Item to be added to listItems
-    String title = ((TextView) findViewById(R.id.threadSender)).toString();
-    String time = ((TextView) findViewById(R.id.convTime)).toString();
-    String text = ((TextView) findViewById(R.id.convFirstLine)).toString();
+    String title;
+    String time;
+    String text;
     Intent intent;
 
     @Override
@@ -62,19 +62,21 @@ public class Conversation extends ListActivity {
         super.onCreate(Main);
         setContentView(R.layout.list_of_conversations);
 
-        addNewconv = (Button) findViewById(R.id.add_conv_btn);
+        title = (findViewById(R.id.threadSender)).toString();
+        time = (findViewById(R.id.convTime)).toString();
+        text = (findViewById(R.id.convFirstLine)).toString();
         intent = getIntent();
-
+        clist = (ListView) findViewById(R.id.listView_conv);
 // The adapter passed through Conversation by MainActivity
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_selectable_list_item, convListItem);
         setListAdapter(adapter);
-
         checkConnection();
-        Button addConv = (Button) findViewById(R.id.add_conv_btn);
-        addConv.setOnClickListener(new View.OnClickListener() {
+
+        addNewconv = (Button) findViewById(R.id.add_conv_btn);
+        addNewconv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                newConv();
+                newConversation();
             }
         });
 
@@ -105,6 +107,7 @@ public class Conversation extends ListActivity {
 
             Transition transition = TransitionInflater.from(this).
                     inflateTransition(R.transition.fade_transition);
+        transition.addTarget(ChatService.BIND_AUTO_CREATE);
 
         }
 
@@ -146,26 +149,20 @@ public class Conversation extends ListActivity {
 
     public void newConversation() {
         //    items from layout needed for new conversation and transition
-        Transition transition = new Fade();
-        transition.addTarget(R.layout.new_con_fragment);
-        ChatService chatService = new ChatService();
-
-        ContentValues values = new ContentValues();
-        values.put("", title);
-        values.put("", time);
-        values.put("", text);
+//        Transition transition = new Fade();
+//        transition.addTarget(R.layout.new_con_fragment);
+//        ChatService chatService = new ChatService();
         try {
-            Intent chat = new Intent(Intent.ACTION_VIEW);
-            chat.setType("vnd.android-dir/mms-sms");
+            Intent chat = new Intent(Conversation.this, ChatService.class);
+            chat.putExtra(title, "");
+            chat.putExtra(time, "");
+            chat.putExtra(text, "");
             startActivity(chat);
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(),
                     "Failed to send - Please try again!", Toast.LENGTH_LONG);
             e.printStackTrace();
         }
-
-        Intent intent = getIntent();
-        startActivity(intent);
     }
 
 
