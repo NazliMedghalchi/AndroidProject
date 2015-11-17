@@ -1,6 +1,7 @@
 package com.example.nazli.imessaging;
 
 import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -16,7 +17,7 @@ import android.widget.ListView;
 /**
  * Created by nazlimedghalchi on 2015-11-05.
  */
-public class ContactList extends Activity {
+public class ContactList extends ListActivity {
     CursorAdapter cursorAdapter;
     Cursor cursor;
     DatabaseHelper db;
@@ -29,7 +30,7 @@ public class ContactList extends Activity {
         contactsContract = new ContactsContract();
         db = new DatabaseHelper(this);
 // TODO: 2015-11-12 bind accounts to clist
-        CursorAdapter cursorAdapter = new CursorAdapter(getApplicationContext(),cursor) {
+        cursorAdapter = new CursorAdapter(getApplicationContext(), null) {
             @Override
             public View newView(Context context, Cursor cursor, ViewGroup parent) {
                 return null;

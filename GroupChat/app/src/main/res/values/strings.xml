@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">GroupChat</string>
+
+    <string name="login">Login</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_groups">Groups</string>
+    <string name="action_newchat">New Chat</string>
+    <string name="action_list_all">All Chats</string>
+
+</resources>

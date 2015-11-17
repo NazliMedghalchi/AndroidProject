@@ -19,7 +19,7 @@ public class HTTPgetRequest extends AsyncTask<Void, Void, String> {
     private Socket clientSocket;
     private PrintWriter prinWriter;
     private String textMessage;
-    static final String ADDRESS = "127.0.0.1";
+    static final String ADDRESS = "192.168.0.14";
     static final Integer PORT = 8888;
 
     private final String TAG = "HttpGetRequest";

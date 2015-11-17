@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.view.Gravity;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.sql.Time;
 import java.util.ArrayList;
 
@@ -39,6 +40,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public final String GROUP_ID = "group_id";
     public final String GROUP_OWNER = "group_owner";
     public final String GROUP_TITLE = "group_title";
+    public final String GROUP_MEM = "group_mem";
 
     // Conversation columns
     public final String CONV_ID = "conv_id";
@@ -60,7 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // usergroup columns
     // this table is connecting users to groups
     // therefore both user_id and group_id are foreign keys
-    
+
     public final String USERGROUP_ID = "usergroup_id";
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERION);
@@ -74,18 +76,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         GROUP_ID + "INTEGER FOREIGN KEY" +
                         USERNAME + "STRING" +
                         PASSWORD + "STRING" +
-                        FRIEND_LIST + "INTEGER" +
-                        GROUP_LIST + "INTEGER" +
                         USER_STATUS + "STRING" + ")"
         );
         db.execSQL("CREATE TABLE " + GROUPS + "(" +
                         GROUP_ID + "INTEGER PRIMARY KEY" +
                         _ID + "INTEGER FOREIGN KEY" +
-                        GROUP_OWNER + "STRING" +
+                        GROUP_MEM + "INTEGER" +
                         GROUP_TITLE + "STRING" + ")"
         );
         db.execSQL("CREATE TABLE " + USERGROUP + "(" +
-                        USERGROUP_ID + "INTEGER PRIMARY KEY"
+                        USERGROUP_ID + "INTEGER PRIMARY KEY" +
                         GROUP_ID + "INTEGER FOREIGN KEY" +
                         _ID + "INTEGER FOREIGN KEY" + ")"
         );
@@ -95,6 +95,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         THREAD_ID + "INTEGER FOREIGN KEY" +
                         CONV_NAME + "STRING" + ")"
         );
+        // each  RECEIVER has many senders - based on this the thread table is designed
         db.execSQL("CREATE TABLE " + THREADS + "(" +
                         THREAD_ID + "INTEGER PRIMARY KEY" +
                         _ID + "INTEGER FOREIGN KEY" +
@@ -142,7 +143,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
 //        Cursor c = sqLiteDatabase;
         ContentValues values = new ContentValues();
-//        values.putAll(sqLiteDatabase.execSQL("SELECT * FROM " + ACCOUNTS));
+        String[] accounts;
+        sqLiteDatabase.rawQuery("SELECT * FROM " + ACCOUNTS, );
+        values.putAll();
         return values;
     }
 
@@ -167,9 +170,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 //    join to an existing Group
-    public void joinGroup (ContentValues value){
+    public void joinGroup (ContentValues value, Context context){
         SQLiteDatabase sqlite = this.getWritableDatabase();
-        sqlite.insert(USERGROUP, null, value);
+        value.put(GROUP_ID, (R.id.groupID));
+        value.put(_ID, (R.id.textView_usrname));
+        value.put(GROUP_TITLE, (R.id.groupTitle));
+        value.put(GROUP_MEM, (R.id.groupMem));
+        sqlite.insert(GROUPS, null, value);
+        Toast.makeText(context, "Successfully joined to the group", Toast.LENGTH_SHORT);
     }
 
     // delete thread
@@ -180,8 +188,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // show group
     public Cursor showGroup(){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor;
-        cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + GROUPS , null);
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM" + GROUPS, new String[] {GROUP_ID});
         return cursor;
     }
 

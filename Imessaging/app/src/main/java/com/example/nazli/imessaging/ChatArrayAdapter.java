@@ -1,11 +1,11 @@
 package com.example.nazli.imessaging;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -51,20 +51,19 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatService> {
 
     public View getView (int position, View convertView, ViewGroup parent){
         ChatMessage chatMessageObj = getItem(position);
-        View row = convertView;
         LayoutInflater inflater = (LayoutInflater)
                 (this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE));
         if (chatMessageObj.left) {
-            row = inflater.inflate(R.layout.chat_item_sent, parent, false);
-            message = (TextView) row.findViewById(R.id.sentItem);
 
+            convertView = inflater.inflate(R.layout.chat_item_right, parent, false);
+            message = (TextView) convertView.findViewById(R.id.sentItem);
         }
         else {
-            row = inflater.inflate(R.layout.chat_item_received, parent, false);
-            message = (TextView) row.findViewById(R.id.receivedItem);
+            convertView = inflater.inflate(R.layout.chat_item_left, parent, false);
+            message = (TextView) convertView.findViewById(R.id.receivedItem);
         }
         message.setText(chatMessageObj.message);
-        return row;
+        return convertView;
     }
 }
 

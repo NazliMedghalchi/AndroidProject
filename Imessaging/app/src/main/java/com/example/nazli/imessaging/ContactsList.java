@@ -21,6 +21,7 @@ public class ContactsList extends Activity{
                 super.onStart();
                 DatabaseHelper db = new DatabaseHelper(this);
                 ContentValues accounts;
-                accounts = db.getACCOUNTS();
+                String[] contacts = db.getACCOUNTS();
+                accounts.put();
         }
 }

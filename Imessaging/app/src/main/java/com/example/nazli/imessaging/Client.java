@@ -19,7 +19,7 @@ public class Client {
         // Read from keyboard
         final Scanner scanner = new Scanner(System.in);
         try {
-            socketClient = new Socket("127.0.0.1", 5000);
+            socketClient = new Socket("127.0.0.1", 8888);
 
             // send out
             out = new PrintWriter(socketClient.getOutputStream());

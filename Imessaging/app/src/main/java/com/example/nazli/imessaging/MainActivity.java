@@ -1,42 +1,24 @@
 package com.example.nazli.imessaging;
 
 import android.app.Activity;
-import android.app.Service;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.ServiceConnection;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkInfo;
-import android.net.NetworkRequest;
 import android.os.Bundle;
-import android.os.IBinder;
-import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CursorAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.charset.MalformedInputException;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.logging.SocketHandler;
+
+import com.google.gson.JsonParser;
 
 public class MainActivity extends Activity {
 
 // For each instance of application that is running for users
-    Thread thread = new Thread();
     private String usrname = "admin";
     private String pass = "password";
     private ArrayAdapter<Integer> adapter;
@@ -59,11 +41,6 @@ public class MainActivity extends Activity {
         Toast.makeText(getApplicationContext(), "Connected to Network", Toast.LENGTH_LONG);
         HTTPgetRequest httPgetRequest = new HTTPgetRequest();
         httPgetRequest.execute();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
 
         Button signin = (Button) findViewById(R.id.signin);
         signin.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +50,11 @@ public class MainActivity extends Activity {
             }
         });
     }
+//
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//    }
 
     // Log in to conversation list
     public Boolean logIn() {
@@ -110,7 +92,7 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the acti    on bar if it is present.
+        // Inflate the menu; this adds items to the action on bar if it is present.
 //        while (loginStatus == true) {
             getMenuInflater().inflate(R.menu.menu_main, menu);
             return true;
@@ -138,23 +120,28 @@ public class MainActivity extends Activity {
         else if (id == R.id.action_groups && loginStatus == true) {
             setContentView(R.layout.list_of_groups);
             Intent intentGroup = new Intent(this, Groups.class);
-            startActivity(intentGroup, null);
+            try {
+                startActivity(intentGroup);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
 
         }
-        else if (id == R.id.conversation && loginStatus == true) {
-            setContentView(R.layout.list_of_conversations);
-            Intent[] appIntents = {new Intent(getApplicationContext(), Conversation.class),
-                    new Intent(this, ChatService.class),
-                    new Intent(this, Groups.class),
-                    new Intent(this, ContactList.class)};
-
-            MainActivity.this.startActivities(appIntents, null);
-
-        }
+//        else if (id == R.id.conversation && loginStatus == true) {
+//            setContentView(R.layout.list_of_conversations);
+//            Intent[] appIntents = {new Intent(getApplicationContext(), Conversation.class),
+//                    new Intent(this, ChatService.class),
+//                    new Intent(this, Groups.class),
+//                    new Intent(this, ContactList.class)};
+//
+//            MainActivity.this.startActivities(appIntents);
+//
+//        }
         else if (id == R.id.logOut) {
             super.onResume();
             setContentView(R.layout.activity_main);
-            startActivity(getIntent(), null);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
             exit();
         }
         return super.onOptionsItemSelected(item);

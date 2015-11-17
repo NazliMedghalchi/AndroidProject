@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/editText_conv_title"
             android:theme="@style/textView_color" />
@@ -45,32 +45,27 @@
 
         </LinearLayout>
 
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView"
-        android:layout_weight="1">
-
         <ListView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_height="251dp"
             android:id="@+id/listView_chat"
             android:alpha="1"
-            android:divider="#fff707"
+            android:divider="@null"
+            android:background="@null"
+            android:transcriptMode="alwaysScroll"
+            android:stackFromBottom="true"
             android:listSelector="#f8ffa0"
             android:layoutMode="clipBounds"
             android:accessibilityLiveRegion="assertive"
             android:backgroundTintMode="add"
             android:foregroundGravity="clip_horizontal"
-            android:dividerHeight="2dp"
             android:drawSelectorOnTop="false"
             android:elevation="@dimen/activity_horizontal_margin"
             android:fastScrollAlwaysVisible="false"
             android:fastScrollEnabled="true"
             android:layout_margin="10dp" />
-    </ScrollView>
+
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"

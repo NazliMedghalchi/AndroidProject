@@ -153,9 +153,9 @@ public class Conversation extends ListActivity {
 //        transition.addTarget(R.layout.new_con_fragment);
 //        ChatService chatService = new ChatService();
         try {
-            Intent chat = new Intent(Conversation.this, ChatService.class);
+            Intent chat = new Intent(getApplicationContext(), ChatService.class);
             chat.putExtra(title, "");
-            chat.putExtra(time, "");
+//            chat.putExtra(time, "");
             chat.putExtra(text, "");
             startActivity(chat);
         } catch (Exception e) {

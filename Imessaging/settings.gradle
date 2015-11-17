@@ -1,1 +1,1 @@
-include ':app', ':backendServer', ':backend'
+include ':app', ':google-collections-0.8', ':json-org', ':websocket'
