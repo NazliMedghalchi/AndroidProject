@@ -71,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="162dp"
             android:layout_gravity="center"
-            android:divider="@color/material_grey_900"
+            android:divider="@color/bg_quiz_list"
             android:id="@+id/multiple_choice"
             android:scrollIndicators="bottom"
             android:weightSum="2">

@@ -1,5 +1,6 @@
 package com.example.nazli.quizapp;
 
+import android.content.ContentValues;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.content.Context;
@@ -59,8 +60,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS  " + TABLE_quiz);
         db.execSQL("DROP TABLE IF EXISTS  " + TABLE_question);
     }
-    public void addQuizTaker (ContactsContract.Contacts QT){
+    public void addQuizTaker (ContentValues QT){
         SQLiteDatabase db = getWritableDatabase();
-        db.insert()
+        db.insert(TABLE_quizTaker, null, QT);
     }
 }

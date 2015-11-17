@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:id="@+id/error_message"
         android:weightSum="1"
-        android:backgroundTint="@color/material_grey_100"
+        android:backgroundTint="@color/bg_quiz_list"
         android:padding="2dp"
         android:onClick="setContentView">
 

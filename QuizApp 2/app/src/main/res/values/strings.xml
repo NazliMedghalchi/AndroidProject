@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">QuizApp</string>
 
+    <string name="action_example">Action Example</string>
+    <string name="action_settings">Action Setting</string>
+
     <string name="dummy_button">Quiz App</string>
     <string name="dummy_content">ECE655\nProject#3</string>
     <string name="login_text">Log In to Quiz</string>
