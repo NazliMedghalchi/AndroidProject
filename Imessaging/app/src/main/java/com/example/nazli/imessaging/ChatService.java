@@ -80,13 +80,6 @@ public class ChatService extends Activity {
     Socket serverSocket = new Socket();
     private ConnectivityManager connect;
 
-
-    @Override
-    public ComponentName startService(Intent intent) {
-
-        return super.startService(intent);
-    }
-
     @Override
     public void onCreate(Bundle savaedInstance) {
 
@@ -115,33 +108,30 @@ public class ChatService extends Activity {
                 this.getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
         connect.getActiveNetwork();
 
-        // search for contact
+//      search for contact
         searchBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                setContentView(R.layout.list_of_contacts);
+                Intent i = new Intent(getApplicationContext(), ContactList.class);
+                startActivity(i);
+            }
+        }); // first clickListener
 
-        //TODO later for creating contacts fragment displaying saved contacts
-        /*
+   /*
             * permission is added
             * http://developer.android.com/training/contacts-provider/retrieve-details.html
             *
             * In order to simplify, just using string entered in editText view
             * Hopefully user enters correct number
             **/
-
-
-//                ContactsContract contactsContract = new ContactsContract();
-            }
-        }); // first clickListener
-
-
 /*    The setOnkeyListener is for, if the number is in contacts list saved on phone, then make send btn clickable
     Otherwise it is not clickable
     The listener for sendBTN takes message and pass it to upStream*/
 //        Client client  = new Client();
 
 
-        IntentFilter intentFilter = new IntentFilter("com.example.nazli.Imessaging");
+//        IntentFilter intentFilter = new IntentFilter("com.example.nazli.Imessaging");
         itemText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -171,6 +161,7 @@ public class ChatService extends Activity {
 
             @Override
             public void onConnect() {
+                showToast("Connected");
 
             }
 
@@ -266,12 +257,19 @@ public class ChatService extends Activity {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public ComponentName startService(Intent intent) {
+
+        return super.startService(intent);
+    }
     @Override
     protected void onDestroy(){
         super.onDestroy();
 
         if ( client != null && client.isConnected()){
             client.disconnect();
+            super.onDestroy();
         }
     }
     private void appendMessage(final Message m){

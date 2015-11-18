@@ -18,7 +18,7 @@
 
     <application
         android:allowBackup="true"
-        android:banner="@mipmap/ic_launcher"
+        android:banner="@menu/menu_main"
         android:enabled="true"
         android:exported="false"
         android:icon="@mipmap/ic_launcher"
@@ -71,7 +71,6 @@
             android:name=".ContactList"
             android:label="iMessaging Contacts">
             <intent-filter>
-                <action android:name="android.intent.action.SENDTO" />
                 <category android:name="android.intent.category.NORMAL" />
                 <data android:scheme="@string/send_to" />
             </intent-filter>

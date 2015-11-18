@@ -67,12 +67,12 @@ public class MainActivity extends Activity {
             setContentView(R.layout.activity_chat);
             Intent intentChat = getIntent();
             startActivity(intentChat, null);
-            Intent[] appIntents = {new Intent(getApplicationContext(), Conversation.class),
-                    new Intent(this, ChatService.class),
-                    new Intent(this, Groups.class),
-                    new Intent(this, ContactList.class)};
-
-            MainActivity.this.startActivities(appIntents);
+//            Intent[] appIntents = {new Intent(getApplicationContext(), Conversation.class),
+//                    new Intent(this, ChatService.class),
+//                    new Intent(this, Groups.class),
+//                    new Intent(this, ContactList.class)};
+//
+//            MainActivity.this.startActivities(appIntents);
             loginStatus = true;
 
         }
