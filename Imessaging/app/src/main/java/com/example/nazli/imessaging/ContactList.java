@@ -5,6 +5,8 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
+import android.provider.Contacts;
 import android.provider.ContactsContract;
 import android.util.AttributeSet;
 import android.view.View;
@@ -24,6 +26,15 @@ public class ContactList extends ListActivity {
     ListView convList;
     ContactsContract contactsContract;
 
+    @Override
+    public void onCreate(Bundle savedInstance){
+        super.onCreate(savedInstance);
+        setContentView(R.layout.list_of_contacts);
+
+        cursor = this.getContentResolver().query(Contacts.People.CONTENT_URI, null, null, null, null);
+        startManagingCursor(cursor);
+
+    }
 
     public CursorAdapter getContactsContract() {
         convList = (ListView) findViewById(R.id.listView_conv);

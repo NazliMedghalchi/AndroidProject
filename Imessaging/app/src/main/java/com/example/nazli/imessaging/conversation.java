@@ -115,6 +115,7 @@ public class Conversation extends ListActivity {
         @Override
         protected void onPause () {
             super.onPause();
+            exit();
             onSaveInstanceState(Bundle.EMPTY);
         }
 
@@ -127,11 +128,11 @@ public class Conversation extends ListActivity {
         etPassword.setText("");
     }
 
-    @Override
-    public void onDestroy() {
-        exit();
-        super.onResume();
-    }
+//    @Override
+//    public void onDestroy() {
+//        exit();
+//        super.onResume();
+//    }
 
     // search a contact to send new message
     // Display List of contacts from phone

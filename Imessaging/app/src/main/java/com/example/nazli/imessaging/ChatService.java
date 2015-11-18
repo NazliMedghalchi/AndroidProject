@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.WebMessage;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,6 +35,7 @@ import other.Utils;
 
 import com.codebutler.android_websockets.*;
 import com.google.gson.JsonParser;
+import com.koushikdutta.http.AsyncHttpClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -82,7 +84,7 @@ public class ChatService extends Activity {
     @Override
     public ComponentName startService(Intent intent) {
 
-        return super.startService(.);
+        return super.startService(intent);
     }
 
     @Override

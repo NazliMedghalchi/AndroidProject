@@ -7,6 +7,7 @@ import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.Gravity;
+import android.widget.CursorAdapter;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -78,11 +79,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         PASSWORD + "STRING" +
                         USER_STATUS + "STRING" + ")"
         );
+        // group_memm is to keep number of members not their names
         db.execSQL("CREATE TABLE " + GROUPS + "(" +
                         GROUP_ID + "INTEGER PRIMARY KEY" +
                         _ID + "INTEGER FOREIGN KEY" +
                         GROUP_MEM + "INTEGER" +
-                        GROUP_TITLE + "STRING" + ")"
+                        GROUP_TITLE + "STRING" +
+                        CONV_ID + "TEXT FOREIGN KEY" + ")"
         );
         db.execSQL("CREATE TABLE " + USERGROUP + "(" +
                         USERGROUP_ID + "INTEGER PRIMARY KEY" +
@@ -92,13 +95,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //        Conversation table is joined to thread table which is message table
         db.execSQL("CREATE TABLE " + CONVERSATION + "(" +
                         CONV_ID + "INTEGER PRIMARY KEY" +
-                        THREAD_ID + "INTEGER FOREIGN KEY" +
                         CONV_NAME + "STRING" + ")"
         );
         // each  RECEIVER has many senders - based on this the thread table is designed
         db.execSQL("CREATE TABLE " + THREADS + "(" +
                         THREAD_ID + "INTEGER PRIMARY KEY" +
-                        _ID + "INTEGER FOREIGN KEY" +
+                        CONV_ID + "INTEGER FOREIGN KEY" +
                         SENDER + "STRING" +
                         DATE + "STRING" +
                         TIME + "STRING" +
@@ -120,6 +122,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + THREADS);
         db.execSQL("DROP TABLE IF EXISTS " + FRIENDS);
         db.execSQL("DROP TABLE IF EXISTS " + GROUPS);
+        db.execSQL("DROP TABLE IF EXISTS " + USERGROUP);
         onCreate(db);
     }
     
@@ -135,24 +138,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             // position toast message
             toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 0);
         }
+        sqLiteDatabase.close();
 
     }
 
 //    Show Accounts as Contacts
-    public ContentValues getACCOUNTS() {
+    public Cursor getACCOUNTS() {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-//        Cursor c = sqLiteDatabase;
-        ContentValues values = new ContentValues();
-        String[] accounts;
-        sqLiteDatabase.rawQuery("SELECT * FROM " + ACCOUNTS, );
-        values.putAll();
-        return values;
+        Cursor cursorAdapter = null;
+        if (cursorAdapter!= null){
+            cursorAdapter.moveToFirst();
+        }
+        sqLiteDatabase.rawQuery("SELECT *" + "FROM" + ACCOUNTS, new String[]{USERNAME, USER_STATUS});
+        return cursorAdapter;
     }
 
     //  Create a new Group
-    public void addGroup(ContentValues values){
-
-
+    // TODO: 2015-11-17 done 
+    public void addGroup(String groupId, String userId){
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(_ID, userId);
+        values.put(GROUP_ID, groupId);
+        sqLiteDatabase.insert(USERGROUP, null, values);
+        sqLiteDatabase.close();
     }
 
     // join to group
@@ -161,23 +170,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //        sqLiteDatabase.insert(GROUPS, null, values);
 //    }
 
+    // TODO: 2015-11-17 done
     // leave a group
-    public void leaveGroup (String groupID) {
+    public void leaveGroup (String groupId, Context context) {
         SQLiteDatabase sql = this.getWritableDatabase();
-        String GROUPID = groupID.toString();
-//        Cursor cursor = sql.rawQuery("DELETE FROM " + USERGROUP + "WHERE GROUP_ID = " + GROUPID);
-
+        sql.delete(USERGROUP, GROUP_ID + "= '" + groupId + "'", null);
+        sql.close();
     }
 
-//    join to an existing Group
-    public void joinGroup (ContentValues value, Context context){
+    //  join to an existing Group
+    // TODO: 2015-11-17 done
+    public void joinGroup (String[] groupWidegets, String[] groupCols, Context context){
         SQLiteDatabase sqlite = this.getWritableDatabase();
-        value.put(GROUP_ID, (R.id.groupID));
-        value.put(_ID, (R.id.textView_usrname));
-        value.put(GROUP_TITLE, (R.id.groupTitle));
-        value.put(GROUP_MEM, (R.id.groupMem));
-        sqlite.insert(GROUPS, null, value);
+        ContentValues values = new ContentValues();
+        values.put(groupWidegets[0], groupCols[0]);
+        values.put(groupWidegets[1], groupCols[1]);
+        values.put(groupWidegets[2], groupCols[2]);
+        sqlite.insert(GROUPS, null, values);
         Toast.makeText(context, "Successfully joined to the group", Toast.LENGTH_SHORT);
+        sqlite.close();
     }
 
     // delete thread
@@ -185,12 +196,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    // show group
-    public Cursor showGroup(){
+    // show all groups in listview
+    public Cursor showAllGroup(Context context){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM" + GROUPS, new String[] {GROUP_ID});
-        return cursor;
+        Cursor cursorAdapter = null;
+        if (cursorAdapter!= null){
+            cursorAdapter.moveToFirst();
+        }
+        sqLiteDatabase.rawQuery("SELECT *" + "FROM" + GROUPS, new String[] {GROUP_ID, GROUP_TITLE, GROUP_MEM});
+        return cursorAdapter;
     }
+
 
     // show list of all conversations
     public Cursor showConversation(Context context){

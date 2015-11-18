@@ -12,8 +12,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CursorAdapter;
+import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedWriter;
 import java.util.ArrayList;
@@ -33,92 +37,100 @@ public class Groups extends Activity {
     // TODO: 2015-11-05 groups from DB
     ListView groups;
     DatabaseHelper db = new DatabaseHelper(this);
-    int[] groupWidgets = new int[]{
-            R.id.groupTitle,
-            R.id.groupID,
-            R.id.groupMem
+    String groupTitle = ((TextView) findViewById(R.id.groupTitle)).toString();
+    String groupId = ((TextView) findViewById(R.id.groupID)).toString();
+    String groupMem = ((TextView) findViewById(R.id.groupMem)).toString();
+
+    String[] groupWidgets = new String[]{
+            groupTitle,
+            groupId,
+            groupMem
     };
     String[] groupCol = new String[]{
+            db.GROUP_TITLE,
             db.GROUP_ID,
-            db.GROUP_OWNER,
-            db.GROUP_TITLE
+            db.GROUP_MEM
     };
 
-
-    Cursor groupAdapter = db.showGroup();
-
+    Cursor groupAdapter;
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_of_groups);
+
+        Context context = getApplicationContext();
+        showAllGroups(context);
+        Toast.makeText(getApplicationContext(), "List of Group is shown!", Toast.LENGTH_LONG);
+
         groups.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                final Button addGroup = (Button) findViewById(R.id.addGroup);
+                final Button joinGroup = (Button) findViewById(R.id.addGroup);
                 final Button quitGroup = (Button) findViewById(R.id.quitGroup);
                 Button showGroup = (Button) findViewById(R.id.showGroup);
 
+                // On each item selection, user can choose the action by pressing any of
+                // buttons as an option
 
-//      On each item selection, user can choose the action by pressing any of
-//      buttons as an option
-                addGroup.setOnClickListener(new View.OnClickListener() {
+
+                joinGroup.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        joinGroup();
+                        Context context = getApplicationContext();
+                        joinGroup(groupWidgets, groupCol, context);
+                        showAllGroups(getApplicationContext());
                     }
                 });
+
+
                 quitGroup.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        leaveGroup();
+                        Context context = getApplicationContext();
+                        leaveGroup(groupId, context);
                     }
                 });
+
                 showGroup.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showGroup();
+                        Context context = getApplicationContext();
+                        showAllGroups(context);
                     }
                 });
             }
         });
     }
 
-
     @Override
     public void onStart(){
         super.onStart();
     }
 
-//     Display Groups in listview
-    public void displayGroup(){
-        SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(this, R.id.listView_groups,
-                groupAdapter, groupCol, groupWidgets, 0);
-        setGroupAdapter(groupAdapter);
+//     Display Groups in listview, calls method in Db for adapter
+    public void showAllGroups(Context context){
+        Cursor groupAdapter;
+        String[] fromDB = new String[] {db.GROUP_ID, db.GROUP_TITLE, db.GROUP_MEM};
+        int[] toGUI = new int[] {R.id.groupID, R.id.groupTitle, R.id.groupMem};
+        groupAdapter = db.showAllGroup(context);
+        SimpleCursorAdapter simpleCursorAdapter;
+        simpleCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.group_selector,
+                groupAdapter, fromDB, toGUI, 0);
+        groups.setAdapter(simpleCursorAdapter);
     }
+
+    public void leaveGroup (String groupId, Context context){
+        db.leaveGroup(groupId, context);
+    }
+
     public void setGroupAdapter(Cursor groupAdapter) {
         this.groupAdapter = groupAdapter;
     }
 
-//    add new group
-    public void joinGroup () {
-        DatabaseHelper db = new DatabaseHelper(this);
-        ContentValues values = new ContentValues();
-        values.put("GROUP_ID", R.id.groupID);
-        values.put("_ID", R.id.textView_usrname);
-        db.joinGroup(values, getApplicationContext());
-    }
-//    remove group
-    public void leaveGroup () {
-        DatabaseHelper db = new DatabaseHelper(this);
-//        db.leaveGroup(// FIXME: 2015-11-11 )
+    // add new group
+    // access database through joinGroup Method
+    public void joinGroup(String[] groupCol, String[] groupWidgets, Context context) {
+        db.joinGroup(groupCol, groupWidgets, context);
     }
 
-//    Join to a new Group
-    public void showGroup () {
-        DatabaseHelper db = new DatabaseHelper(this);
-        ContentValues values = new ContentValues();
-//        values.put(// FIXME: 2015-11-11 )
-//                db.joinGroup(values);
-
-    }
 }

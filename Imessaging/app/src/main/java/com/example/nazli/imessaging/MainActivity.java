@@ -39,8 +39,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toast.makeText(getApplicationContext(), "Connected to Network", Toast.LENGTH_LONG);
-        HTTPgetRequest httPgetRequest = new HTTPgetRequest();
-        httPgetRequest.execute();
+//        HTTPgetRequest httPgetRequest = new HTTPgetRequest();
+//        httPgetRequest.execute();
 
         Button signin = (Button) findViewById(R.id.signin);
         signin.setOnClickListener(new View.OnClickListener() {
@@ -64,9 +64,15 @@ public class MainActivity extends Activity {
 
         if ((etUsername.getText().toString()).equals(usrname) && (etPassword.getText().toString()).equals(pass)
                 && loginStatus == false) {
-            setContentView(R.layout.list_of_conversations);
-            Intent intentConversation = getIntent();
-            startActivity(intentConversation, null);
+            setContentView(R.layout.activity_chat);
+            Intent intentChat = getIntent();
+            startActivity(intentChat, null);
+            Intent[] appIntents = {new Intent(getApplicationContext(), Conversation.class),
+                    new Intent(this, ChatService.class),
+                    new Intent(this, Groups.class),
+                    new Intent(this, ContactList.class)};
+
+            MainActivity.this.startActivities(appIntents);
             loginStatus = true;
 
         }
@@ -127,16 +133,12 @@ public class MainActivity extends Activity {
             }
 
         }
-//        else if (id == R.id.conversation && loginStatus == true) {
-//            setContentView(R.layout.list_of_conversations);
-//            Intent[] appIntents = {new Intent(getApplicationContext(), Conversation.class),
-//                    new Intent(this, ChatService.class),
-//                    new Intent(this, Groups.class),
-//                    new Intent(this, ContactList.class)};
-//
-//            MainActivity.this.startActivities(appIntents);
-//
-//        }
+        else if (id == R.id.conversation && loginStatus == true) {
+            setContentView(R.layout.list_of_conversations);
+            Intent intentConversation = new Intent(null, Conversation.class);
+            startActivity(intentConversation);
+
+        }
         else if (id == R.id.logOut) {
             super.onResume();
             setContentView(R.layout.activity_main);

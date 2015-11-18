@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Imessaging</string>
+    <string name="app_name">iMessage</string>
     <string name="welcome_app">Welcome to iMessaging</string>
     <string name="action_settings">Settings</string>
     <string name="action_friends">Friends</string>
