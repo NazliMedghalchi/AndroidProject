@@ -19,6 +19,8 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.io.BufferedWriter;
 import java.util.ArrayList;
 import java.util.zip.Inflater;
@@ -36,27 +38,38 @@ public class Groups extends Activity {
 
     // TODO: 2015-11-05 groups from DB
     ListView groups;
-    DatabaseHelper db = new DatabaseHelper(this);
-    String groupTitle = ((TextView) findViewById(R.id.groupTitle)).toString();
-    String groupId = ((TextView) findViewById(R.id.groupID)).toString();
-    String groupMem = ((TextView) findViewById(R.id.groupMem)).toString();
+    DatabaseHelper db;
+    TextView groupTitle;
+    TextView groupId;
+    TextView groupMem;
 
-    String[] groupWidgets = new String[]{
-            groupTitle,
-            groupId,
-            groupMem
-    };
-    String[] groupCol = new String[]{
-            db.GROUP_TITLE,
-            db.GROUP_ID,
-            db.GROUP_MEM
-    };
+    String[] groupWidgets;
+    String[] groupCol;
 
     Cursor groupAdapter;
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_of_groups);
+
+        db = new DatabaseHelper(this);
+        groupTitle = (TextView)findViewById(R.id.groupTitle);
+        groupId = (TextView)findViewById(R.id.groupID);
+        groupMem = (TextView)findViewById(R.id.groupMem);
+
+        final String gTitle = "",
+                gId = "",
+                gMem = "";
+        groupWidgets = new String[]{
+                gTitle,
+                gId,
+                gMem
+        };
+        groupCol = new String[]{
+                db.GROUP_TITLE,
+                db.GROUP_ID,
+                db.GROUP_MEM
+        };
 
         Context context = getApplicationContext();
         showAllGroups(context);
@@ -87,7 +100,7 @@ public class Groups extends Activity {
                     @Override
                     public void onClick(View v) {
                         Context context = getApplicationContext();
-                        leaveGroup(groupId, context);
+                        leaveGroup(gId, context);
                     }
                 });
 

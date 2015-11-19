@@ -65,6 +65,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // therefore both user_id and group_id are foreign keys
 
     public final String USERGROUP_ID = "usergroup_id";
+    private SQLiteDatabase db;
+
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERION);
     }
@@ -72,6 +74,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        this.db = db;
         db.execSQL("CREATE TABLE " + ACCOUNTS + "(" +
                         _ID + "INTEGER PRIMARY KEY" +
                         GROUP_ID + "INTEGER FOREIGN KEY" +

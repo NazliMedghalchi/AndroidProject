@@ -26,7 +26,7 @@ public class Server {
         final Scanner scanner = new Scanner(System.in);
         try {
             // create server address by means of port number
-            serverSocket = new ServerSocket(5000);
+            serverSocket = new ServerSocket(8888);
             // listening for connection
             socketClient = serverSocket.accept();
 

@@ -45,9 +45,24 @@ import org.json.JSONObject;
  *
  **/
 
+   /*
+            * permission is added
+            * http://developer.android.com/training/contacts-provider/retrieve-details.html
+            *
+            * In order to simplify, just using string entered in editText view
+            * Hopefully user enters correct number
+            **/
+
+// chat messages list adapter
+// http://www.androidhive.info/2014/10/android-building-group-chat-app-using-sockets-part-2/
+/*    The setOnkeyListener is for, if the number is in contacts list saved on phone, then make send btn clickable
+    Otherwise it is not clickable
+    The listener for sendBTN takes message and pass it to upStream*/
+//        Client client  = new Client();
+
 public class ChatService extends Activity {
 
-//    EditText title = (EditText) findViewById(R.id.editText_conv_title);
+    EditText title;
     EditText search; // search contact here
     Button searchBTN;
     Button sendBTN; // on click on sendBTN the message will be sent to recipient (user)
@@ -60,9 +75,6 @@ public class ChatService extends Activity {
     ChatArrayAdapter chatArrayAdapter;
 
     private List<Message> listMessages;
-
-    // chat messages list adapter
-    // http://www.androidhive.info/2014/10/android-building-group-chat-app-using-sockets-part-2/
     private Utils utils;
     private String name = null;
     private MessageListAdapter messageListAdapter;
@@ -87,6 +99,7 @@ public class ChatService extends Activity {
         search = (EditText) findViewById(R.id.editText_search); // search contact here
         searchBTN = (Button) findViewById(R.id.search_btn);
 
+        title = (EditText) findViewById(R.id.editText_conv_title);
         sendBTN = (Button) findViewById(R.id.btn_send); // on click on sendBTN the message will be sent to recipient (user)
         message = (EditText) findViewById(R.id.editText_msg); // sent from user
         itemText = (TextView) findViewById(R.id.convFirstLine);
@@ -113,22 +126,12 @@ public class ChatService extends Activity {
             @Override
             public void onClick(View v) {
                 setContentView(R.layout.list_of_contacts);
-                Intent i = new Intent(getApplicationContext(), ContactList.class);
-                startActivity(i);
+                Intent i = new Intent(getApplicationContext(), ContactsList.class);
+                startActivityForResult(i, ContactsList.BIND_ABOVE_CLIENT);
             }
         }); // first clickListener
 
-   /*
-            * permission is added
-            * http://developer.android.com/training/contacts-provider/retrieve-details.html
-            *
-            * In order to simplify, just using string entered in editText view
-            * Hopefully user enters correct number
-            **/
-/*    The setOnkeyListener is for, if the number is in contacts list saved on phone, then make send btn clickable
-    Otherwise it is not clickable
-    The listener for sendBTN takes message and pass it to upStream*/
-//        Client client  = new Client();
+
 
 
 //        IntentFilter intentFilter = new IntentFilter("com.example.nazli.Imessaging");
@@ -152,7 +155,7 @@ public class ChatService extends Activity {
 
                 // clear text field after sending
                 message.setText("");
-//                sendChatMessage();
+                sendChatMessage();
             }
         });
 
