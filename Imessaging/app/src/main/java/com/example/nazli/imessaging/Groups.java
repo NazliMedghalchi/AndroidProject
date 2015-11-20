@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -27,18 +28,19 @@ import java.util.zip.Inflater;
 
 /**
  * Created by nazlimedghalchi on 2015-11-05.
- *
- * Groups table stores each group detail information
- * inorder to join or quit a group the connection will be removed from
- * usergroup table which has  user_id and group_id as FKs
- *
- * */
+ **/
+/*
+* Groups table stores each group detail information
+* inorder to join or quit a group the connection will be removed from
+* usergroup table which has  user_id and group_id as FKs
+* */
+
+    // Error on Database for query requesting Group activity in Intent
 
 public class Groups extends Activity {
 
     // TODO: 2015-11-05 groups from DB
     ListView groups;
-    DatabaseHelper db;
     TextView groupTitle;
     TextView groupId;
     TextView groupMem;
@@ -46,13 +48,15 @@ public class Groups extends Activity {
     String[] groupWidgets;
     String[] groupCol;
 
+    DatabaseHelper db;
     Cursor groupAdapter;
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_of_groups);
 
-        db = new DatabaseHelper(this);
+        final Context context = getApplicationContext();
+        db = new DatabaseHelper(context);
         groupTitle = (TextView)findViewById(R.id.groupTitle);
         groupId = (TextView)findViewById(R.id.groupID);
         groupMem = (TextView)findViewById(R.id.groupMem);
@@ -66,14 +70,13 @@ public class Groups extends Activity {
                 gMem
         };
         groupCol = new String[]{
-                db.GROUP_TITLE,
-                db.GROUP_ID,
-                db.GROUP_MEM
+                db.group_title,
+                db.group_id,
+                db.group_mem
         };
 
-        Context context = getApplicationContext();
         showAllGroups(context);
-        Toast.makeText(getApplicationContext(), "List of Group is shown!", Toast.LENGTH_LONG);
+//        Toast.makeText(getApplicationContext(), "List of Group is shown!", Toast.LENGTH_LONG);
 
         groups.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -85,21 +88,19 @@ public class Groups extends Activity {
                 // On each item selection, user can choose the action by pressing any of
                 // buttons as an option
 
-
                 joinGroup.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Context context = getApplicationContext();
+//                        Context context = getApplicationContext();
                         joinGroup(groupWidgets, groupCol, context);
                         showAllGroups(getApplicationContext());
                     }
                 });
 
-
                 quitGroup.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Context context = getApplicationContext();
+//                        Context context = getApplicationContext();
                         leaveGroup(gId, context);
                     }
                 });
@@ -107,7 +108,7 @@ public class Groups extends Activity {
                 showGroup.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Context context = getApplicationContext();
+//                        Context context = getApplicationContext();
                         showAllGroups(context);
                     }
                 });
@@ -120,10 +121,16 @@ public class Groups extends Activity {
         super.onStart();
     }
 
+    @Override
+    protected void onDestroy(){
+        db.close();
+        super.onDestroy();
+    }
+
 //     Display Groups in listview, calls method in Db for adapter
     public void showAllGroups(Context context){
         Cursor groupAdapter;
-        String[] fromDB = new String[] {db.GROUP_ID, db.GROUP_TITLE, db.GROUP_MEM};
+        String[] fromDB = new String[] {db.group_id, db.group_title, db.group_mem};
         int[] toGUI = new int[] {R.id.groupID, R.id.groupTitle, R.id.groupMem};
         groupAdapter = db.showAllGroup(context);
         SimpleCursorAdapter simpleCursorAdapter;

@@ -36,26 +36,13 @@ public class ContactList extends ListActivity {
 
     }
 
-    public CursorAdapter getContactsContract() {
+    public Cursor getContactsContract() {
         convList = (ListView) findViewById(R.id.listView_conv);
         contactsContract = new ContactsContract();
         db = new DatabaseHelper(this);
 // TODO: 2015-11-12 bind accounts to clist
-        cursorAdapter = new CursorAdapter(getApplicationContext(), null) {
-            @Override
-            public View newView(Context context, Cursor cursor, ViewGroup parent) {
-                return null;
-            }
 
-            @Override
-            public void bindView(View view, Context context, Cursor cursor) {
-
-            }
-        };
-
-        convList.setAdapter(cursorAdapter);
-
-        return cursorAdapter;
+        return cursor;
     }
 
 }

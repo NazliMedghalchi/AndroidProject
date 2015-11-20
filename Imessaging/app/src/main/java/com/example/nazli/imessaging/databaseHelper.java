@@ -16,130 +16,129 @@ import java.util.ArrayList;
 
 /**
  * Created by nazlimedghalchi on 2015-10-29.
- */
+ **/
 public class DatabaseHelper extends SQLiteOpenHelper {
+
     public static final String DATABASE_NAME = "iMessage";
     public static final int DATABASE_VERION = 1;
 
     // tables
-    public final String CONVERSATION = "Conversation";
-    public final String ACCOUNTS = "account";
-    public final String GROUPS = "groups";
-    public final String THREADS = "threads";
-    public final String FRIENDS = "friends";
-    public final String USERGROUP = "usergroup";
+    public final String conversation = "CONVERSATION ";
+    public final String accounts = "ACCOUNTS ";
+    public final String groups = "GROUPS ";
+    public final String threads = "THREADS ";
+    public final String friends = "FRIENDS ";
+    public final String usergroup = "USERGROUP ";
 
     // account's columns
-    public final String USERNAME = "useername";
-    private final String _ID = "_id";
-    public final String PASSWORD = "password";
-    public final String FRIEND_LIST = "friend_list";
-    public final String GROUP_LIST = "group_list";
-    public final String USER_STATUS = "user_status";
+    public final String username = "USEERNAME ";
+    private final String _id = "_ID ";
+    public final String password = "PASSWORD ";
+    public final String friend_list = "FRIEND_LIST ";
+    public final String group_list = "GROUP_LIST ";
+    public final String user_status = "USER_STATUS ";
 
     // group's columns
-    public final String GROUP_ID = "group_id";
-    public final String GROUP_OWNER = "group_owner";
-    public final String GROUP_TITLE = "group_title";
-    public final String GROUP_MEM = "group_mem";
+    public final String group_id = "GROUP_ID ";
+    public final String group_owner = "GROUP_OWNER ";
+    public final String group_title = "GROUP_TITLE ";
+    public final String group_mem = "GROUP_MEM ";
 
     // Conversation columns
-    public final String CONV_ID = "conv_id";
-    public final String CONV_NAME = "conv_name";
-    public final String THREAD_ID = "thread_id";
+    public final String conv_id = "CONV_ID ";
+    public final String conv_name = "CONV_NAME ";
+    public final String thread_id = "THREAD_ID ";
 
     // threads columns
-    public final String TIME = "time";
-    public final String DATE = "date";
-    public final String SENDER = "sender";
-    public final String STATUS = "status";
-    public final String CONTENT = "content";
+    public final String time = "TIME ";
+    public final String date = "DATE ";
+    public final String sender = "SENDER ";
+    public final String status = "STATUS ";
+    public final String content = "CONTENT ";
 
     // friends columns
-    public final String USER1 = "user_1";
-    public final String USER2 = "user_2";
-    public final String FLIST_ID = "flist_id";
+    public final String user1 = "USER_1 ";
+    public final String user2 = "USER_2 ";
+    public final String flist_id = "FLIST_ID ";
 
     // usergroup columns
     // this table is connecting users to groups
     // therefore both user_id and group_id are foreign keys
 
-    public final String USERGROUP_ID = "usergroup_id";
+    public final String usergroup_id = "USERGROUP_ID ";
     private SQLiteDatabase db;
-
     public DatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERION);
     }
 
-
     @Override
     public void onCreate(SQLiteDatabase db) {
         this.db = db;
-        db.execSQL("CREATE TABLE " + ACCOUNTS + "(" +
-                        _ID + "INTEGER PRIMARY KEY" +
-                        GROUP_ID + "INTEGER FOREIGN KEY" +
-                        USERNAME + "STRING" +
-                        PASSWORD + "STRING" +
-                        USER_STATUS + "STRING" + ")"
+        db.execSQL(" CREATE TABLE " + accounts + "( " +
+                        _id + " INTEGER PRIMARY KEY, " +
+                        group_id + " VARCHAR, " + //Foreign key
+                        username + "STRING, " +
+                        password + " STRING, " +
+                        user_status + " STRING" + ");"
         );
-        // group_memm is to keep number of members not their names
-        db.execSQL("CREATE TABLE " + GROUPS + "(" +
-                        GROUP_ID + "INTEGER PRIMARY KEY" +
-                        _ID + "INTEGER FOREIGN KEY" +
-                        GROUP_MEM + "INTEGER" +
-                        GROUP_TITLE + "STRING" +
-                        CONV_ID + "TEXT FOREIGN KEY" + ")"
+        // group_mem is to keep number of members not their names
+        db.execSQL("CREATE TABLE " + groups + "( " +
+                        group_id + " VARCHAR PRIMARY KEY, " +
+                        _id + " VARCHAR, " + //foreign key
+                        group_mem + " VARCHAR, " +
+                        group_title + "VARCHAR, " +
+                        conv_id + "TEXT" + " );" //foreign key
         );
-        db.execSQL("CREATE TABLE " + USERGROUP + "(" +
-                        USERGROUP_ID + "INTEGER PRIMARY KEY" +
-                        GROUP_ID + "INTEGER FOREIGN KEY" +
-                        _ID + "INTEGER FOREIGN KEY" + ")"
+        db.execSQL("CREATE TABLE " + usergroup + "( " +
+                        usergroup_id + " INTEGER PRIMARY KEY, " +
+                        group_id + "VARCHAR, " + //foreign key
+                        _id + "INTEGER" + "); " //foreign key
         );
 //        Conversation table is joined to thread table which is message table
-        db.execSQL("CREATE TABLE " + CONVERSATION + "(" +
-                        CONV_ID + "INTEGER PRIMARY KEY" +
-                        CONV_NAME + "STRING" + ")"
+        db.execSQL("CREATE TABLE " + conversation + "( " +
+                        conv_id + "INTEGER PRIMARY KEY, " +
+                        conv_name + "VARCHAR" + " ); "
         );
         // each  RECEIVER has many senders - based on this the thread table is designed
-        db.execSQL("CREATE TABLE " + THREADS + "(" +
-                        THREAD_ID + "INTEGER PRIMARY KEY" +
-                        CONV_ID + "INTEGER FOREIGN KEY" +
-                        SENDER + "STRING" +
-                        DATE + "STRING" +
-                        TIME + "STRING" +
-                        STATUS + "STRING" +
-                        CONTENT + "TEXT" + ")"
+        db.execSQL("CREATE TABLE " + threads + "( " +
+                        thread_id + "INTEGER PRIMARY KEY, " +
+                        conv_id + "INTEGER, " + //foreign key
+                        sender + "VARCHAR, " +
+                        date + "VARCHAR, " +
+                        time + "VARCHAR, " +
+                        status + "VARCHAR, " +
+                        content + "TEXT" + " );"
         );
         // list of friends will be saved as text from a json file
-        db.execSQL("CREATE TABLE " + FRIENDS + "(" +
-                        FLIST_ID + "INTEGER PRIMARY KEY" +
-                        USER1 + "INTEGER" +
-                        USER2 + "TEXT" + ")"
+        db.execSQL("CREATE TABLE " + friends + "(" +
+                        flist_id + " INTEGER PRIMARY KEY, " +
+                        user1 + " INTEGER, " +
+                        user2 + " TEXT" + ");"
         );
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + ACCOUNTS);
-        db.execSQL("DROP TABLE IF EXISTS " + CONVERSATION);
-        db.execSQL("DROP TABLE IF EXISTS " + THREADS);
-        db.execSQL("DROP TABLE IF EXISTS " + FRIENDS);
-        db.execSQL("DROP TABLE IF EXISTS " + GROUPS);
-        db.execSQL("DROP TABLE IF EXISTS " + USERGROUP);
+        db.execSQL(" DROP TABLE IF EXISTS " + accounts);
+        db.execSQL(" DROP TABLE IF EXISTS " + conversation);
+        db.execSQL(" DROP TABLE IF EXISTS " + threads);
+        db.execSQL(" DROP TABLE IF EXISTS " + friends);
+        db.execSQL(" DROP TABLE IF EXISTS " + groups);
+        db.execSQL(" DROP TABLE IF EXISTS " + usergroup);
         onCreate(db);
     }
     
     // start a new Conversation
     public void newConversation (Context c, ContentValues values){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        sqLiteDatabase.insert(CONVERSATION, null, values);
+        sqLiteDatabase.insert(conversation, null, values);
 
         // Toast message on save
         if (!sqLiteDatabase.isOpen()) {
             Toast toast = Toast.makeText(c, "Error on database opening", Toast.LENGTH_LONG);
             toast.show();
             // position toast message
-            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 0);
+//            toast.setGravity(Gravity.BOTTOM | Gravity.CENTER, 0, 0);
         }
         sqLiteDatabase.close();
 
@@ -152,7 +151,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursorAdapter!= null){
             cursorAdapter.moveToFirst();
         }
-        sqLiteDatabase.rawQuery("SELECT *" + "FROM" + ACCOUNTS, new String[]{USERNAME, USER_STATUS});
+        sqLiteDatabase.rawQuery(" SELECT * " + " FROM " + accounts, new String[]{username, user_status});
         return cursorAdapter;
     }
 
@@ -161,9 +160,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void addGroup(String groupId, String userId){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(_ID, userId);
-        values.put(GROUP_ID, groupId);
-        sqLiteDatabase.insert(USERGROUP, null, values);
+        values.put(_id, userId);
+        values.put(group_id, groupId);
+        sqLiteDatabase.insert(usergroup, null, values);
         sqLiteDatabase.close();
     }
 
@@ -177,7 +176,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // leave a group
     public void leaveGroup (String groupId, Context context) {
         SQLiteDatabase sql = this.getWritableDatabase();
-        sql.delete(USERGROUP, GROUP_ID + "= '" + groupId + "'", null);
+        sql.delete(usergroup, group_id + " = '" + groupId + "' ", null);
         sql.close();
     }
 
@@ -189,7 +188,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(groupWidegets[0], groupCols[0]);
         values.put(groupWidegets[1], groupCols[1]);
         values.put(groupWidegets[2], groupCols[2]);
-        sqlite.insert(GROUPS, null, values);
+        sqlite.insert(groups, null, values);
         Toast.makeText(context, "Successfully joined to the group", Toast.LENGTH_SHORT);
         sqlite.close();
     }
@@ -201,12 +200,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // show all groups in listview
     public Cursor showAllGroup(Context context){
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         Cursor cursorAdapter = null;
         if (cursorAdapter!= null){
             cursorAdapter.moveToFirst();
         }
-        sqLiteDatabase.rawQuery("SELECT *" + "FROM" + GROUPS, new String[] {GROUP_ID, GROUP_TITLE, GROUP_MEM});
+        sqLiteDatabase.rawQuery(" SELECT * " + " FROM " + groups,
+                new String[] {group_id, group_title, group_mem}, null);
         return cursorAdapter;
     }
 
@@ -214,9 +214,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // show list of all conversations
     public Cursor showConversation(Context context){
         Cursor cursor;
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        SQLiteDatabase sqLiteDatabase = getWritableDatabase();
 
-        cursor = sqLiteDatabase.rawQuery("SELECT " + CONV_ID + "FROM " + CONVERSATION, null);
+        cursor = sqLiteDatabase.rawQuery(" SELECT " + conv_id + "FROM " + conversation, null, null);
         if (!sqLiteDatabase.isOpen()){
             // make a toast message
             Toast toast = Toast.makeText(context, "Error on database opening", Toast.LENGTH_LONG);
@@ -231,7 +231,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor showAllConversation(Context context){
         Cursor c;
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        c = sqLiteDatabase.rawQuery("SELECT * FROM " + CONVERSATION, null);
+        c = sqLiteDatabase.rawQuery(" SELECT * FROM " + conversation, null);
         return c;
     }
 }

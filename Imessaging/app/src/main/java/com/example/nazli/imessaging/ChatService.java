@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URLEncoder;
@@ -69,6 +70,8 @@ public class ChatService extends Activity {
     EditText message; // sent from user
     TextView itemText;
     Boolean side = false;
+
+    public TextView from_server;
 //    ContentValues values = new ContentValues();
 //    String textMSG = message.toString();
     ListView threadsList;
@@ -88,17 +91,15 @@ public class ChatService extends Activity {
             TAG_MESSAGE = "message", TAG_EXIT = "exit";
 
 
-//  EditText thread = (EditText) findViewById(R.id.threadText); // received from user
     Socket serverSocket = new Socket();
     private ConnectivityManager connect;
 
     @Override
     public void onCreate(Bundle savaedInstance) {
 
-        stopService(getIntent());
+        from_server = (TextView) findViewById(R.id.from_server);
         search = (EditText) findViewById(R.id.editText_search); // search contact here
         searchBTN = (Button) findViewById(R.id.search_btn);
-
         title = (EditText) findViewById(R.id.editText_conv_title);
         sendBTN = (Button) findViewById(R.id.btn_send); // on click on sendBTN the message will be sent to recipient (user)
         message = (EditText) findViewById(R.id.editText_msg); // sent from user
@@ -108,7 +109,7 @@ public class ChatService extends Activity {
 
         super.onCreate(savaedInstance);
         setContentView(R.layout.activity_chat);
-//        HTTPgetRequest httPgetRequest = new HTTPgetRequest();
+
 
         utils = new Utils(getApplicationContext());
 
@@ -116,10 +117,7 @@ public class ChatService extends Activity {
         Intent i = getIntent();
         name = i.getStringExtra("name");
 
-//        NetworkInfo network = connect.getActiveNetworkInfo();
-        connect = (ConnectivityManager)
-                this.getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
-        connect.getActiveNetwork();
+        this.getApplicationContext().getSystemService(CONNECTIVITY_SERVICE);
 
 //      search for contact
         searchBTN.setOnClickListener(new View.OnClickListener() {
@@ -127,14 +125,10 @@ public class ChatService extends Activity {
             public void onClick(View v) {
                 setContentView(R.layout.list_of_contacts);
                 Intent i = new Intent(getApplicationContext(), ContactsList.class);
-                startActivityForResult(i, ContactsList.BIND_ABOVE_CLIENT);
+                startActivity(i);
             }
         }); // first clickListener
 
-
-
-
-//        IntentFilter intentFilter = new IntentFilter("com.example.nazli.Imessaging");
         itemText.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -219,6 +213,7 @@ public class ChatService extends Activity {
             // JSONObj flag
             String flag = jsonObject.getString("flag");
 
+            String message = "";
             //if jsonobj is self it contains session id
             if (flag.equalsIgnoreCase("sessionId")) {
                 //get sessionid of json file
@@ -231,7 +226,7 @@ public class ChatService extends Activity {
             } else if (flag.equalsIgnoreCase(TAG_NEW)){
                 // flag == new --> new person joined to group chat
                 String name = jsonObject.getString("name");
-                String message = jsonObject.getString("message");
+                message = jsonObject.getString("message");
 
                 // get number of members online in group
                 String onlineCounts = jsonObject.getString("onlineCounts");
@@ -240,7 +235,7 @@ public class ChatService extends Activity {
             } else if(flag.equalsIgnoreCase(TAG_MESSAGE)){
                 // flag == message --> new message received
                 String fromname = name;
-                String message = jsonObject.getString("message");
+                message = jsonObject.getString("message");
                 String sessionID = jsonObject.getString("sessionId");
                 boolean isSelf = true;
 
@@ -253,7 +248,7 @@ public class ChatService extends Activity {
             } else if (flag.equalsIgnoreCase(TAG_EXIT)){
                 // if flag == exit; someone left the group
                 String name = jsonObject.getString("name");
-                String message = jsonObject.getString("message");
+                message = jsonObject.getString("message");
                 showToast(name + message);
             }
         }catch (JSONException e) {
@@ -269,6 +264,7 @@ public class ChatService extends Activity {
     @Override
     protected void onDestroy(){
         super.onDestroy();
+        // TODO: 2015-11-19 destroy server socket
 
         if ( client != null && client.isConnected()){
             client.disconnect();
@@ -296,8 +292,8 @@ public class ChatService extends Activity {
         return new String(hexChars);
 
     }
+
 //        listMessages = new ArrayList<Message>();
-//
 //        if (network.isConnected()) {
 //            chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(), R.layout.chat_item_right);
 //            threadsList.setAdapter(chatArrayAdapter);
@@ -314,9 +310,8 @@ public class ChatService extends Activity {
 
     // endOf onCreate
 
-
     @Override
-    public void onStart(){
+    protected void onStart(){
         super.onStart();
         serverSocket.getChannel().isOpen();
         threadsList.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);

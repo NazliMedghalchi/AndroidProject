@@ -1,6 +1,7 @@
 package com.example.nazli.imessaging;
 
         import android.app.Activity;
+        import android.app.Fragment;
         import android.app.ListFragment;
         import android.content.ContentValues;
         import android.content.Context;
@@ -9,6 +10,7 @@ package com.example.nazli.imessaging;
         import android.net.Uri;
         import android.os.Bundle;
         import android.provider.ContactsContract;
+        import android.support.v4.app.FragmentActivity;
         import android.view.View;
         import android.widget.AdapterView;
         import android.widget.CursorAdapter;
@@ -26,8 +28,8 @@ public class ContactsList extends Activity{
         public static final String SENDER = "sender";
 
         @Override
-        public void onCreate(Bundle savedinstance) {
-                super.onCreate(savedinstance);
+        public void onCreate(Bundle savedInstance) {
+                super.onCreate(savedInstance);
                 setContentView(R.layout.list_of_contacts);
 
                 showAllAccounts(getApplicationContext());
@@ -37,7 +39,7 @@ public class ContactsList extends Activity{
         public void showAllAccounts(Context c){
                 DatabaseHelper db = new DatabaseHelper(this);
                 Cursor cursorAdapter = null;
-                String[] fromDB = new String[] {db.USERNAME, db.USER_STATUS};
+                String[] fromDB = new String[] {db.username, db.user_status};
                 int[] toGUI = new int[] {R.id.account_name, R.id.account_status};
                 cursorAdapter = db.getACCOUNTS();
                 SimpleCursorAdapter simpleCursorAdapter;

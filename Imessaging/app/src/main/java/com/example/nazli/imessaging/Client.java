@@ -1,41 +1,51 @@
 package com.example.nazli.imessaging;
+import com.example.nazli.imessaging.*;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import Server.Server;
 
 /**
  * Created by nazlimedghalchi on 2015-11-10.
  * Ref: https://www.youtube.com/watch?v=d-eD6EDa3io
  */
 public class Client {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
         // TODO: 2015-11-05 use laptop as server with DNS service or hardcoding the Ip
         Socket socketClient;
-
-//        Socket serverSocket;
-        final BufferedReader in;
-        final PrintWriter out;
-        // Read from keyboard
-        final Scanner scanner = new Scanner(System.in);
+        MainActivity mainActivity = new MainActivity();
+        Server server = new Server(mainActivity);
+        String socketAddress = server.getIpAddress(); //"10.0.2.2";
+        int port = server.getPort();
+        final Scanner scanner = null;
         try {
-            socketClient = new Socket("127.0.0.1", 8888);
+            try {
+                socketClient = new Socket(socketAddress, port);
+                // for receiving message
+                Scanner in = new Scanner(socketClient.getInputStream());
+                // send out
+                PrintStream out = new PrintStream(socketClient.getOutputStream());
 
-            // send out
-            out = new PrintWriter(socketClient.getOutputStream());
-            // for receiving
-            in = new BufferedReader(new InputStreamReader(socketClient.getInputStream()));
-        } catch (IOException e) {
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }catch (Exception e){
             e.printStackTrace();
         }
+
         Thread send = new Thread(new Runnable() {
             PrintStream out;
-            String text = "Hello server, it's client";
-
+            ArrayList<String> text = new ArrayList<String>();
+//            text.add() = ("Hello server, it's client");
             @Override
             public void run() {
                 while (true) {
-                    text = scanner.next();
+//                    text = scanner.next();
                     out.println(text);
                     out.flush();
 

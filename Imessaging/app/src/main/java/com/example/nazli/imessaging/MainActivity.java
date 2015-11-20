@@ -2,6 +2,7 @@ package com.example.nazli.imessaging;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -16,7 +18,9 @@ import java.util.List;
 
 import com.google.gson.JsonParser;
 
-public class MainActivity extends Activity {
+import Server.Server;
+
+public class MainActivity extends Activity{
 
 // For each instance of application that is running for users
     private String usrname = "admin";
@@ -28,11 +32,13 @@ public class MainActivity extends Activity {
 
     // check connection to GSM
     private Boolean connected;
-
     // Toast or inflate error message on Incorrect useername or password
     private String error_message = "Incorrect username or password";
 
     // Connect to Network
+    Server server;
+    public TextView fromServer;
+    public TextView ipAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +47,16 @@ public class MainActivity extends Activity {
         Toast.makeText(getApplicationContext(), "Connected to Network", Toast.LENGTH_LONG);
 //        HTTPgetRequest httPgetRequest = new HTTPgetRequest();
 //        httPgetRequest.execute();
-
         Button signin = (Button) findViewById(R.id.signin);
+       // crashing part is in try/catch for server
+        // it is not getting the IP address
+        try {
+            server = new Server(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ipAddress = (TextView) findViewById(R.id.IPaddress);
+        ipAddress.setText(server.getIpAddress() +server.getPort());
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,10 +129,10 @@ public class MainActivity extends Activity {
         int id = item.getItemId();
             //noinspection SimplifiableIfStatement
 
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        else if (id == R.id.action_friends && loginStatus == true) {
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
+        if (id == R.id.action_friends && loginStatus == true) {
             setContentView(R.layout.list_of_contacts);
             Intent intentContact = new Intent(this, ContactList.class);
             startActivity(intentContact);

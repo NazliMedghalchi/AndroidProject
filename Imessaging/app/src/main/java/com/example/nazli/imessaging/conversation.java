@@ -139,7 +139,7 @@ public class Conversation extends ListActivity {
     public void searchContact() { // TODO: 2015-11-04 get from DB
         DatabaseHelper db = new DatabaseHelper(this);
 
-//                CommonDataKinds.Phone.CONTENT_URI, null, null, null, null);
+//                ContactsContract.CommonDataKinds.Phone(ContactsContract.Contacts. null, null, null, null);
 //        String phoneNumber = findViewById(R.id.contacts).toString() ;
 //        Cursor contacts = getContentResolver().query(ContactsContract.RawContacts.CONTENT_URI,
 //                new String[]{ContactsContract.RawContacts._ID},

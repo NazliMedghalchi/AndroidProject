@@ -1,10 +1,9 @@
-/*
 package com.example.nazli.imessaging;
 
-*/
-/**
- * Created by nazlimedghalchi on 2015-11-12.
- *//*
+import java.io.InputStream;
+
+// * Created by nazlimedghalchi on 2015-11-12.
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -161,4 +160,4 @@ public class JSONParser{
         return jObj;
 
     }
-}*/
+}
