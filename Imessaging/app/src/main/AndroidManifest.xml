@@ -14,7 +14,6 @@
         android:allowBackup="true"
         android:banner="@menu/menu_main"
         android:enabled="true"
-        android:exported="false"
         android:icon="@mipmap/ic_launcher"
         android:killAfterRestore="true"
         android:label="@string/app_name"

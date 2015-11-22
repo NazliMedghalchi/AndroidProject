@@ -16,27 +16,21 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.util.List;
 
-import com.google.gson.JsonParser;
-
-import Server.Server;
+//import com.google.gson.JsonParser;
 
 public class MainActivity extends Activity{
 
 // For each instance of application that is running for users
     private String usrname = "admin";
     private String pass = "password";
-    private ArrayAdapter<Integer> adapter;
-    private List<Integer> conversation_id;
-    private Boolean loginStatus = false;
-
+    Boolean loginStatus = false;
 
     // check connection to GSM
-    private Boolean connected;
+    TextView connected;
     // Toast or inflate error message on Incorrect useername or password
     private String error_message = "Incorrect username or password";
 
     // Connect to Network
-    Server server;
     public TextView fromServer;
     public TextView ipAddress;
 
@@ -45,18 +39,11 @@ public class MainActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toast.makeText(getApplicationContext(), "Connected to Network", Toast.LENGTH_LONG);
-//        HTTPgetRequest httPgetRequest = new HTTPgetRequest();
-//        httPgetRequest.execute();
         Button signin = (Button) findViewById(R.id.signin);
-       // crashing part is in try/catch for server
+        // crashing part is in try/catch for server
         // it is not getting the IP address
-        try {
-            server = new Server(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         ipAddress = (TextView) findViewById(R.id.IPaddress);
-        ipAddress.setText(server.getIpAddress() +server.getPort());
+//        ipAddress.setText(client.getAddress() +client.getPort());
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,14 +68,10 @@ public class MainActivity extends Activity{
             setContentView(R.layout.activity_chat);
             Intent intentChat = getIntent();
             startActivity(intentChat, null);
-//            Intent[] appIntents = {new Intent(getApplicationContext(), Conversation.class),
-//                    new Intent(this, ChatService.class),
-//                    new Intent(this, Groups.class),
-//                    new Intent(this, ContactList.class)};
-//
-//            MainActivity.this.startActivities(appIntents);
+            ClientServer client = new ClientServer("10.0.2.15", 8080, fromServer);
+            client.execute();
+            client.getStatus();
             loginStatus = true;
-
         }
         else {
             Toast.makeText(getApplicationContext(), error_message, Toast.LENGTH_LONG).show();
@@ -98,8 +81,6 @@ public class MainActivity extends Activity{
         }
         return  loginStatus;
     }
-
-
 // Exit the application
     public void exit() {
         EditText etUsername = (EditText) findViewById(R.id.uname);
@@ -145,7 +126,6 @@ public class MainActivity extends Activity{
             } catch (Exception e){
                 e.printStackTrace();
             }
-
         }
         else if (id == R.id.conversation && loginStatus == true) {
             setContentView(R.layout.list_of_conversations);
@@ -166,16 +146,12 @@ public class MainActivity extends Activity{
     protected void onPause(){
         super.onPause();
         // TODO: 2015-11-06 unregister bCastReceiver
-//        unregisterReceiver(new Client());
-
     }
-
 //        Register BroadcastReceiver
 //    http://hmkcode.com/android-sending-receiving-custom-broadcasts/
     @Override
     protected void onResume() {
         super.onResume();
-//        registerReceiver(new Client(), new IntentFilter("com.example.nazli.imessaging.RECEIVE_SMS"));
     }
     @Override
     public void onDestroy(){

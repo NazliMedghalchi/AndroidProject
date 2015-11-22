@@ -72,6 +72,12 @@
             android:onClick="@string/login" />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Server IP:"
+            android:id="@+id/server_ip" />
+
+        <TextView
             android:layout_width="194dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
@@ -79,7 +85,14 @@
             android:gravity="center"
             android:layout_weight="0.15"
             android:layout_margin="10dp"
-            android:editable="true" />
+            android:editable="true"
+            android:background="#f2e782" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Port:"
+            android:id="@+id/server_port" />
 
         <TextView
             android:layout_width="194dp"

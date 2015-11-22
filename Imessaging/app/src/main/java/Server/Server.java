@@ -15,6 +15,7 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.util.Enumeration;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -30,21 +31,20 @@ import java.util.Scanner;
 
 public class Server{
 
-    MainActivity mainActivity;
+    ChatService chatService;
     ServerSocket serverSocket;
     String msg = "";
-    final int socketServerPort = 8644;
-    public Server (MainActivity mainActivity) throws IOException {
-        this.mainActivity = mainActivity;
-        serverSocket = new ServerSocket(getPort());
-        Socket socket = serverSocket.accept();
-
-        InputStream inputStream = socket.getInputStream();
-        OutputStream outputStream = socket.getOutputStream();
-
-        Thread socketServerThread = new Thread(new SocketServereThread());
+    final int socketServerPort = 8888;
+    public Server (ChatService chatService)  {
+        this.chatService = chatService;
+        Thread socketServerThread = new Thread(new SocketServerThread());
         socketServerThread.start();
 
+//        serverSocket = new ServerSocket(getPort());
+//        Socket socket = serverSocket.accept();
+
+//        InputStream inputStream = socket.getInputStream();
+//        OutputStream outputStream = socket.getOutputStream();
     }
 
     public int getPort() {
@@ -55,42 +55,48 @@ public class Server{
         if (serverSocket != null) {
             try {
                 serverSocket.close();
-            } catch (Exception e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public class SocketServereThread extends Thread{
+    public class SocketServerThread extends Thread {
         int count = 0;
         @Override
-        public void run(){
+        public void run() {
             try {
                 serverSocket = new ServerSocket(socketServerPort);
-                while (true){
+
+                while (true) {
                     Socket socket = serverSocket.accept();
-                    count ++;
+                    count++;
                     msg += "#" + count + "from"
                             + socket.getInetAddress() + ":"
                             + socket.getPort();
-                    mainActivity.runOnUiThread(new Runnable() {
+
+                    chatService.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mainActivity.fromServer.setText(msg);
+                            chatService.from_server.setText(msg);
                         }
                     });
+                    SocketServerReplyThread socketServerReplyThread = new SocketServerReplyThread(socket, count);
+                    socketServerReplyThread.run();
                 }
-            }catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
-            msg += "Something is WRONG!!" + toString() + "\n";
-            mainActivity.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mainActivity.fromServer.setText(msg);
-                }
-            });
+//            msg += "Something is WRONG!!" + toString() + "\n";
+//            mainActivity.runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    mainActivity.fromServer.setText(msg);
+//                }
+//            });
         }
+    }
+
     public class SocketServerReplyThread extends Thread {
         private Socket hostThreadSocket;
         int counter;
@@ -112,10 +118,10 @@ public class Server{
                 printStream.close();
 
                 msg += "Replied: " + message + "\n";
-                mainActivity.runOnUiThread(new Runnable() {
+                chatService.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mainActivity.fromServer.setText(msg);
+                        chatService.from_server.setText(msg);
                     }
                 });
 
@@ -123,33 +129,39 @@ public class Server{
                 e.printStackTrace();
                 msg += "Something went WRONG!!" + e.toString() + "\n";
             }
-            mainActivity.runOnUiThread(new Runnable() {
+            chatService.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    mainActivity.fromServer.setText(msg);
+                    chatService.from_server.setText(msg);
                 }
             });
         }
-    }
     }
 
     public String getIpAddress(){
         String IP = ""; //tried IP address: 10.20.141.218, localhost, 192.168.0.14
         try {
-            Enumeration<NetworkInterface> enumeration = NetworkInterface.getNetworkInterfaces();
+            Enumeration<NetworkInterface> enumeration = NetworkInterface
+                    .getNetworkInterfaces();
             while (enumeration.hasMoreElements()){
-                NetworkInterface networkInterface = enumeration.nextElement();
+                NetworkInterface networkInterface = enumeration
+                        .nextElement();
                 Enumeration<InetAddress> enumerationNetInterface =
-                        networkInterface.getInetAddresses();
+                        networkInterface
+                                .getInetAddresses();
+
                 while (enumerationNetInterface.hasMoreElements()){
-                    InetAddress inetAddress = enumerationNetInterface.nextElement();
+                    InetAddress inetAddress = enumerationNetInterface
+                            .nextElement();
+
                     if (inetAddress.isAnyLocalAddress()){
                         IP += "Server running at: " + inetAddress.getHostAddress();
                     }
                 }
             }
-        }catch (Exception e){
+        }catch (SocketException e){
             e.printStackTrace();
+            IP += "Something went WRONG!!!" + e.toString() + "\n";
         }
         return IP;
     }

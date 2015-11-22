@@ -59,7 +59,6 @@ import org.json.JSONObject;
 /*    The setOnkeyListener is for, if the number is in contacts list saved on phone, then make send btn clickable
     Otherwise it is not clickable
     The listener for sendBTN takes message and pass it to upStream*/
-//        Client client  = new Client();
 
 public class ChatService extends Activity {
 
@@ -92,7 +91,7 @@ public class ChatService extends Activity {
 
 
     Socket serverSocket = new Socket();
-    private ConnectivityManager connect;
+//    private ConnectivityManager connect;
 
     @Override
     public void onCreate(Bundle savaedInstance) {
@@ -144,11 +143,13 @@ public class ChatService extends Activity {
             @Override
             public void onClick(View arg0) {
                 // send message to web socket server
+                sendMessageToServer();
                 sendChatMessageToServer(utils.getSendMessageJSON(message.getText()
                         .toString()));
 
                 // clear text field after sending
                 message.setText("");
+                newChat();
                 sendChatMessage();
             }
         });
@@ -161,8 +162,7 @@ public class ChatService extends Activity {
                 showToast("Connected");
 
             }
-
-            //            * on receiving the message from web socket server
+            // * on receiving the message from web socket server
             @Override
             public void onMessage(String message) {
                 Log.d(TAG, String.format("Got binary message: %s", message));
