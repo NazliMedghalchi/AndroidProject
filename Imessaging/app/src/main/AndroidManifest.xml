@@ -3,11 +3,10 @@
     package="com.example.nazli.imessaging" >
 
     <uses-sdk
-        android:minSdkVersion="13"
         android:targetSdkVersion="23" />
-
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="ANDROID.PERMISSION.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
 
     <application
@@ -19,6 +18,7 @@
         android:label="@string/app_name"
         android:process="com.example.nazli.imessaging"
         android:theme="@style/AppTheme" >
+        <!-- Main activity starting with login-->
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -38,19 +38,21 @@
             android:label="Conversations" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
-
                 <category android:name="android.intent.category.APP_CONTACTS" />
             </intent-filter>
         </activity>
+
+        <!-- Group Activity shows all groups and actions could be taken on its run time-->
         <activity
             android:name=".Groups"
             android:label="Groups" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
-
                 <category android:name="android.intent.category.NORMAL" />
             </intent-filter>
         </activity>
+
+        <!-- ChatService as it's main part of app, connection to server and database -->
         <activity
             android:name=".ChatService"
             android:label="Start Chat" >
@@ -60,6 +62,8 @@
                 <category android:name="android.intent.category.NORMAL" />
             </intent-filter>
         </activity>
+        <!-- show all accounts saved in the app and friend list that are imported from contacts
+        from user phone-->
         <activity
             android:name=".ContactList"
             android:label="iMessaging Contacts" >

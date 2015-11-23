@@ -3,6 +3,7 @@ package com.example.nazli.imessaging;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,8 +14,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.nio.BufferOverflowException;
 import java.util.List;
+
+import Client.Client;
 
 //import com.google.gson.JsonParser;
 
@@ -23,54 +33,50 @@ public class MainActivity extends Activity{
 // For each instance of application that is running for users
     private String usrname = "admin";
     private String pass = "password";
+    String ip = "10.0.2.15";
+    int port = 5554;
     Boolean loginStatus = false;
-
-    // check connection to GSM
-    TextView connected;
     // Toast or inflate error message on Incorrect useername or password
     private String error_message = "Incorrect username or password";
 
     // Connect to Network
-    public TextView fromServer;
-    public TextView ipAddress;
+    public static String receiveServer = "Hi this is from server";
+    public EditText fromServer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toast.makeText(getApplicationContext(), "Connected to Network", Toast.LENGTH_LONG);
         Button signin = (Button) findViewById(R.id.signin);
-        // crashing part is in try/catch for server
-        // it is not getting the IP address
-        ipAddress = (TextView) findViewById(R.id.IPaddress);
-//        ipAddress.setText(client.getAddress() +client.getPort());
+
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 logIn();
             }
         });
     }
-//
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Client client = new Client(ip, port, receiveServer);
+        Toast.makeText(getApplicationContext(), "Connected to Network" , Toast.LENGTH_LONG).show();
+//        fromServer.setText(receiveServer);
+    }
 
     // Log in to conversation list
     public Boolean logIn() {
         EditText etUsername = (EditText) findViewById(R.id.uname);
         EditText etPassword = (EditText) findViewById(R.id.password);
-        // Boolean status;
 
         if ((etUsername.getText().toString()).equals(usrname) && (etPassword.getText().toString()).equals(pass)
-                && loginStatus == false) {
+                || loginStatus == true) {
             setContentView(R.layout.activity_chat);
-            Intent intentChat = getIntent();
-            startActivity(intentChat, null);
-            ClientServer client = new ClientServer("10.0.2.15", 8080, fromServer);
-            client.execute();
-            client.getStatus();
+            Intent intentChat = new Intent(this, ChatService.class);
+            startActivity(intentChat);
+
             loginStatus = true;
         }
         else {
@@ -147,6 +153,7 @@ public class MainActivity extends Activity{
         super.onPause();
         // TODO: 2015-11-06 unregister bCastReceiver
     }
+
 //        Register BroadcastReceiver
 //    http://hmkcode.com/android-sending-receiving-custom-broadcasts/
     @Override

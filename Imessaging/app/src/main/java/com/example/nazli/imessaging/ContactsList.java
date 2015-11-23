@@ -38,7 +38,7 @@ public class ContactsList extends Activity{
         // populates all accounts
         public void showAllAccounts(Context c){
                 DatabaseHelper db = new DatabaseHelper(this);
-                Cursor cursorAdapter = null;
+                Cursor cursorAdapter;
                 String[] fromDB = new String[] {db.username, db.user_status};
                 int[] toGUI = new int[] {R.id.account_name, R.id.account_status};
                 cursorAdapter = db.getACCOUNTS();

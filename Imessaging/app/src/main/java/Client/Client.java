@@ -4,10 +4,10 @@ import com.example.nazli.imessaging.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Server.Server;
 
 /**
  * Created by nazlimedghalchi on 2015-11-10.
@@ -19,45 +19,47 @@ import Server.Server;
 * Server side is not based on this client
 * */
 public class Client {
-    public static void main(String[] args) throws Exception{
+    static String ip = "";
+    static int port = 0;
+    String fromServer = "";
+    public Client(String ip, int port, String receiveServer) {
+        this.ip = ip;
+        this.port = port;
+        this.fromServer = receiveServer;
+    }
+
+    public static void main(String[] args) throws Exception {
         // TODO: 2015-11-05 use laptop as server with DNS service or hardcoding the Ip
-        Socket socketClient;
-        ChatService chatService = new ChatService();
-        Server server = new Server(chatService);
-        String socketAddress = server.getIpAddress(); //"10.0.2.2";
-        int port = server.getPort();
+        Socket cSocket;
+        String status = "DOWN";
+        String socketAddress = "host-android"; //"10.0.2.2";
+        int port = 3306;
         final Scanner scanner = null;
+        final String[] message = new String[1];
         try {
-            try {
-                socketClient = new Socket(socketAddress, port);
-                // for receiving message
-                Scanner in = new Scanner(socketClient.getInputStream());
-                // send out
-                PrintStream out = new PrintStream(socketClient.getOutputStream());
-
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }catch (Exception e){
+            cSocket = new Socket(socketAddress, port);
+            status = changeSatuts(cSocket);
+            // for receiving message
+            final Scanner in = new Scanner(cSocket.getInputStream());
+            // send out
+            final PrintStream out = new PrintStream(cSocket.getOutputStream());
+            Thread send = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    int i = 0;
+                    while (true) {
+                        message[i] = scanner.next();
+                        out.println(message[i]);
+                        i++;
+                        out.flush();
+                    }
+                }
+            });
+            send.start();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-        Thread send = new Thread(new Runnable() {
-            PrintStream out;
-            ArrayList<String> text = new ArrayList<String>();
-//            text.add("Hello server, it's client");
-            @Override
-            public void run() {
-                while (true) {
-//                    text = scanner.next();
-                    out.println(text);
-                    out.flush();
-
-                }
-            }
-        });
-        send.start();
         Thread receive = new Thread(new Runnable() {
             String text;
             BufferedReader in;
@@ -70,10 +72,16 @@ public class Client {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    System.out.println("ClientServer: " + text);
+                    System.out.println("Client: " + text);
                 }
             }
         });
         receive.start();
+    }
+
+    private static String changeSatuts(Socket sc) {
+        if (sc != null)
+            return "ON";
+        return "DOWN";
     }
 }

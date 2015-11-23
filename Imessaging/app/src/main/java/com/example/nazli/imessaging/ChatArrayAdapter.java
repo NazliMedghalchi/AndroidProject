@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by nazlimedghalchi on 2015-11-11.
  */
-public class ChatArrayAdapter extends ArrayAdapter<ChatService> {
+public class ChatArrayAdapter extends ArrayAdapter<ChatArrayAdapter.ChatMessage> {
     private TextView message;
     private List<ChatMessage> chatMessageList = new ArrayList<ChatMessage>();
     private Context context;

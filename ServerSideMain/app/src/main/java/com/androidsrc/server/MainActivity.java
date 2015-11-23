@@ -8,8 +8,6 @@ public class MainActivity extends Activity {
 
 	Server server;
 	TextView infoip, msg;
-	
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -18,9 +16,9 @@ public class MainActivity extends Activity {
 		infoip = (TextView) findViewById(R.id.infoip);
 		msg = (TextView) findViewById(R.id.msg);
 		server = new Server(this);
-		infoip.setText(server.getIpAddress()+":"+server.getPort());
-
-		
+		String ipAddress = server.getIpAddress();
+		int ip = server.getPort();
+		infoip.setText(String.format("%s:%d", ipAddress, ip));
 	}
 
 	@Override
@@ -29,5 +27,4 @@ public class MainActivity extends Activity {
 		server.onDestroy();
 	}
 
-	
 }

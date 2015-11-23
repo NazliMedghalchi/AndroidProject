@@ -14,7 +14,7 @@ public class Server {
 	MainActivity activity;
 	ServerSocket serverSocket;
 	String message = "";
-	static final int socketServerPORT = 8080;
+	static final int socketServerPORT = 5554;
 
 	public Server(MainActivity activity) {
 		this.activity = activity;
@@ -123,7 +123,7 @@ public class Server {
 	}
 
 	public String getIpAddress() {
-		String ip = "";
+		String ip = "host-android";
 		try {
 			Enumeration<NetworkInterface> enumNetworkInterfaces = NetworkInterface
 					.getNetworkInterfaces();

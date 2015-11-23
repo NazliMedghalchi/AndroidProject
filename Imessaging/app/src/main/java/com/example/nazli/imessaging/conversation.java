@@ -104,7 +104,6 @@ public class Conversation extends ListActivity {
         public void setContentTransitionManager (TransitionManager tm){
             super.setContentTransitionManager(tm);
             setContentView(R.layout.list_of_conversations);
-
             Transition transition = TransitionInflater.from(this).
                     inflateTransition(R.transition.fade_transition);
         transition.addTarget(ChatService.BIND_AUTO_CREATE);
