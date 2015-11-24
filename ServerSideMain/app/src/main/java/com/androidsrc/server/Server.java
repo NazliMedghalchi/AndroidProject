@@ -19,7 +19,7 @@ public class Server {
 	MainActivity activity;
 	ServerSocket serverSocket;
 	String message = "";
-	static final int socketServerPORT = 80;
+	static final int socketServerPORT = 6000;
 
 	public Server(MainActivity activity) {
 		this.activity = activity;
@@ -31,16 +31,6 @@ public class Server {
 		return socketServerPORT;
 	}
 
-	public void onDestroy() {
-		if (serverSocket != null) {
-			try {
-				serverSocket.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
 
 	private class SocketServerThread extends Thread {
 
@@ -160,5 +150,15 @@ public class Server {
 			ip += "Something Wrong! " + e.toString() + "\n";
 		}
 		return ip;
+	}
+	public void onDestroy() {
+		if (serverSocket != null) {
+			try {
+				serverSocket.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 }

@@ -20,11 +20,11 @@ import java.util.Scanner;
 * This is webApp client/server architecture
 * Server side is not based on this client
 * */
-public class Client {
+public class ClientJsonMessage {
     static String ip = "";
     static int port = 0;
     String fromServer = "";
-    public Client(String ip, int port, String receiveServer) {
+    public ClientJsonMessage(String ip, int port, String receiveServer) {
         this.ip = ip;
         this.port = port;
         this.fromServer = receiveServer;
@@ -75,7 +75,7 @@ public class Client {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    System.out.println("Client: " + text);
+                    System.out.println("Clientmessage: " + text);
                     Log.i("text", text);
                 }
             }

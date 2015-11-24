@@ -24,6 +24,8 @@ import other.Message;
 import other.SocketConfig;
 import other.Utils;
 
+//import Client.ClientJsonMessage;
+
 //import com.codebutler.android_websockets.*;
 //import com.google.gson.JsonParser;
 //import com.koushikdutta.http.AsyncHttpClient;
@@ -74,8 +76,8 @@ public class ChatActivity extends Activity {
     Socket serverSocket;
 
 //    private ConnectivityManager connect;
-    final String ip = "10.20.141.218"; //turn it back to 10.0.2.15
-    final int port = 8080; //back to 5554 to connect to emulator server app
+    final String ip = "10.0.2.2"; //turn it back to 10.0.2.15
+    final int port = 5000; //back to 5554 to connect to emulator server app
 
     @Override
     public void onCreate(Bundle savaedInstance) {
@@ -95,6 +97,9 @@ public class ChatActivity extends Activity {
 //        serverSocket.getChannel().isOpen();
 //        threadsList.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
 
+        Client client = new Client(ip, port, message.toString());
+        client.execute();
+
         searchBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +111,7 @@ public class ChatActivity extends Activity {
         }); // first clickListener
         chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(),
                 R.layout.chat_item_right);
+
 //        itemText.setOnKeyListener(new View.OnKeyListener() {
 //            @Override
 //            public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -116,8 +122,7 @@ public class ChatActivity extends Activity {
 //                return false;
 //            }
 //        });
-        Client client = new Client(ip, port, message.toString());
-        client.execute();
+
         TextView fromS = (TextView) findViewById(R.id.fromS);
         fromS.setText(fromServer);
         sendBTN.setOnClickListener(new View.OnClickListener() {
@@ -148,28 +153,29 @@ public class ChatActivity extends Activity {
     public ComponentName startService(Intent intent) {
         return super.startService(intent);
     }
-//    @Override
-//    protected void onDestroy(){
-//        super.onDestroy();
-//        // TODO: 2015-11-19 destroy server socket
-//
-////        if ( client != null && client.isConnected()){
-////            client.disconnect();
-////            super.onDestroy();
-////        }
-//    }
-
-    final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
-    public static String bytesToHex(byte[] inputS){
-        char[] hexChars = new char[inputS.length * 2];
-        for (int i=0; i<inputS.length ; i++){
-            int v = inputS[i] & 0xFF;
-            hexChars[i*2] = hexArray[v >>>4];
-            hexChars[i*2+1] = hexArray[v & 0xFF];
+    @Override
+    protected void onDestroy(){
+        try {
+            serverSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return new String(hexChars);
-
+        super.onDestroy();
     }
+//        // TODO: 2015-11-19 destroy server socket
+
+//    final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
+//
+//    public static String bytesToHex(byte[] inputS){
+//        char[] hexChars = new char[inputS.length * 2];
+//        for (int i=0; i<inputS.length ; i++){
+//            int v = inputS[i] & 0xFF;
+//            hexChars[i*2] = hexArray[v >>>4];
+//            hexChars[i*2+1] = hexArray[v & 0xFF];
+//        }
+//        return new String(hexChars);
+//
+//    }
 
     public boolean sendChatMessage(){
         // TODO: 2015-11-11 chat message to send:
@@ -185,6 +191,7 @@ public class ChatActivity extends Activity {
 //    http://hmkcode.com/android-sending-receiving-custom-broadcasts/
     @Override
     protected void onResume() {
+//        Following part if it's
 //        if (serverSocket != null)
 //            try {
 //                serverSocket.close();
@@ -201,9 +208,7 @@ public class ChatActivity extends Activity {
     }
 
     private void sendChatMessageToServer(String message){
-//        if (client != null && client.isConnected()) {
-//            client.send(message);
-//        }
+
     }
 
 }

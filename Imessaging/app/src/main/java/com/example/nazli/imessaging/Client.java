@@ -52,11 +52,10 @@ public class Client extends AsyncTask<Void, Void, Void>{
     @Override
     protected Void doInBackground(Void... arg0) {
 
-        Socket socket = null;
+        Socket socket;
 
         try {
-            socket = new Socket();
-            socket.connect(new InetSocketAddress("10.0.2.2", 5554), 80); //20.20.141.218
+            socket = new Socket(destAddress, destPort);
             Toast.makeText(chatActivity.getApplicationContext(),
                     "Socket is open at:" + destPort, Toast.LENGTH_LONG).show();
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(1024);
@@ -68,22 +67,25 @@ public class Client extends AsyncTask<Void, Void, Void>{
             while ((byteStreamR = inputStream.read(buffer)) != -1) {
                 byteArrayOutputStream.write(buffer, 0, byteStreamR);
                 response += byteArrayOutputStream.toString("UTF-8");
-
+                ChatActivity.fromServer= response;
             }
+            byteArrayOutputStream.close(); // testing 
         }catch (UnknownHostException e){
             e.printStackTrace();
             response = "UnknownHostException: : " + e.toString();
+            ChatActivity.fromServer= response;
+
         } catch (IOException e) {
             e.printStackTrace();
             response += "IOException: " + e.toString();
-        } finally {
-            if (socket != null){
-                try {
-                    socket.close();
-                }catch (IOException e){
-                    e.printStackTrace();
-                }
-            }
+//        } finally {
+////            if (socket != null){
+////                try {
+////                    socket.close();
+////                }catch (IOException e){
+////                    e.printStackTrace();
+////                }
+//            }
         }
         return null;
     }
