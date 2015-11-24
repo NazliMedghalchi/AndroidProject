@@ -24,7 +24,7 @@ import java.net.Socket;
 import java.nio.BufferOverflowException;
 import java.util.List;
 
-import Client.Client;
+import com.example.nazli.imessaging.Client;
 
 //import com.google.gson.JsonParser;
 
@@ -56,12 +56,6 @@ public class MainActivity extends Activity{
                 logIn();
             }
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Client client = new Client(ip, port, receiveServer);
         Toast.makeText(getApplicationContext(), "Connected to Network" , Toast.LENGTH_LONG).show();
 //        fromServer.setText(receiveServer);
     }
@@ -152,6 +146,7 @@ public class MainActivity extends Activity{
     protected void onPause(){
         super.onPause();
         // TODO: 2015-11-06 unregister bCastReceiver
+
     }
 
 //        Register BroadcastReceiver
@@ -162,7 +157,7 @@ public class MainActivity extends Activity{
     }
     @Override
     public void onDestroy(){
-        stopService(this.getIntent());
+//        stopService(this.getIntent());
         super.onDestroy();
     }
 }

@@ -2,21 +2,12 @@ package com.example.nazli.imessaging;
 
 import android.app.Activity;
 import android.content.ComponentName;
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.database.DataSetObserver;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+
 import android.os.Bundle;
-//import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.WebMessage;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
+
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -26,13 +17,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.URI;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 
 import other.Message;
 import other.SocketConfig;
@@ -98,6 +83,9 @@ public class ChatService extends Activity {
 
     @Override
     public void onCreate(Bundle savaedInstance) {
+        super.onCreate(savaedInstance);
+        setContentView(R.layout.activity_chat);
+
         from_server = (TextView) findViewById(R.id.from_server);
         search = (EditText) findViewById(R.id.editText_search); // search contact here
         searchBTN = (Button) findViewById(R.id.search_btn);
@@ -108,37 +96,30 @@ public class ChatService extends Activity {
         side = false;
         threadsList = (ListView) findViewById(R.id.listView_chat);
 
-
-        super.onCreate(savaedInstance);
-        setContentView(R.layout.activity_chat);
+//        serverSocket.getChannel().isOpen();
+//        threadsList.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
 
         searchBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setContentView(R.layout.list_of_contacts);
-                ListView contacts = (ListView) findViewById(R.id.contacts);
-                contacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                    }
-                });
                 Intent i = new Intent(getApplicationContext(), ContactsList.class);
                 i.putExtra("search", search.toString());
             }
         }); // first clickListener
         chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(),
                 R.layout.chat_item_right);
-        itemText.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == android.view.KeyEvent.ACTION_DOWN &&
-                        keyCode == android.view.KeyEvent.KEYCODE_ENTER) {
-                    return sendChatMessage();
-                }
-                return false;
-            }
-        });
+//        itemText.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                if (event.getAction() == android.view.KeyEvent.ACTION_DOWN &&
+//                        keyCode == android.view.KeyEvent.KEYCODE_ENTER) {
+//                    return sendChatMessage();
+//                }
+//                return false;
+//            }
+//        });
 
         sendBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,7 +135,9 @@ public class ChatService extends Activity {
                 sendChatMessage();
             }
         });
-    }
+        Client client = new Client(ip, port, message.toString());
+        client.execute();
+    } //endof onCreate
 
 //    private void sendMessageToServer() {
 //        if (client != null && client.isConnected()) {
@@ -162,14 +145,6 @@ public class ChatService extends Activity {
 //        }
 //    }
 
-    @Override
-    protected void onStart(){
-        super.onStart();
-        Client client = new Client(ip, port, message.toString());
-        client.execute();
-        serverSocket.getChannel().isOpen();
-        threadsList.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
-    }
 
     @Override
     public ComponentName startService(Intent intent) {

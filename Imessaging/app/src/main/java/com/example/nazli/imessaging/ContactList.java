@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Adapter;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
@@ -31,6 +32,13 @@ public class ContactList extends ListActivity {
         super.onCreate(savedInstance);
         setContentView(R.layout.list_of_contacts);
 
+        ListView contacts = (ListView) findViewById(R.id.contacts);
+        contacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
         cursor = this.getContentResolver().query(Contacts.People.CONTENT_URI, null, null, null, null);
         startManagingCursor(cursor);
 

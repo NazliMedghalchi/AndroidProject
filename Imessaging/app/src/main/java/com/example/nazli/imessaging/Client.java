@@ -34,12 +34,12 @@ public class Client extends AsyncTask<Void, Void, Void>{
         destPort = portNum;
         this.txtResponse = txtRes;
     }
-
-    @Override
-    protected void onPreExecute(){
-        MainActivity.receiveServer = response;
-        super.onPreExecute();
-    }
+//
+//    @Override
+//    protected void onPreExecute(){
+//        MainActivity.receiveServer = response;
+//        super.onPreExecute();
+//    }
     @Override
     protected Void doInBackground(Void... arg0) {
 

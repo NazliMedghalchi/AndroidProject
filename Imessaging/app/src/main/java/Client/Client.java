@@ -1,4 +1,6 @@
 package Client;
+import android.util.Log;
+
 import com.example.nazli.imessaging.*;
 
 import java.io.*;
@@ -39,6 +41,7 @@ public class Client {
         try {
             cSocket = new Socket(socketAddress, port);
             status = changeSatuts(cSocket);
+            Log.i("status", status);
             // for receiving message
             final Scanner in = new Scanner(cSocket.getInputStream());
             // send out
@@ -73,6 +76,7 @@ public class Client {
                         e.printStackTrace();
                     }
                     System.out.println("Client: " + text);
+                    Log.i("text", text);
                 }
             }
         });
