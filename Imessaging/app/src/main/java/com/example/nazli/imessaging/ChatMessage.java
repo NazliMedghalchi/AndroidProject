@@ -1,7 +1,7 @@
 package com.example.nazli.imessaging;
 
 // Create this class to set direction
-// Used in "ChatService" sendChatMessage
+// Used in "ChatActivity" sendChatMessage
 
 public class ChatMessage{
     public boolean left;

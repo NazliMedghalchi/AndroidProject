@@ -2,37 +2,21 @@ package com.example.nazli.imessaging;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.nio.BufferOverflowException;
-import java.util.List;
-
-import com.example.nazli.imessaging.Client;
 
 //import com.google.gson.JsonParser;
 
 public class MainActivity extends Activity{
 
 // For each instance of application that is running for users
-    private String usrname = "admin";
-    private String pass = "password";
+    private String usrname = "user";
+    private String pass = "pass";
     String ip = "10.0.2.15";
     int port = 5554;
     Boolean loginStatus = false;
@@ -68,7 +52,7 @@ public class MainActivity extends Activity{
         if ((etUsername.getText().toString()).equals(usrname) && (etPassword.getText().toString()).equals(pass)
                 || loginStatus == true) {
             setContentView(R.layout.activity_chat);
-            Intent intentChat = new Intent(this, ChatService.class);
+            Intent intentChat = new Intent(this, ChatActivity.class);
             startActivity(intentChat);
 
             loginStatus = true;

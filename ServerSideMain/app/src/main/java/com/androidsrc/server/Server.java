@@ -1,9 +1,14 @@
 package com.androidsrc.server;
 
+
+
+import android.util.Log;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,7 +19,7 @@ public class Server {
 	MainActivity activity;
 	ServerSocket serverSocket;
 	String message = "";
-	static final int socketServerPORT = 5554;
+	static final int socketServerPORT = 80;
 
 	public Server(MainActivity activity) {
 		this.activity = activity;
@@ -45,9 +50,14 @@ public class Server {
 		public void run() {
 			try {
 				serverSocket = new ServerSocket(socketServerPORT);
+				Socket socket = new Socket();
 
 				while (true) {
-					Socket socket = serverSocket.accept();
+					try {
+						socket = serverSocket.accept();
+					}catch (IOException e){
+						e.printStackTrace();
+					}
 					count++;
 					message += "#" + count + " from "
 							+ socket.getInetAddress() + ":"
@@ -96,6 +106,7 @@ public class Server {
 				printStream.close();
 
 				message += "replayed: " + msgReply + "\n";
+//				System.out.print(message);
 
 				activity.runOnUiThread(new Runnable() {
 
@@ -123,7 +134,7 @@ public class Server {
 	}
 
 	public String getIpAddress() {
-		String ip = "host-android";
+		String ip = "";
 		try {
 			Enumeration<NetworkInterface> enumNetworkInterfaces = NetworkInterface
 					.getNetworkInterfaces();

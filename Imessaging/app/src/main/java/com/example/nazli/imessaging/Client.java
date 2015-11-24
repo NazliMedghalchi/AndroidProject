@@ -2,15 +2,22 @@ package com.example.nazli.imessaging;
 
 import android.app.Notification;
 import android.app.PendingIntent;
+import android.media.midi.MidiInputPort;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+
+import static com.example.nazli.imessaging.ChatActivity.*;
 
 
 /**
@@ -18,7 +25,7 @@ import java.net.UnknownHostException;
  */
 
 /*
-* Note that ChatService is related to ChatArrayAdapter, ChatMessaeg,
+* Note that ChatActivity is related to ChatArrayAdapter, ChatMessaeg,
 * however ClientServer is using ClientServer and Server
 * */
 
@@ -40,22 +47,28 @@ public class Client extends AsyncTask<Void, Void, Void>{
 //        MainActivity.receiveServer = response;
 //        super.onPreExecute();
 //    }
+    ChatMessage chatMessage;
+    ChatActivity chatActivity = new ChatActivity();
     @Override
     protected Void doInBackground(Void... arg0) {
 
         Socket socket = null;
 
         try {
-            socket = new Socket(destAddress, destPort);
-
+            socket = new Socket();
+            socket.connect(new InetSocketAddress("10.0.2.2", 5554), 80); //20.20.141.218
+            Toast.makeText(chatActivity.getApplicationContext(),
+                    "Socket is open at:" + destPort, Toast.LENGTH_LONG).show();
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(1024);
             byte[] buffer = new byte[1024];
             int byteStreamR;
             InputStream inputStream = socket.getInputStream();
+            OutputStream outputStream = socket.getOutputStream();
 
             while ((byteStreamR = inputStream.read(buffer)) != -1) {
                 byteArrayOutputStream.write(buffer, 0, byteStreamR);
                 response += byteArrayOutputStream.toString("UTF-8");
+
             }
         }catch (UnknownHostException e){
             e.printStackTrace();
@@ -77,7 +90,7 @@ public class Client extends AsyncTask<Void, Void, Void>{
 
     @Override
     protected void onPostExecute(Void result){
-        MainActivity.receiveServer = response;
+        ChatActivity.fromServer= response;
         super.onPostExecute(result);
     }
 }

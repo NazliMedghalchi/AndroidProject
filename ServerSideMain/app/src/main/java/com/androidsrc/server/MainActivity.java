@@ -16,6 +16,7 @@ public class MainActivity extends Activity {
 		infoip = (TextView) findViewById(R.id.infoip);
 		msg = (TextView) findViewById(R.id.msg);
 		server = new Server(this);
+
 		String ipAddress = server.getIpAddress();
 		int ip = server.getPort();
 		infoip.setText(String.format("%s:%d", ipAddress, ip));

@@ -2,23 +2,15 @@ package com.example.nazli.imessaging;
 
 import android.app.ListActivity;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.NetworkRequest;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.transition.Fade;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.transition.TransitionManager;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -29,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 /**
  * Created by nazlimedghalchi on 2015-10-30.
@@ -82,7 +73,7 @@ public class Conversation extends ListActivity {
 
        /*
        * onClick on every Item of conversation list view the item which is the entire conversation
-       * will open as in ChatService activity and related layout
+       * will open as in ChatActivity activity and related layout
        * The intentfilter and context should be declared
        * */
 
@@ -104,9 +95,9 @@ public class Conversation extends ListActivity {
         public void setContentTransitionManager (TransitionManager tm){
             super.setContentTransitionManager(tm);
             setContentView(R.layout.list_of_conversations);
-            Transition transition = TransitionInflater.from(this).
-                    inflateTransition(R.transition.fade_transition);
-        transition.addTarget(ChatService.BIND_AUTO_CREATE);
+//            Transition transition = TransitionInflater.from(this).
+//                    inflateTransition(R.transition.fade_transition);
+//        transition.addTarget(ChatActivity.BIND_AUTO_CREATE);
 
         }
 
@@ -151,9 +142,9 @@ public class Conversation extends ListActivity {
         //    items from layout needed for new conversation and transition
 //        Transition transition = new Fade();
 //        transition.addTarget(R.layout.new_con_fragment);
-//        ChatService chatService = new ChatService();
+//        ChatActivity chatService = new ChatActivity();
         try {
-            Intent chat = new Intent(getApplicationContext(), ChatService.class);
+            Intent chat = new Intent(getApplicationContext(), ChatActivity.class);
             chat.putExtra(title, "");
 //            chat.putExtra(time, "");
             chat.putExtra(text, "");
@@ -232,7 +223,7 @@ public class Conversation extends ListActivity {
 //    searchContact();
 
     public void newConv() {
-        Intent intent = new Intent(getApplicationContext(), ChatService.class);
+        Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
         convListItem.add(title);
         convListItem.add(time);
         convListItem.add(text);

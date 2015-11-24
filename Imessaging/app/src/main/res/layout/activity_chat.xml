@@ -35,6 +35,26 @@
                 android:gravity="center" />
         </LinearLayout>
 
+        <TextView
+            android:layout_width="247dp"
+            android:layout_height="wrap_content"
+            android:text="Server:"
+            android:id="@+id/textServer"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/fromS"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:editable="true"
+            android:background="#fcf188"
+            android:textColor="#000000"
+            android:hint="server response shows here" />
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"

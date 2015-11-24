@@ -1,19 +1,14 @@
 package com.example.nazli.imessaging;
 
         import android.app.Activity;
-        import android.app.Fragment;
-        import android.app.ListFragment;
         import android.content.ContentValues;
         import android.content.Context;
         import android.content.Intent;
         import android.database.Cursor;
-        import android.net.Uri;
         import android.os.Bundle;
         import android.provider.ContactsContract;
-        import android.support.v4.app.FragmentActivity;
         import android.view.View;
         import android.widget.AdapterView;
-        import android.widget.CursorAdapter;
         import android.widget.ListView;
         import android.widget.SimpleCursorAdapter;
         import android.widget.TextView;
@@ -51,7 +46,7 @@ public class ContactsList extends Activity{
                 accountsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                          public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                Intent intent = new Intent(getApplicationContext(), ChatService.class);
+                                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
                                 ContentValues values = new ContentValues();
                                 TextView address = (TextView) findViewById(R.id.account_name);
                                 values.put(SENDER, address.getText().toString());
