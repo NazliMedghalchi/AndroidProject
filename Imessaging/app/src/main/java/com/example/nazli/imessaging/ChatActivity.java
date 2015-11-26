@@ -55,6 +55,8 @@ import org.json.JSONObject;
 public class ChatActivity extends Activity {
 
     public static String fromServer;
+    public TextView from_server;
+
     EditText title;
     EditText search; // search contact here
     Button searchBTN;
@@ -63,17 +65,17 @@ public class ChatActivity extends Activity {
     TextView itemText;
     Boolean side = false;
 
-    public TextView from_server;
 //    ContentValues values = new ContentValues();
     ListView threadsList;
     ChatArrayAdapter chatArrayAdapter;
-
     private List<Message> listMessages;
-    private Utils utils;
+    Utils utils;
     private String name = null;
     private MessageListAdapter messageListAdapter;
+
 //    private WebSocketClient client;
-    Socket serverSocket;
+    Socket socket;
+    Client client;
 
 //    private ConnectivityManager connect;
     final String ip = "10.0.2.2"; //turn it back to 10.0.2.15
@@ -93,35 +95,37 @@ public class ChatActivity extends Activity {
         itemText = (TextView) findViewById(R.id.convFirstLine);
         side = false;
         threadsList = (ListView) findViewById(R.id.listView_chat);
-
-//        serverSocket.getChannel().isOpen();
-//        threadsList.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
-
-        Client client = new Client(ip, port, message.toString());
+        //DON'T move client call - it needs to be after instantiation
+        client = new Client(ip, port, message.toString());
         client.execute();
 
+//        socket.getChannel().isOpen();
+//        threadsList.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+
+        sendBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // send message to web socket server
+//                sendMessageToServer();
+                sendChatMessageToServer(utils.getSendMessageJSON(message.getText()
+                        .toString()));
+
+                // clear text field after sending
+//                chatActivity.message.setText("");
+//                chatActivity.newChat();
+//                chatActivity.sendChatMessage();
+            }
+        });
         searchBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 setContentView(R.layout.list_of_contacts);
-
                 Intent i = new Intent(getApplicationContext(), ContactsList.class);
                 i.putExtra("search", search.toString());
             }
         }); // first clickListener
         chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(),
                 R.layout.chat_item_right);
-
-//        itemText.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                if (event.getAction() == android.view.KeyEvent.ACTION_DOWN &&
-//                        keyCode == android.view.KeyEvent.KEYCODE_ENTER) {
-//                    return sendChatMessage();
-//                }
-//                return false;
-//            }
-//        });
 
         TextView fromS = (TextView) findViewById(R.id.fromS);
         fromS.setText(fromServer);
@@ -142,25 +146,29 @@ public class ChatActivity extends Activity {
 
     } //endof onCreate
 
-//    private void sendMessageToServer() {
-//        if (client != null && client.isConnected()) {
-//            client.send(message.getText().toString());
-//        }
+    private void sendMessageToServer() {
+        if (socket != null && socket.isClosed()) {
+            sendChatMessage();
+        }
+    }
+
+
+//    @Override
+//    public ComponentName startService(Intent intent) {
+//        return super.startService(intent);
 //    }
 
-
-    @Override
-    public ComponentName startService(Intent intent) {
-        return super.startService(intent);
-    }
     @Override
     protected void onDestroy(){
-        try {
-            serverSocket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         super.onDestroy();
+        if (!socket.isClosed()) {
+            try {
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 //        // TODO: 2015-11-19 destroy server socket
 
@@ -189,25 +197,24 @@ public class ChatActivity extends Activity {
 
     //    Register BroadcastReceiver
 //    http://hmkcode.com/android-sending-receiving-custom-broadcasts/
-    @Override
-    protected void onResume() {
-//        Following part if it's
-//        if (serverSocket != null)
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        if (socket != null)
 //            try {
-//                serverSocket.close();
+//                socket.close();
 //            } catch (IOException e){
 //                e.printStackTrace();
 //            }
-        super.onResume();
-
-    }
+//    }
 
     public void newChat(){
         message.setText("");
         search.setText("");
     }
 
-    private void sendChatMessageToServer(String message){
+    void sendChatMessageToServer(String message){
+        client.execute();
 
     }
 

@@ -52,8 +52,7 @@
             android:layout_margin="10dp"
             android:editable="true"
             android:background="#fcf188"
-            android:textColor="#000000"
-            android:hint="server response shows here" />
+            android:textColor="#000000" />
 
         <LinearLayout
             android:orientation="horizontal"

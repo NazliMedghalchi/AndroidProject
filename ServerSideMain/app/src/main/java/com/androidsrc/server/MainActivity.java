@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.widget.TextView;
 
+import java.util.Timer;
+
 public class MainActivity extends Activity {
 
 	Server server;
@@ -16,7 +18,6 @@ public class MainActivity extends Activity {
 		infoip = (TextView) findViewById(R.id.infoip);
 		msg = (TextView) findViewById(R.id.msg);
 		server = new Server(this);
-
 		String ipAddress = server.getIpAddress();
 		int ip = server.getPort();
 		infoip.setText(String.format("%s:%d", ipAddress, ip));
@@ -24,8 +25,8 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onDestroy() {
-		super.onDestroy();
 		server.onDestroy();
+		super.onDestroy();
 	}
 
 }

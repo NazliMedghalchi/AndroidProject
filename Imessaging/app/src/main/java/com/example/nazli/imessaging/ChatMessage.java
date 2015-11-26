@@ -6,10 +6,12 @@ package com.example.nazli.imessaging;
 public class ChatMessage{
     public boolean left;
     public String message;
+    public String usrId;
 
-    public ChatMessage (boolean left, String message){
+    public ChatMessage (boolean left, String message, String usrId){
         super();
         this.left = left;
         this.message = message;
+        this.usrId = usrId;
     }
 }

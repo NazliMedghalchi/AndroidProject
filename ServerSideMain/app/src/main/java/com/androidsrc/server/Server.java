@@ -4,6 +4,7 @@ package com.androidsrc.server;
 
 import android.util.Log;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -40,36 +41,30 @@ public class Server {
 		public void run() {
 			try {
 				serverSocket = new ServerSocket(socketServerPORT);
-				Socket socket = new Socket();
+				Socket socket;
 
 				while (true) {
-					try {
-						socket = serverSocket.accept();
-					}catch (IOException e){
-						e.printStackTrace();
-					}
-					count++;
-					message += "#" + count + " from "
-							+ socket.getInetAddress() + ":"
-							+ socket.getPort() + "\n";
+						socket = serverSocket.accept(); //supporting multiple clients
+						count++;
+						message += "#" + count + " from "
+								+ socket.getInetAddress() + ":"
+								+ socket.getPort() + "\n";
 
-					activity.runOnUiThread(new Runnable() {
-
-						@Override
-						public void run() {
-							activity.msg.setText(message);
-						}
-					});
-
+						activity.runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								activity.msg.setText(message);
+							}
+						});
 					SocketServerReplyThread socketServerReplyThread = new SocketServerReplyThread(
 							socket, count);
 					socketServerReplyThread.run();
-
-				}
+					}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
 		}
 
 	}
@@ -90,22 +85,24 @@ public class Server {
 			String msgReply = "Hello from Server, you are #" + cnt;
 
 			try {
-				outputStream = hostThreadSocket.getOutputStream();
-				PrintStream printStream = new PrintStream(outputStream);
-				printStream.print(msgReply);
-				printStream.close();
+				while (hostThreadSocket!= null){
+					outputStream = hostThreadSocket.getOutputStream();
 
-				message += "replayed: " + msgReply + "\n";
+					PrintStream printStream = new PrintStream(outputStream);
+					printStream.print(msgReply);
+					printStream.close();
+
+					message += "replayed: " + msgReply + "\n";
 //				System.out.print(message);
 
-				activity.runOnUiThread(new Runnable() {
+					activity.runOnUiThread(new Runnable() {
 
-					@Override
-					public void run() {
-						activity.msg.setText(message);
-					}
-				});
-
+						@Override
+						public void run() {
+							activity.msg.setText(message);
+						}
+					});
+				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

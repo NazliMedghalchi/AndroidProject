@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.media.midi.MidiInputPort;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,7 +49,6 @@ public class Client extends AsyncTask<Void, Void, Void>{
 //        super.onPreExecute();
 //    }
     ChatMessage chatMessage;
-    ChatActivity chatActivity = new ChatActivity();
     @Override
     protected Void doInBackground(Void... arg0) {
 
@@ -56,20 +56,18 @@ public class Client extends AsyncTask<Void, Void, Void>{
 
         try {
             socket = new Socket(destAddress, destPort);
-            Toast.makeText(chatActivity.getApplicationContext(),
-                    "Socket is open at:" + destPort, Toast.LENGTH_LONG).show();
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(1024);
-            byte[] buffer = new byte[1024];
-            int byteStreamR;
+//            byte[] buffer = new byte[1024];
+//            int byteStreamR;
             InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
-
-            while ((byteStreamR = inputStream.read(buffer)) != -1) {
-                byteArrayOutputStream.write(buffer, 0, byteStreamR);
-                response += byteArrayOutputStream.toString("UTF-8");
-                ChatActivity.fromServer= response;
-            }
-            byteArrayOutputStream.close(); // testing 
+            ChatActivity.fromServer = "Connected to Server on port: " + destPort;
+//            while ((byteStreamR = inputStream.read(buffer)) != -1) {
+//                byteArrayOutputStream.write(buffer, 0, byteStreamR);
+//                response += byteArrayOutputStream.toString("UTF-8");
+//                ChatActivity.fromServer= response;
+//            }
+//            byteArrayOutputStream.close(); // testing
         }catch (UnknownHostException e){
             e.printStackTrace();
             response = "UnknownHostException: : " + e.toString();
@@ -78,21 +76,22 @@ public class Client extends AsyncTask<Void, Void, Void>{
         } catch (IOException e) {
             e.printStackTrace();
             response += "IOException: " + e.toString();
-//        } finally {
-////            if (socket != null){
-////                try {
-////                    socket.close();
-////                }catch (IOException e){
-////                    e.printStackTrace();
-////                }
-//            }
         }
         return null;
     }
 
+
     @Override
     protected void onPostExecute(Void result){
-        ChatActivity.fromServer= response;
         super.onPostExecute(result);
+        final ChatActivity chatActivity = new ChatActivity();
+        response += "server is ON";
+        chatActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                fromServer = response;
+            }
+        });
+
     }
 }
