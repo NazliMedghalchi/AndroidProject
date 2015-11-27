@@ -55,7 +55,7 @@ import org.json.JSONObject;
 public class ChatActivity extends Activity {
 
     public static String fromServer;
-//    public TextView from_server;
+    public TextView from_server;
 
     EditText title;
     EditText search; // search contact here
@@ -65,124 +65,27 @@ public class ChatActivity extends Activity {
     TextView itemText;
     Boolean side = false;
 
-//    ContentValues values = new ContentValues();
     ListView threadsList;
     ChatArrayAdapter chatArrayAdapter;
-    private List<Message> listMessages;
     Utils utils;
-    private String name = null;
-    private MessageListAdapter messageListAdapter;
 
-//    private WebSocketClient client;
     Socket socket;
     Client client;
 
-//    private ConnectivityManager connect;
-    final String ip = "10.0.2.2"; //turn it back to 10.0.2.15
-    final int port = 5000; //back to 5554 to connect to emulator server app
-
-    @Override
-    public void onCreate(Bundle savaedInstance) {
-        super.onCreate(savaedInstance);
-        setContentView(R.layout.activity_chat);
-
-//        from_server = (TextView) findViewById(R.id.from_server);
-        search = (EditText) findViewById(R.id.editText_search); // search contact here
-        searchBTN = (Button) findViewById(R.id.search_btn);
-        title = (EditText) findViewById(R.id.editText_conv_title);
-        sendBTN = (Button) findViewById(R.id.btn_send); // on click on sendBTN the message will be sent to recipient (user)
-        message = (EditText) findViewById(R.id.editText_msg); // sent from user
-        itemText = (TextView) findViewById(R.id.convFirstLine);
-        side = false;
-        threadsList = (ListView) findViewById(R.id.listView_chat);
-
-        //DON'T move client call - it needs to be after instantiation
-        client = new Client(ip, port, message.toString());
-        client.execute();
-
-//        TextView fromS = (TextView) findViewById(R.id.fromS);
-//        fromS.setText(fromServer);
-        sendBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                // send message to web socket server
-//                sendMessageToServer();
-                sendChatMessageToServer(utils.getSendMessageJSON(message.getText()
-                        .toString()));
-
-                // clear text field after sending
-//                chatActivity.message.setText("");
-//                chatActivity.newChat();
-//                chatActivity.sendChatMessage();
-            }
-        });
-        searchBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setContentView(R.layout.list_of_contacts);
-                Intent i = new Intent(getApplicationContext(), ContactsList.class);
-                i.putExtra("search", search.toString());
-            }
-        }); // first clickListener
-        chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(),
-                R.layout.chat_item_right);
+    final String ip = "10.0.2.15"; //turn it back to 10.0.2.15
+    final int port = 6000; //back to 5554 to connect to emulator server app
 
 
-        sendBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                // send message to web socket server
-//                sendMessageToServer();
-                sendChatMessageToServer(utils.getSendMessageJSON(message.getText()
-                        .toString()));
-
-                // clear text field after sending
-                message.setText("");
-                newChat();
-                sendChatMessage();
-            }
-        });
-
-    } //endof onCreate
+    public void newChat(){
+        message.setText("");
+        search.setText("");
+    }
 
     private void sendMessageToServer() {
-        if (socket != null && socket.isClosed()) {
+        if (socket != null || !socket.isClosed()) {
             sendChatMessage();
         }
     }
-
-
-//    @Override
-//    public ComponentName startService(Intent intent) {
-//        return super.startService(intent);
-//    }
-
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        if (!socket.isClosed()) {
-            try {
-                socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-    }
-//        // TODO: 2015-11-19 destroy server socket
-
-//    final protected static char[] hexArray = "0123456789ABCDEF".toCharArray();
-//
-//    public static String bytesToHex(byte[] inputS){
-//        char[] hexChars = new char[inputS.length * 2];
-//        for (int i=0; i<inputS.length ; i++){
-//            int v = inputS[i] & 0xFF;
-//            hexChars[i*2] = hexArray[v >>>4];
-//            hexChars[i*2+1] = hexArray[v & 0xFF];
-//        }
-//        return new String(hexChars);
-//
-//    }
 
     public boolean sendChatMessage(){
         // TODO: 2015-11-11 chat message to send:
@@ -194,27 +97,86 @@ public class ChatActivity extends Activity {
         return true;
     }
 
-    //    Register BroadcastReceiver
-//    http://hmkcode.com/android-sending-receiving-custom-broadcasts/
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        if (socket != null)
-//            try {
-//                socket.close();
-//            } catch (IOException e){
-//                e.printStackTrace();
-//            }
-//    }
 
-    public void newChat(){
-        message.setText("");
-        search.setText("");
+    public String  sendChatMessageToServer(String msg){
+        return msg;
+    }
+    @Override
+    public void onCreate(Bundle savaedInstance) {
+        super.onCreate(savaedInstance);
+        setContentView(R.layout.activity_chat);
+
+        from_server = (TextView) findViewById(R.id.from_server);
+        search = (EditText) findViewById(R.id.editText_search); // search contact here
+        searchBTN = (Button) findViewById(R.id.search_btn);
+        title = (EditText) findViewById(R.id.editText_conv_title);
+        sendBTN = (Button) findViewById(R.id.btn_send); // on click on sendBTN the message will be sent to recipient (user)
+        message = (EditText) findViewById(R.id.editText_msg); // sent from user
+        itemText = (TextView) findViewById(R.id.convFirstLine);
+        threadsList = (ListView) findViewById(R.id.listView_chat);
+        side = false;
+
+        //DON'T move client call - it needs to be after instantiation
+
+
+        TextView fromS = (TextView) findViewById(R.id.fromS);
+        fromS.setText(fromServer);
+
+        newChat();
+    } //end of onCreate
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        try {
+            client = new Client(ip, port, message.toString());
+            client.execute();
+        }catch (Exception e){
+            e.printStackTrace();
+
+            sendBTN.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    sendChatMessageToServer(utils.getSendMessageJSON(message.getText()
+                            .toString()));
+                    Toast.makeText(getApplicationContext(), "Messaeg Sent", Toast.LENGTH_LONG).show();
+                }
+            });
+            searchBTN.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setContentView(R.layout.list_of_contacts);
+                    Intent i = new Intent(getApplicationContext(), ContactsList.class);
+                    i.putExtra("search", search.toString());
+                }
+            }); // first clickListener
+            chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(),
+                    R.layout.chat_item_right);
+
+
+            sendBTN.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    // send message on inputstream to socket
+                    sendMessageToServer();
+                    // clear text field after sending
+                    message.setText("");
+                }
+            });
+        }
     }
 
-    void sendChatMessageToServer(String message){
-
+ // TODO: 2015-11-19 destroy server socket
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        if (!socket.isClosed()) {
+            try {
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
-
 }
 
