@@ -72,8 +72,8 @@ public class ChatActivity extends Activity {
     Socket socket;
     Client client;
 
-    final String ip = "10.0.2.15"; //turn it back to 10.0.2.15
-    final int port = 6000; //back to 5554 to connect to emulator server app
+    final String ip = "10.0.2.15"; //turn it back to 10.0.2.15 /
+    final int port = 5000; //back to 5554 to connect to emulator server app
 
 
     public void newChat(){
@@ -131,6 +131,7 @@ public class ChatActivity extends Activity {
         try {
             client = new Client(ip, port, message.toString());
             client.execute();
+            from_server.setText(fromServer); //
         }catch (Exception e){
             e.printStackTrace();
 

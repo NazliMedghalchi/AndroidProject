@@ -133,15 +133,15 @@ public class Server {
 				while (enumInetAddress.hasMoreElements()) {
 					InetAddress inetAddress = enumInetAddress
 							.nextElement();
-
 					if (inetAddress.isSiteLocalAddress()) {
 						ip += "Server running at : "
 								+ inetAddress.getHostAddress();
 					}
 				}
 			}
+//			ip = "localhost"; //Failed - Permission denied
 
-		} catch (SocketException e) {
+		} catch (Exception e) { //SocketException
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			ip += "Something Wrong! " + e.toString() + "\n";
