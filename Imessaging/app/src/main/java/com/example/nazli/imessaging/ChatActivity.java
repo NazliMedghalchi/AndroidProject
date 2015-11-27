@@ -55,7 +55,7 @@ import org.json.JSONObject;
 public class ChatActivity extends Activity {
 
     public static String fromServer;
-    public TextView from_server;
+//    public TextView from_server;
 
     EditText title;
     EditText search; // search contact here
@@ -86,7 +86,7 @@ public class ChatActivity extends Activity {
         super.onCreate(savaedInstance);
         setContentView(R.layout.activity_chat);
 
-        from_server = (TextView) findViewById(R.id.from_server);
+//        from_server = (TextView) findViewById(R.id.from_server);
         search = (EditText) findViewById(R.id.editText_search); // search contact here
         searchBTN = (Button) findViewById(R.id.search_btn);
         title = (EditText) findViewById(R.id.editText_conv_title);
@@ -95,13 +95,13 @@ public class ChatActivity extends Activity {
         itemText = (TextView) findViewById(R.id.convFirstLine);
         side = false;
         threadsList = (ListView) findViewById(R.id.listView_chat);
+
         //DON'T move client call - it needs to be after instantiation
         client = new Client(ip, port, message.toString());
         client.execute();
 
-//        socket.getChannel().isOpen();
-//        threadsList.setTranscriptMode(AbsListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
-
+//        TextView fromS = (TextView) findViewById(R.id.fromS);
+//        fromS.setText(fromServer);
         sendBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -127,8 +127,7 @@ public class ChatActivity extends Activity {
         chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(),
                 R.layout.chat_item_right);
 
-        TextView fromS = (TextView) findViewById(R.id.fromS);
-        fromS.setText(fromServer);
+
         sendBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -214,7 +213,6 @@ public class ChatActivity extends Activity {
     }
 
     void sendChatMessageToServer(String message){
-        client.execute();
 
     }
 

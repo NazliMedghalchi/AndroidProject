@@ -30,7 +30,7 @@ import static com.example.nazli.imessaging.ChatActivity.*;
 * however ClientServer is using ClientServer and Server
 * */
 
-public class Client extends AsyncTask<Void, Void, Void>{
+public class Client extends AsyncTask<Void, String, String>{
 
     String destAddress;
     int destPort;
@@ -49,19 +49,23 @@ public class Client extends AsyncTask<Void, Void, Void>{
 //        super.onPreExecute();
 //    }
     ChatMessage chatMessage;
+
     @Override
-    protected Void doInBackground(Void... arg0) {
+    protected void onPreExecute(){
+        fromServer = "Connecting to server...";
+    }
+    @Override
+    protected String doInBackground(Void... params) {
 
         Socket socket;
-
         try {
             socket = new Socket(destAddress, destPort);
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(1024);
+            onProgressUpdate();
+//            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(1024);
 //            byte[] buffer = new byte[1024];
 //            int byteStreamR;
-            InputStream inputStream = socket.getInputStream();
-            OutputStream outputStream = socket.getOutputStream();
-            ChatActivity.fromServer = "Connected to Server on port: " + destPort;
+//            InputStream inputStream = socket.getInputStream();
+//            OutputStream outputStream = socket.getOutputStream();
 //            while ((byteStreamR = inputStream.read(buffer)) != -1) {
 //                byteArrayOutputStream.write(buffer, 0, byteStreamR);
 //                response += byteArrayOutputStream.toString("UTF-8");
@@ -71,7 +75,7 @@ public class Client extends AsyncTask<Void, Void, Void>{
         }catch (UnknownHostException e){
             e.printStackTrace();
             response = "UnknownHostException: : " + e.toString();
-            ChatActivity.fromServer= response;
+            ChatActivity.fromServer = response;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -80,10 +84,14 @@ public class Client extends AsyncTask<Void, Void, Void>{
         return null;
     }
 
+    protected void onProgressUpdate(){
+        ChatActivity.fromServer = "Connected to Server on port: " + destPort;
+    }
 
     @Override
-    protected void onPostExecute(Void result){
+    protected void onPostExecute(String result){
         super.onPostExecute(result);
+
         final ChatActivity chatActivity = new ChatActivity();
         response += "server is ON";
         chatActivity.runOnUiThread(new Runnable() {
