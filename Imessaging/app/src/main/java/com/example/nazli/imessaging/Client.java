@@ -10,12 +10,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.net.UnknownHostException;
 
 import static com.example.nazli.imessaging.ChatActivity.*;
@@ -30,8 +34,9 @@ import static com.example.nazli.imessaging.ChatActivity.*;
 * however ClientServer is using ClientServer and Server
 * */
 
-public class Client extends AsyncTask<Void, String, String>{
+public class Client extends AsyncTask<Void, String , String>{
 
+    String SOCKET_CONNECT_TAG;
     String destAddress;
     int destPort;
     String response = "";
@@ -59,19 +64,29 @@ public class Client extends AsyncTask<Void, String, String>{
 
         Socket socket;
         try {
+            Log.i(SOCKET_CONNECT_TAG, "Check SOCKET");
+            fromServer = "Check Socket";
             socket = new Socket(destAddress, destPort);
-            onProgressUpdate();
-//            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(1024);
-//            byte[] buffer = new byte[1024];
-//            int byteStreamR;
-//            InputStream inputStream = socket.getInputStream();
-//            OutputStream outputStream = socket.getOutputStream();
-//            while ((byteStreamR = inputStream.read(buffer)) != -1) {
-//                byteArrayOutputStream.write(buffer, 0, byteStreamR);
-//                response += byteArrayOutputStream.toString("UTF-8");
-//                ChatActivity.fromServer= response;
-//            }
-//            byteArrayOutputStream.close(); // testing
+            fromServer = "passed socket";
+            PrintStream printStream = new PrintStream(socket.getOutputStream());
+            fromServer = txtResponse + "connected";
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(1024);
+
+            byte[] buffer = new byte[1024];
+            int byteStreamR;
+
+            InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            OutputStream outputStream = socket.getOutputStream();
+            while ((byteStreamR = inputStreamReader.read()) != -1) {
+//                from_server.setText(bufferedReader.toString("UTF-8"));
+                byteArrayOutputStream.write(buffer, 0, byteStreamR);
+                response += byteArrayOutputStream.toString("UTF-8");
+                ChatActivity.fromServer= response;
+            }
+            byteArrayOutputStream.close(); // testing
+
         }catch (UnknownHostException e){
             e.printStackTrace();
             response = "UnknownHostException: : " + e.toString();
@@ -83,7 +98,7 @@ public class Client extends AsyncTask<Void, String, String>{
         }
         return null;
     }
-
+// I'm looking for this
     protected void onProgressUpdate(){
         ChatActivity.fromServer = "Connected to Server on port: " + destPort;
     }
@@ -102,4 +117,5 @@ public class Client extends AsyncTask<Void, String, String>{
         });
 
     }
+
 }

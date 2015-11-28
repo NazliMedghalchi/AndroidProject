@@ -5,6 +5,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 
+import android.inputmethodservice.InputMethodService;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -55,7 +56,7 @@ import org.json.JSONObject;
 public class ChatActivity extends Activity {
 
     public static String fromServer;
-    public TextView from_server;
+    public static TextView from_server;
 
     EditText title;
     EditText search; // search contact here
@@ -72,7 +73,7 @@ public class ChatActivity extends Activity {
     Socket socket;
     Client client;
 
-    final String ip = "10.0.2.15"; //turn it back to 10.0.2.15 /
+    final String ip = "10.0.2.2"; //turn it back to 10.0.2.15 /
     final int port = 5000; //back to 5554 to connect to emulator server app
 
 
@@ -121,16 +122,16 @@ public class ChatActivity extends Activity {
 
         TextView fromS = (TextView) findViewById(R.id.fromS);
         fromS.setText(fromServer);
-
         newChat();
+        client = new Client(ip, port, from_server.toString());
+        client.execute();
     } //end of onCreate
 
     @Override
     protected void onStart(){
         super.onStart();
         try {
-            client = new Client(ip, port, message.toString());
-            client.execute();
+
             from_server.setText(fromServer); //
         }catch (Exception e){
             e.printStackTrace();
@@ -138,8 +139,7 @@ public class ChatActivity extends Activity {
             sendBTN.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
-                    sendChatMessageToServer(utils.getSendMessageJSON(message.getText()
-                            .toString()));
+                    client.onProgressUpdate();
                     Toast.makeText(getApplicationContext(), "Messaeg Sent", Toast.LENGTH_LONG).show();
                 }
             });
@@ -171,13 +171,13 @@ public class ChatActivity extends Activity {
     @Override
     protected void onDestroy(){
         super.onDestroy();
-        if (!socket.isClosed()) {
-            try {
-                socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        if (!socket.isClosed()) {
+//            try {
+//                socket.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 }
 

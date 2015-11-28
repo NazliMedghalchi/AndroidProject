@@ -34,7 +34,7 @@ ADDED from /Users/nazlimedghalchi/Documents/coding/AndroidProjects/ServerSideMai
 	android:allowBackup
 		ADDED from /Users/nazlimedghalchi/Documents/coding/AndroidProjects/ServerSideMain/app/src/main/AndroidManifest.xml:13:9-35
 	android:icon
-		ADDED from /Users/nazlimedghalchi/Documents/coding/AndroidProjects/ServerSideMain/app/src/main/AndroidManifest.xml:14:9-45
+		ADDED from /Users/nazlimedghalchi/Documents/coding/AndroidProjects/ServerSideMain/app/src/main/AndroidManifest.xml:14:9-49
 	android:theme
 		ADDED from /Users/nazlimedghalchi/Documents/coding/AndroidProjects/ServerSideMain/app/src/main/AndroidManifest.xml:16:9-40
 activity#com.androidsrc.server.MainActivity

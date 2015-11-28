@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.InetAddress;
@@ -20,6 +21,8 @@ public class Server {
 	MainActivity activity;
 	ServerSocket serverSocket;
 	String message = "";
+	InputStreamReader inputStreamReader;
+	BufferedReader bufferedReader;
 	static final int socketServerPORT = 6000;
 
 	public Server(MainActivity activity) {
@@ -42,20 +45,21 @@ public class Server {
 			try {
 				serverSocket = new ServerSocket(socketServerPORT);
 				Socket socket;
-
 				while (true) {
-						socket = serverSocket.accept(); //supporting multiple clients
-						count++;
-						message += "#" + count + " from "
-								+ socket.getInetAddress() + ":"
-								+ socket.getPort() + "\n";
-
-						activity.runOnUiThread(new Runnable() {
-							@Override
-							public void run() {
-								activity.msg.setText(message);
-							}
-						});
+					socket = serverSocket.accept(); //supporting multiple clients
+					count++;
+					message += "#" + count + " from "
+							+ socket.getInetAddress() + ":"
+							+ socket.getPort() + "\n";
+					inputStreamReader =
+							new InputStreamReader(socket.getInputStream());
+					bufferedReader = new BufferedReader(inputStreamReader);
+					activity.runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							activity.msg.setText(message + bufferedReader);
+						}
+					});
 					SocketServerReplyThread socketServerReplyThread = new SocketServerReplyThread(
 							socket, count);
 					socketServerReplyThread.run();
@@ -64,9 +68,7 @@ public class Server {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
-
 	}
 
 	private class SocketServerReplyThread extends Thread {

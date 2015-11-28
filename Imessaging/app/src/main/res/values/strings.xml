@@ -21,6 +21,7 @@
 
     <!--Buttons-->
     <string name="signin_btn">Sign In</string>
+    <string name="search">Search</string>
     <string name="send_btn">Send</string>
 
     <!--Feature Title-->
@@ -43,10 +44,8 @@
     <string name="join_group">Join Group</string>
     <string name="show_group">Show Group</string>
 
-
-
     <!-- Host / server IP based on DNS-->
-    <string name="server_ip"></string>
+    <string name="server_ip">Server IP:</string>
     <string name="receiver_permission"></string>
 
 </resources>
