@@ -23,7 +23,7 @@ public class Server {
 	String message = "";
 	InputStreamReader inputStreamReader;
 	BufferedReader bufferedReader;
-	static final int socketServerPORT = 6000;
+	static final int socketServerPORT = 5000;
 
 	public Server(MainActivity activity) {
 		this.activity = activity;
@@ -141,7 +141,7 @@ public class Server {
 					}
 				}
 			}
-//			ip = "localhost"; //Failed - Permission denied
+//		ip = "10.0.2.15"; //Failed - Permission denied
 
 		} catch (Exception e) { //SocketException
 			// TODO Auto-generated catch block
@@ -150,6 +150,7 @@ public class Server {
 		}
 		return ip;
 	}
+
 	public void onDestroy() {
 		if (serverSocket != null) {
 			try {

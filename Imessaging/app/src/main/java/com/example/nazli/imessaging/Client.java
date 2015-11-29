@@ -17,10 +17,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.NetworkInterface;
 import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 
 import static com.example.nazli.imessaging.ChatActivity.*;
 
@@ -66,7 +69,9 @@ public class Client extends AsyncTask<Void, String , String>{
         try {
             Log.i(SOCKET_CONNECT_TAG, "Check SOCKET");
             fromServer = "Check Socket";
-            socket = new Socket(destAddress, destPort);
+            socket = new Socket(String.valueOf(
+                    new InetSocketAddress(getIpAddress(), destPort)), 6000);
+//            socket = new Socket(destAddress, destPort);
             fromServer = "passed socket";
             PrintStream printStream = new PrintStream(socket.getOutputStream());
             fromServer = txtResponse + "connected";
@@ -116,6 +121,34 @@ public class Client extends AsyncTask<Void, String , String>{
             }
         });
 
+    }
+    public String getIpAddress() {
+        String ip = "";
+        try {
+			Enumeration<NetworkInterface> enumNetworkInterfaces = NetworkInterface
+					.getNetworkInterfaces();
+			while (enumNetworkInterfaces.hasMoreElements()) {
+				NetworkInterface networkInterface = enumNetworkInterfaces
+						.nextElement();
+				Enumeration<InetAddress> enumInetAddress = networkInterface
+						.getInetAddresses();
+				while (enumInetAddress.hasMoreElements()) {
+					InetAddress inetAddress = enumInetAddress
+							.nextElement();
+					if (inetAddress.isSiteLocalAddress()) {
+						ip += "Client running at : "
+								+ inetAddress.getHostAddress();
+					}
+				}
+			}
+//            ip = "10.0.2.15"; //Failed - Permission denied
+
+        } catch (Exception e) { //SocketException
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            ip += "Something Wrong! " + e.toString() + "\n";
+        }
+        return ip;
     }
 
 }
