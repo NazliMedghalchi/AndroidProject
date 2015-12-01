@@ -1,31 +1,21 @@
 package com.example.nazli.imessaging;
 
-import android.app.Notification;
-import android.app.PendingIntent;
-import android.media.midi.MidiInputPort;
 import android.os.AsyncTask;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.net.Socket;
-import java.net.SocketAddress;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 
-import static com.example.nazli.imessaging.ChatActivity.*;
+import static com.example.nazli.imessaging.ChatActivity.fromServer;
+import static com.example.nazli.imessaging.ChatActivity.from_server;
 
 
 /**
@@ -67,11 +57,11 @@ public class Client extends AsyncTask<Void, String , String>{
 
         Socket socket;
         try {
-            Log.i(SOCKET_CONNECT_TAG, "Check SOCKET");
+//            Log.i(SOCKET_CONNECT_TAG, "Check SOCKET");
             fromServer = "Check Socket";
-            socket = new Socket(String.valueOf(
-                    new InetSocketAddress(getIpAddress(), destPort)), 6000);
-//            socket = new Socket(destAddress, destPort);
+//            socket = new Socket(String.valueOf(
+//                    new InetSocketAddress(getIpAddress(), destPort)), 6000);
+            socket = new Socket(destAddress, destPort);
             fromServer = "passed socket";
             PrintStream printStream = new PrintStream(socket.getOutputStream());
             fromServer = txtResponse + "connected";
@@ -127,6 +117,8 @@ public class Client extends AsyncTask<Void, String , String>{
         try {
 			Enumeration<NetworkInterface> enumNetworkInterfaces = NetworkInterface
 					.getNetworkInterfaces();
+            response += "got network"; //extra
+            from_server.setText(response); //extra
 			while (enumNetworkInterfaces.hasMoreElements()) {
 				NetworkInterface networkInterface = enumNetworkInterfaces
 						.nextElement();
@@ -141,7 +133,7 @@ public class Client extends AsyncTask<Void, String , String>{
 					}
 				}
 			}
-//            ip = "10.0.2.15"; //Failed - Permission denied
+            ip = "127.0.0.1"; //Failed - Permission denied
 
         } catch (Exception e) { //SocketException
             // TODO Auto-generated catch block

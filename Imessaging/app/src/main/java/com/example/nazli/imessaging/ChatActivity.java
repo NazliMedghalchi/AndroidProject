@@ -1,38 +1,23 @@
 package com.example.nazli.imessaging;
 
 import android.app.Activity;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-
-import android.inputmethodservice.InputMethodService;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
-
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.List;
 
-import other.Message;
-import other.SocketConfig;
 import other.Utils;
 
 //import Client.ClientJsonMessage;
-
 //import com.codebutler.android_websockets.*;
 //import com.google.gson.JsonParser;
 //import com.koushikdutta.http.AsyncHttpClient;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 /*
  * Created by nazlimedghalchi on 2015-11-03.
@@ -73,8 +58,8 @@ public class ChatActivity extends Activity {
     Socket socket;
     Client client;
 
-    final String ip = "10.0.2.2"; //turn it back to 10.0.2.15 /
-    final int port = 5000; //back to 5554 to connect to emulator server app
+    final String ip = "10.0.2.15"; //turn it back to 10.0.2.15 /
+    final int port = 6000; //back to 5554 to connect to emulator server app
 
 
     public void newChat(){

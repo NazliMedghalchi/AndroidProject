@@ -1,20 +1,15 @@
 package com.androidsrc.server;
 
 
-
-import android.util.Log;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.InetAddress;
-import java.net.InetSocketAddress;
 import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.util.Enumeration;
 
 public class Server {
@@ -23,7 +18,7 @@ public class Server {
 	String message = "";
 	InputStreamReader inputStreamReader;
 	BufferedReader bufferedReader;
-	static final int socketServerPORT = 5000;
+	static final int socketServerPORT = 6000;
 
 	public Server(MainActivity activity) {
 		this.activity = activity;
@@ -141,7 +136,7 @@ public class Server {
 					}
 				}
 			}
-//		ip = "10.0.2.15"; //Failed - Permission denied
+//		ip = "10.0.2.2"; //Failed - Permission denied
 
 		} catch (Exception e) { //SocketException
 			// TODO Auto-generated catch block
