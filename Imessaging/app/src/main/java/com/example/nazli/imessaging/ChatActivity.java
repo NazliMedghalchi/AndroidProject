@@ -10,6 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.net.Socket;
 
 import other.Utils;
@@ -60,7 +61,85 @@ public class ChatActivity extends Activity {
 
     final String ip = "10.0.2.2"; //turn it back to 10.0.2.15 /
     final int port = 8080; //back to 5554 to connect to emulator server app - 6000
+    TextView fromS;
 
+
+    @Override
+    public void onCreate(Bundle savaedInstance) {
+        super.onCreate(savaedInstance);
+        setContentView(R.layout.activity_chat);
+
+        from_server = (TextView) findViewById(R.id.from_server);
+        search = (EditText) findViewById(R.id.editText_search); // search contact here
+        searchBTN = (Button) findViewById(R.id.search_btn);
+        title = (EditText) findViewById(R.id.editText_conv_title);
+        sendBTN = (Button) findViewById(R.id.btn_send); // on click on sendBTN the message will be sent to recipient (user)
+        message = (EditText) findViewById(R.id.editText_msg); // sent from user
+        itemText = (TextView) findViewById(R.id.convFirstLine);
+        threadsList = (ListView) findViewById(R.id.listView_chat);
+        side = false;
+
+        //DON'T move client call - it needs to be after instantiation
+
+
+        newChat();
+
+
+    } //end of onCreate
+
+    @Override
+    protected void onStart(){
+        fromS = (TextView) findViewById(R.id.fromS);
+        client = new Client(ip, port, from_server.toString());
+        client.execute();
+        fromS.setText(ip);
+
+        sendBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+//                client.onProgressUpdate();
+                Toast.makeText(getApplicationContext(), "Messaeg Sent", Toast.LENGTH_LONG).show();
+            }
+        });
+        searchBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setContentView(R.layout.list_of_contacts);
+                Intent i = new Intent(getApplicationContext(), ContactsList.class);
+                i.putExtra("search", search.toString());
+            }
+        }); // first clickListener
+        chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(),
+                R.layout.chat_item_right);
+
+
+        sendBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                // send message on inputstream to socket
+                sendMessageToServer();
+                // clear text field after sending
+                message.setText("");
+            }
+        });
+
+
+        super.onStart();
+
+    }
+
+ // TODO: 2015-11-19 destroy server socket
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        if (!socket.isClosed()) {
+            try {
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public void newChat(){
         message.setText("");
@@ -86,83 +165,6 @@ public class ChatActivity extends Activity {
 
     public String  sendChatMessageToServer(String msg){
         return msg;
-    }
-    @Override
-    public void onCreate(Bundle savaedInstance) {
-        super.onCreate(savaedInstance);
-        setContentView(R.layout.activity_chat);
-
-        from_server = (TextView) findViewById(R.id.from_server);
-        search = (EditText) findViewById(R.id.editText_search); // search contact here
-        searchBTN = (Button) findViewById(R.id.search_btn);
-        title = (EditText) findViewById(R.id.editText_conv_title);
-        sendBTN = (Button) findViewById(R.id.btn_send); // on click on sendBTN the message will be sent to recipient (user)
-        message = (EditText) findViewById(R.id.editText_msg); // sent from user
-        itemText = (TextView) findViewById(R.id.convFirstLine);
-        threadsList = (ListView) findViewById(R.id.listView_chat);
-        side = false;
-
-        //DON'T move client call - it needs to be after instantiation
-
-
-        TextView fromS = (TextView) findViewById(R.id.fromS);
-        fromS.setText(fromServer);
-        newChat();
-        client = new Client(ip, port, from_server.toString());
-        client.execute();
-    } //end of onCreate
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-        try {
-
-            from_server.setText(fromServer); //
-        }catch (Exception e){
-            e.printStackTrace();
-
-            sendBTN.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View arg0) {
-                    client.onProgressUpdate();
-                    Toast.makeText(getApplicationContext(), "Messaeg Sent", Toast.LENGTH_LONG).show();
-                }
-            });
-            searchBTN.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    setContentView(R.layout.list_of_contacts);
-                    Intent i = new Intent(getApplicationContext(), ContactsList.class);
-                    i.putExtra("search", search.toString());
-                }
-            }); // first clickListener
-            chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(),
-                    R.layout.chat_item_right);
-
-
-            sendBTN.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View arg0) {
-                    // send message on inputstream to socket
-                    sendMessageToServer();
-                    // clear text field after sending
-                    message.setText("");
-                }
-            });
-        }
-    }
-
- // TODO: 2015-11-19 destroy server socket
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-//        if (!socket.isClosed()) {
-//            try {
-//                socket.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
     }
 }
 

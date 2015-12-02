@@ -2,14 +2,13 @@ package com.example.nazli.imessaging;
 
 import android.os.AsyncTask;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
 
@@ -31,8 +30,9 @@ public class Client extends AsyncTask<Void, String , String>{
     String SOCKET_CONNECT_TAG;
     String destAddress;
     int destPort;
-    String response = "";
+    String response;
     String txtResponse;
+    Socket socket;
 
     Client(String address, int portNum, String txtRes){
         destAddress = address;
@@ -45,7 +45,7 @@ public class Client extends AsyncTask<Void, String , String>{
         super.onPreExecute();
         MainActivity.receiveServer = response;
     }
-    ChatMessage chatMessage;
+//    ChatMessage chatMessage;
 
 //    @Override
 //    protected void onPreExecute(){
@@ -54,10 +54,9 @@ public class Client extends AsyncTask<Void, String , String>{
     @Override
     protected String doInBackground(Void... params) {
 
-        Socket socket;
         try {
 //            Log.i(SOCKET_CONNECT_TAG, "Check SOCKET");
-            fromServer = "Check Socket";
+//            fromServer = "Check Socket";
 //            socket = new Socket(String.valueOf(
 //                    new InetSocketAddress(getIpAddress(), destPort)), 6000);
             socket = new Socket(destAddress, destPort);
@@ -68,22 +67,22 @@ public class Client extends AsyncTask<Void, String , String>{
 
             byte[] buffer = new byte[1024];
             int byteStreamR;
-
+//
             InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
-            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            OutputStream outputStream = socket.getOutputStream();
-            while ((byteStreamR = inputStreamReader.read()) != -1) {
-//                from_server.setText(bufferedReader.toString("UTF-8"));
-                byteArrayOutputStream.write(buffer, 0, byteStreamR);
-                response += byteArrayOutputStream.toString("UTF-8");
-                ChatActivity.fromServer= response;
-            }
-            byteArrayOutputStream.close(); // testing
+//            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+//            OutputStream outputStream = socket.getOutputStream();
+//            while ((byteStreamR = inputStreamReader.read()) != -1) {
+////                fromServer = (bufferedReader.toString("UTF-8"));
+//                byteArrayOutputStream.write(buffer, 0, byteStreamR);
+//                response += byteArrayOutputStream.toString("UTF-8");
+//                fromServer += response;
+//            }
+//            byteArrayOutputStream.close(); // testing
 
         }catch (UnknownHostException e){
             e.printStackTrace();
             response = "UnknownHostException: : " + e.toString();
-            ChatActivity.fromServer = response;
+            fromServer += response;
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -93,7 +92,7 @@ public class Client extends AsyncTask<Void, String , String>{
     }
 // I'm looking for this
     protected void onProgressUpdate(){
-        ChatActivity.fromServer = "Connected to Server on port: " + destPort;
+        fromServer = "Connected to Server on port: " + destPort;
     }
 
     @Override
@@ -115,7 +114,7 @@ public class Client extends AsyncTask<Void, String , String>{
         try {
 			Enumeration<NetworkInterface> enumNetworkInterfaces = NetworkInterface
 					.getNetworkInterfaces();
-            response += "got network"; //extra
+//            response += "got network"; //extra
             from_server.setText(response); //extra
 			while (enumNetworkInterfaces.hasMoreElements()) {
 				NetworkInterface networkInterface = enumNetworkInterfaces
@@ -131,9 +130,9 @@ public class Client extends AsyncTask<Void, String , String>{
 					}
 				}
 			}
-            ip = "127.0.0.1"; //Failed - Permission denied
+//            ip = "127.0.0.1"; //Failed - Permission denied
 
-        } catch (Exception e) { //SocketException
+        } catch (SocketException e) { //SocketException
             // TODO Auto-generated catch block
             e.printStackTrace();
             ip += "Something Wrong! " + e.toString() + "\n";
