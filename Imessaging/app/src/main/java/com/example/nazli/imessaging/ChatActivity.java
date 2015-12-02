@@ -58,8 +58,8 @@ public class ChatActivity extends Activity {
     Socket socket;
     Client client;
 
-    final String ip = "10.0.2.15"; //turn it back to 10.0.2.15 /
-    final int port = 6000; //back to 5554 to connect to emulator server app
+    final String ip = "10.0.2.2"; //turn it back to 10.0.2.15 /
+    final int port = 8080; //back to 5554 to connect to emulator server app - 6000
 
 
     public void newChat(){

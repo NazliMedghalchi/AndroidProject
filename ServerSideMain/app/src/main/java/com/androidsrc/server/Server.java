@@ -18,7 +18,7 @@ public class Server {
 	String message = "";
 	InputStreamReader inputStreamReader;
 	BufferedReader bufferedReader;
-	static final int socketServerPORT = 6000;
+	static final int socketServerPORT = 6443; //6000
 
 	public Server(MainActivity activity) {
 		this.activity = activity;
@@ -136,7 +136,7 @@ public class Server {
 					}
 				}
 			}
-//		ip = "10.0.2.2"; //Failed - Permission denied
+//		ip += "10.0.2.2"; //Failed - Permission denied
 
 		} catch (Exception e) { //SocketException
 			// TODO Auto-generated catch block

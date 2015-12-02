@@ -7,7 +7,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.PrintStream;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.Socket;
@@ -41,17 +40,17 @@ public class Client extends AsyncTask<Void, String , String>{
         this.txtResponse = txtRes;
     }
 //
-//    @Override
-//    protected void onPreExecute(){
-//        MainActivity.receiveServer = response;
-//        super.onPreExecute();
-//    }
-    ChatMessage chatMessage;
-
     @Override
     protected void onPreExecute(){
-        fromServer = "Connecting to server...";
+        super.onPreExecute();
+        MainActivity.receiveServer = response;
     }
+    ChatMessage chatMessage;
+
+//    @Override
+//    protected void onPreExecute(){
+//        fromServer = "Connecting to server...";
+//    }
     @Override
     protected String doInBackground(Void... params) {
 
@@ -62,9 +61,8 @@ public class Client extends AsyncTask<Void, String , String>{
 //            socket = new Socket(String.valueOf(
 //                    new InetSocketAddress(getIpAddress(), destPort)), 6000);
             socket = new Socket(destAddress, destPort);
-            fromServer = "passed socket";
-            PrintStream printStream = new PrintStream(socket.getOutputStream());
-            fromServer = txtResponse + "connected";
+//            fromServer = "passed socket";
+            fromServer = "connected";
 
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(1024);
 
