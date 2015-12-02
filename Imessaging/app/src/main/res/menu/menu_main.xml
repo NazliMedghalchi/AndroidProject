@@ -7,7 +7,7 @@
     <item android:id="@+id/action_friends" android:title="@string/action_friends"
         android:orderInCategory="100" android:showAsAction="never"/>
     <item android:id="@+id/action_groups" android:title="@string/action_groups"
-        android:orderInCategory="150" android:showAsAction="never"/>
+        android:orderInCategory="150" android:showAsAction="collapseActionView"/>
     <item android:id="@+id/logOut" android:title="@string/logout"
         android:orderInCategory="200" android:showAsAction="always"/>
 

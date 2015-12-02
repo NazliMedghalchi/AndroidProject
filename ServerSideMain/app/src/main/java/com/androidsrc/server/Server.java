@@ -3,6 +3,7 @@ package com.androidsrc.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
@@ -17,9 +18,11 @@ public class Server {
 	ServerSocket serverSocket;
 	String message = "";
 	InputStreamReader inputStreamReader;
+	InputStream inputStream;
 	BufferedReader bufferedReader;
 	static final int socketServerPORT = 6443; //6000
 
+	PrintStream printStream;
 	public Server(MainActivity activity) {
 		this.activity = activity;
 		Thread socketServerThread = new Thread(new SocketServerThread());
@@ -31,6 +34,7 @@ public class Server {
 	}
 
 
+	// Client sends ...
 	private class SocketServerThread extends Thread {
 
 		int count = 0;
@@ -46,15 +50,23 @@ public class Server {
 					message += "#" + count + " from "
 							+ socket.getInetAddress() + ":"
 							+ socket.getPort() + "\n";
-					inputStreamReader =
-							new InputStreamReader(socket.getInputStream());
-					bufferedReader = new BufferedReader(inputStreamReader);
+
+					inputStream = socket.getInputStream();
+					bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+					StringBuilder stringBuilder = new
+							StringBuilder();
+					final String line = bufferedReader.readLine();
+					while (line != null) {
+						stringBuilder.append(line);
+					}
+
 					activity.runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
-							activity.msg.setText(message + bufferedReader);
+							activity.msg.setText(message + line);
 						}
 					});
+
 					SocketServerReplyThread socketServerReplyThread = new SocketServerReplyThread(
 							socket, count);
 					socketServerReplyThread.run();
@@ -66,6 +78,7 @@ public class Server {
 		}
 	}
 
+	// Server sends out ...
 	private class SocketServerReplyThread extends Thread {
 
 		private Socket hostThreadSocket;
@@ -79,42 +92,51 @@ public class Server {
 		@Override
 		public void run() {
 			OutputStream outputStream;
+//			outputStream = hostThreadSocket.getOutputStream();
+//			printStream = new PrintStream(new OutputStream() {
+//				@Override
+//				public void write(int oneByte) throws IOException {
+//
+//				}
+//			});
 			String msgReply = "Hello from Server, you are #" + cnt;
 
 			try {
-				while (hostThreadSocket!= null){
-					outputStream = hostThreadSocket.getOutputStream();
 
-					PrintStream printStream = new PrintStream(outputStream);
-					printStream.print(msgReply);
-					printStream.close();
+				while (hostThreadSocket.isConnected()){ // hostThreadSocket.isConnected
+					inputStreamReader = new InputStreamReader
+								(hostThreadSocket.getInputStream());
+					msgReply += bufferedReader.readLine().toString();
 
-					message += "replayed: " + msgReply + "\n";
+					printStream.print("From client:" + msgReply + "\n");
+						activity.runOnUiThread(new Runnable() {
+							@Override
+							public void run() {
+								activity.msg.setText(message);
+							}
+						});
+					if (inputStreamReader == null){
+						activity.msg.setText("printStream and socket are closed by Client" + cnt);
+//					message += "Client replayed: " + msgReply + "\n";
 //				System.out.print(message);
-
-					activity.runOnUiThread(new Runnable() {
-
-						@Override
-						public void run() {
-							activity.msg.setText(message);
-						}
-					});
+					}
 				}
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				message += "Something wrong! " + e.toString() + "\n";
+				message += "Something wrong in! " + e.toString() + "\n";
 			}
 
 			activity.runOnUiThread(new Runnable() {
-
+				// this is where I can pass message to other client
 				@Override
 				public void run() {
 					activity.msg.setText(message);
 				}
 			});
-		}
+			printStream.close();
 
+		}
 	}
 
 	public String getIpAddress() {
@@ -149,6 +171,7 @@ public class Server {
 	public void onDestroy() {
 		if (serverSocket != null) {
 			try {
+				printStream.close();
 				serverSocket.close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

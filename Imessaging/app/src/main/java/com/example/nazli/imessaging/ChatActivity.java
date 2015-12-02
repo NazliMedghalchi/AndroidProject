@@ -2,15 +2,17 @@ package com.example.nazli.imessaging;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.Socket;
 
 import other.Utils;
@@ -43,6 +45,7 @@ public class ChatActivity extends Activity {
 
     public static String fromServer;
     public static TextView from_server;
+    public static ChatMessage chatMessage;
 
     EditText title;
     EditText search; // search contact here
@@ -53,7 +56,7 @@ public class ChatActivity extends Activity {
     Boolean side = false;
 
     ListView threadsList;
-    ChatArrayAdapter chatArrayAdapter;
+    public ChatArrayAdapter chatArrayAdapter;
     Utils utils;
 
     Socket socket;
@@ -81,64 +84,65 @@ public class ChatActivity extends Activity {
 
         //DON'T move client call - it needs to be after instantiation
 
-
+        fromS = (TextView) findViewById(R.id.fromS);
         newChat();
-
 
     } //end of onCreate
 
     @Override
     protected void onStart(){
-        fromS = (TextView) findViewById(R.id.fromS);
+        super.onStart();
         client = new Client(ip, port, from_server.toString());
-        client.execute();
-        fromS.setText(ip);
-
-        sendBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-//                client.onProgressUpdate();
-                Toast.makeText(getApplicationContext(), "Messaeg Sent", Toast.LENGTH_LONG).show();
-            }
-        });
-        searchBTN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setContentView(R.layout.list_of_contacts);
-                Intent i = new Intent(getApplicationContext(), ContactsList.class);
-                i.putExtra("search", search.toString());
-            }
-        }); // first clickListener
+        client.execute(chatArrayAdapter);
         chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(),
                 R.layout.chat_item_right);
 
+        searchBTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), ContactsList.class);
+                i.putExtra("userID", search.toString());
+                startActivity(i);
+            }
+        }); // first clickListener
+
 
         sendBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // send message on inputstream to socket
+                // send message on outputstream to socket
                 sendMessageToServer();
                 // clear text field after sending
                 message.setText("");
             }
         });
 
+        if (client.getStatus() == AsyncTask.Status.PENDING){
 
-        super.onStart();
-
+        }
+        fromS.setText(ip);
+        InputStream inputStream = new InputStream() {
+            @Override
+            public int read() throws IOException {
+                socket.getInputStream();
+                return 0;
+            }
+        };
+        BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+        chatArrayAdapter.addAll();
     }
 
  // TODO: 2015-11-19 destroy server socket
     @Override
     protected void onDestroy(){
         super.onDestroy();
-        if (!socket.isClosed()) {
-            try {
-                socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        if (!socket.isClosed()) {
+//            try {
+//                socket.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     public void newChat(){
@@ -146,12 +150,14 @@ public class ChatActivity extends Activity {
         search.setText("");
     }
 
+    // check socket
     private void sendMessageToServer() {
-        if (socket != null || !socket.isClosed()) {
+//        if (!socket.isClosed()) {
             sendChatMessage();
-        }
+//        }
     }
 
+    //send message on output stream
     public boolean sendChatMessage(){
         // TODO: 2015-11-11 chat message to send:
         // https://trinitytuts.com/simple-chat-application-using-listview-in-android/
@@ -161,7 +167,6 @@ public class ChatActivity extends Activity {
         side = !side;
         return true;
     }
-
 
     public String  sendChatMessageToServer(String msg){
         return msg;

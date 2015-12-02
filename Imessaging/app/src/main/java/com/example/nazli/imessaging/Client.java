@@ -2,16 +2,15 @@ package com.example.nazli.imessaging;
 
 import android.os.AsyncTask;
 
-import java.io.ByteArrayOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
+import java.io.OutputStream;
 import java.net.Socket;
-import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.Enumeration;
 
+import static com.example.nazli.imessaging.ChatActivity.chatMessage;
 import static com.example.nazli.imessaging.ChatActivity.fromServer;
 import static com.example.nazli.imessaging.ChatActivity.from_server;
 
@@ -25,16 +24,16 @@ import static com.example.nazli.imessaging.ChatActivity.from_server;
 * however ClientServer is using ClientServer and Server
 * */
 
-public class Client extends AsyncTask<Void, String , String>{
+public class Client extends AsyncTask<ChatArrayAdapter, String , Socket>{
 
-    String SOCKET_CONNECT_TAG;
+//    String SOCKET_CONNECT_TAG;
     String destAddress;
     int destPort;
-    String response;
+    String response = "";
     String txtResponse;
     Socket socket;
 
-    Client(String address, int portNum, String txtRes){
+    Client (String address, int portNum, String txtRes) {
         destAddress = address;
         destPort = portNum;
         this.txtResponse = txtRes;
@@ -43,41 +42,24 @@ public class Client extends AsyncTask<Void, String , String>{
     @Override
     protected void onPreExecute(){
         super.onPreExecute();
-        MainActivity.receiveServer = response;
+        from_server.setText(response);
     }
 //    ChatMessage chatMessage;
 
-//    @Override
-//    protected void onPreExecute(){
-//        fromServer = "Connecting to server...";
-//    }
     @Override
-    protected String doInBackground(Void... params) {
+    protected Socket doInBackground(ChatArrayAdapter... params) {
 
         try {
-//            Log.i(SOCKET_CONNECT_TAG, "Check SOCKET");
-//            fromServer = "Check Socket";
+            fromServer = "Check Socket";
 //            socket = new Socket(String.valueOf(
-//                    new InetSocketAddress(getIpAddress(), destPort)), 6000);
+//                    new InetSocketAddress(destAddress, destPort)), 30);
             socket = new Socket(destAddress, destPort);
-//            fromServer = "passed socket";
-            fromServer = "connected";
+            if (socket.isConnected()){
+                fromServer += "connected";
+            }
 
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream(1024);
-
-            byte[] buffer = new byte[1024];
-            int byteStreamR;
-//
-            InputStreamReader inputStreamReader = new InputStreamReader(socket.getInputStream());
-//            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-//            OutputStream outputStream = socket.getOutputStream();
-//            while ((byteStreamR = inputStreamReader.read()) != -1) {
-////                fromServer = (bufferedReader.toString("UTF-8"));
-//                byteArrayOutputStream.write(buffer, 0, byteStreamR);
-//                response += byteArrayOutputStream.toString("UTF-8");
-//                fromServer += response;
-//            }
-//            byteArrayOutputStream.close(); // testing
+            onProgressUpdate();
+            // run sending message
 
         }catch (UnknownHostException e){
             e.printStackTrace();
@@ -87,57 +69,46 @@ public class Client extends AsyncTask<Void, String , String>{
         } catch (IOException e) {
             e.printStackTrace();
             response += "IOException: " + e.toString();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        return null;
+        return socket;
     }
+
 // I'm looking for this
-    protected void onProgressUpdate(){
-        fromServer = "Connected to Server on port: " + destPort;
+    protected void onProgressUpdate() throws InterruptedException {
+        fromServer += "Connected to Server on port: " + destPort;
+        super.onProgressUpdate();
     }
 
     @Override
-    protected void onPostExecute(String result){
-        super.onPostExecute(result);
-
-        final ChatActivity chatActivity = new ChatActivity();
-        response += "server is ON";
-        chatActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                fromServer = response;
-            }
-        });
-
+    protected void onPostExecute(Socket socket){
+        super.onPostExecute(socket);
+        fromServer += "server is ON";
     }
-    public String getIpAddress() {
-        String ip = "";
-        try {
-			Enumeration<NetworkInterface> enumNetworkInterfaces = NetworkInterface
-					.getNetworkInterfaces();
-//            response += "got network"; //extra
-            from_server.setText(response); //extra
-			while (enumNetworkInterfaces.hasMoreElements()) {
-				NetworkInterface networkInterface = enumNetworkInterfaces
-						.nextElement();
-				Enumeration<InetAddress> enumInetAddress = networkInterface
-						.getInetAddresses();
-				while (enumInetAddress.hasMoreElements()) {
-					InetAddress inetAddress = enumInetAddress
-							.nextElement();
-					if (inetAddress.isSiteLocalAddress()) {
-						ip += "Client running at : "
-								+ inetAddress.getHostAddress();
-					}
-				}
-			}
-//            ip = "127.0.0.1"; //Failed - Permission denied
 
-        } catch (SocketException e) { //SocketException
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            ip += "Something Wrong! " + e.toString() + "\n";
+    // created to check read and write
+    private class ClientMessageThread extends AsyncTask {
+        private ClientMessageThread() throws IOException {
+            OutputStream output;
+            InputStream input;
         }
-        return ip;
-    }
 
+        @Override
+        protected Object doInBackground(Object[] params) {
+            InputStreamReader inputStreamReader;
+            InputStream inputStream;
+            BufferedReader bufferedReader;
+            try {
+                inputStream = socket.getInputStream();
+                OutputStream outputStream = socket.getOutputStream();
+               BufferedReader bufferR = new BufferedReader(new InputStreamReader(inputStream));
+                chatMessage.message = bufferR.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+    }
 }

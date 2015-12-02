@@ -55,15 +55,17 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatArrayAdapter.ChatMessage>
         if (chatMessageObj.left) {
 
             convertView = inflater.inflate(R.layout.chat_item_right, parent, false);
-            message = (TextView) convertView.findViewById(R.id.sentItem);
+            message = (TextView) chatMessageObj.findViewById(R.layout.chat_item_right);
         }
         else {
             convertView = inflater.inflate(R.layout.chat_item_left, parent, false);
-            message = (TextView) convertView.findViewById(R.id.receivedItem);
+            message = (TextView) chatMessageObj.findViewById(R.id.receivedItem);
         }
         message.setText(chatMessageObj.message);
         return convertView;
     }
+
+
 }
 
 

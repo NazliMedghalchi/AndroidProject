@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:name="com.example.nazli.imessaging.Conversation"
     tools:layout="@layout/list_of_conversations"
-    android:theme="@style/AppTheme.UWECEApp">
+    android:theme="@style/AppTheme">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -20,7 +20,7 @@
             android:gravity="left"
             android:id="@+id/conVlist_title"
             android:text="@string/conversation"
-            android:theme="@style/AppTheme.UWECEApp"
+            android:theme="@style/AppTheme"
             android:layout_weight="1"
             android:textSize="20dp" />
 
@@ -42,6 +42,7 @@
         android:id="@+id/listView_conv"
         android:listSelector="@android:color/transparent"
         android:clickable="true"
+        android:theme="@style/AppTheme.UWECEApp"
         android:layout_column="18" />
 
 </LinearLayout>
