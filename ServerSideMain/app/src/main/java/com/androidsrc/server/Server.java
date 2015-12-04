@@ -1,11 +1,17 @@
 package com.androidsrc.server;
 
+import android.util.JsonReader;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -33,7 +39,6 @@ public class Server {
 		return socketServerPORT;
 	}
 
-
 	// Client sends ...
 	private class SocketServerThread extends Thread {
 
@@ -50,23 +55,7 @@ public class Server {
 					message += "#" + count + " from "
 							+ socket.getInetAddress() + ":"
 							+ socket.getPort() + "\n";
-
-					inputStream = socket.getInputStream();
-					bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-					StringBuilder stringBuilder = new
-							StringBuilder();
-					final String line = bufferedReader.readLine();
-					while (line != null) {
-						stringBuilder.append(line);
-					}
-
-					activity.runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							activity.msg.setText(message + line);
-						}
-					});
-
+//					activity.msg.set  Text(message + line);
 					SocketServerReplyThread socketServerReplyThread = new SocketServerReplyThread(
 							socket, count);
 					socketServerReplyThread.run();
@@ -78,12 +67,10 @@ public class Server {
 		}
 	}
 
-	// Server sends out ...
+	// Server replies to what client sent on inputStream
 	private class SocketServerReplyThread extends Thread {
-
-		private Socket hostThreadSocket;
+		Socket hostThreadSocket;
 		int cnt;
-
 		SocketServerReplyThread(Socket socket, int c) {
 			hostThreadSocket = socket;
 			cnt = c;
@@ -92,29 +79,47 @@ public class Server {
 		@Override
 		public void run() {
 			OutputStream outputStream;
-//			outputStream = hostThreadSocket.getOutputStream();
-//			printStream = new PrintStream(new OutputStream() {
-//				@Override
-//				public void write(int oneByte) throws IOException {
-//
-//				}
-//			});
+			BufferedWriter bufferedWriter;
+			JSONArray jArray = new JSONArray(); //Array of all passed messages in every conversation
+			JSONObject jObj = new JSONObject();
+				try {
+					while (inputStream != null){
+					outputStream = hostThreadSocket.getOutputStream();
+					bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
+					printStream = new PrintStream(outputStream);
+					message = bufferedWriter.toString();
+					printStream.append(jObj.toString());
+					jArray.put(jObj);
+					}
+				}catch (IOException e) {
+					e.printStackTrace();
+				}
+
+
 			String msgReply = "Hello from Server, you are #" + cnt;
 
 			try {
-
 				while (hostThreadSocket.isConnected()){ // hostThreadSocket.isConnected
 					inputStreamReader = new InputStreamReader
 								(hostThreadSocket.getInputStream());
-					msgReply += bufferedReader.readLine().toString();
-
-					printStream.print("From client:" + msgReply + "\n");
+					printStream.print("From client:" + "\n");
 						activity.runOnUiThread(new Runnable() {
 							@Override
 							public void run() {
 								activity.msg.setText(message);
 							}
 						});
+					inputStream =hostThreadSocket.getInputStream();
+//					msgReply += bufferedReader.readLine();
+					bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+					JsonReader jsonReader = new JsonReader(bufferedReader);
+					StringBuilder stringBuilder = new
+							StringBuilder();
+					String line = jsonReader.toString();
+					while (line != null) {
+						stringBuilder.append(line);
+						message += line;
+					}
 					if (inputStreamReader == null){
 						activity.msg.setText("printStream and socket are closed by Client" + cnt);
 //					message += "Client replayed: " + msgReply + "\n";
@@ -127,7 +132,7 @@ public class Server {
 				message += "Something wrong in! " + e.toString() + "\n";
 			}
 
-			activity.runOnUiThread(new Runnable() {
+			activity.runOnUiThread(	new Runnable() {
 				// this is where I can pass message to other client
 				@Override
 				public void run() {
@@ -138,6 +143,7 @@ public class Server {
 
 		}
 	}
+
 
 	public String getIpAddress() {
 		String ip = "";

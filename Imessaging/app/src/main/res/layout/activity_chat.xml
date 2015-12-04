@@ -5,19 +5,12 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/server_ip"
-        android:id="@+id/textServer"
-        android:layout_weight="0.22" />
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:weightSum="1"
-        android:layout_weight="0.22">
+        android:layout_weight="1">
 
         <TextView
             android:layout_width="match_parent"
@@ -28,7 +21,8 @@
             android:layout_margin="10dp"
             android:editable="true"
             android:background="#fcf188"
-            android:textColor="#000000" />
+            android:textColor="#000000"
+            android:hint="server IP" />
 
         <LinearLayout
             android:orientation="horizontal"
@@ -79,7 +73,7 @@
 
         <ListView
             android:layout_width="fill_parent"
-            android:layout_height="251dp"
+            android:layout_height="9dp"
             android:id="@+id/listView_chat"
             android:alpha="1"
             android:divider="@null"
@@ -95,6 +89,19 @@
             android:fastScrollAlwaysVisible="false"
             android:fastScrollEnabled="true"
             android:layout_margin="10dp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/scrollView"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.94">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView_message" />
+        </ScrollView>
 
     </LinearLayout>
 

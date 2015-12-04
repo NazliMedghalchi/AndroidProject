@@ -1,0 +1,158 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_weight="1"
+        android:id="@+id/textView_si"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Server info: 10.10.183.231:4025" />
+
+    <TextView
+        android:layout_weight="1"
+        android:id="@+id/textView_uid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User info: test1" />
+
+    <LinearLayout
+        android:layout_weight="1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textView_cf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="Status= Up" />
+
+        <TextView
+            android:id="@+id/textView_cc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="30" />
+    </LinearLayout>
+    
+    <TextView
+        android:layout_weight="1"
+        android:id="@+id/textView_gid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Group ID is: Not Connected" />
+
+    <LinearLayout
+        android:layout_weight="2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/button_sg"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show Group" />
+
+        <Button
+            android:id="@+id/button_jg"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Join Group" />
+
+        <Button
+            android:id="@+id/button_qg"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quit Group" />
+    </LinearLayout>
+    
+            <LinearLayout
+        android:layout_weight="2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/et_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10" >
+
+                <requestFocus />
+            </EditText>
+
+        <Button
+        android:id="@+id/button_create"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="btn_create"
+        android:text="Create Group" />
+           </LinearLayout>
+        <LinearLayout
+        android:layout_weight="16"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/button_new"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_weight="2"
+        android:text="New" />
+    
+        <TextView
+                        android:layout_weight="8"
+            android:id="@+id/txt1"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/holo_blue_bright"
+             />
+    
+        </LinearLayout>
+        
+        <LinearLayout
+        android:layout_weight="2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/editText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10" >
+
+                <requestFocus />
+            </EditText>
+
+        <Button
+        android:id="@+id/button_send"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send" />
+           </LinearLayout>
+
+
+
+
+
+</LinearLayout>

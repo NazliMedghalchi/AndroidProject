@@ -1,23 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.enghack.nazli.imapplication" >
+    package="com.example.nazli.imessaging" >
+
+    <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
+    <uses-permission-sdk-23 android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission-sdk-23 android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission-sdk-23 android:name="android.permission.READ_CONTACTS"/>
+    <!--<uses-permission-sdk-23 android:name="android.permission.BIND_CONNECTION_SERVICE" />-->
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <!--<uses-permission android:name="android.permission.BIND_CONNECTION_SERVICE" />-->
 
     <application
         android:allowBackup="true"
+        android:banner="@menu/menu_main"
+        android:enabled="true"
         android:icon="@mipmap/ic_launcher"
+        android:killAfterRestore="true"
         android:label="@string/app_name"
-        android:supportsRtl="true"
+        android:process="com.example.nazli.imessaging"
         android:theme="@style/AppTheme" >
+
+        <!-- Main activity starting with login-->
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+                <!-- Error on pressing back on app exit solved by Category - HOME -->
+                <category android:name="android.intent.category.HOME" />
             </intent-filter>
         </activity>
+
+        <!-- Conversation activity will do connection check -->
+        <activity
+            android:name=".Conversation"
+            android:label="@string/app_name"
+            android:banner="@menu/menu_main">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+                <category android:name="android.intent.category.APP_CONTACTS" />
+            </intent-filter>
+        </activity>
+
+        <!-- Group Activity shows all groups and actions could be taken on its run time-->
+        <activity
+            android:name=".Groups"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+                <category android:name="android.intent.category.NORMAL" />
+            </intent-filter>
+        </activity>
+
+        <!-- ChatActivity as it's main part of app, connection to server and database -->
+        <activity
+            android:name=".ChatActivity"
+            android:label="@string/app_name"
+            android:banner="@menu/menu_main">
+            <intent-filter>
+                <!--<action android:name="android.intent.action.SEND" />-->
+
+                <category android:name="android.intent.category.NORMAL" />
+            </intent-filter>
+        </activity>
+        <!-- show all accounts saved in the app and friend list that are imported from contacts
+        from user phone-->
+        <activity
+            android:name=".ContactList"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <category android:name="android.intent.category.NORMAL" />
+
+                <data android:scheme="@string/send_to" />
+            </intent-filter>
+        </activity>
+
+        <!-- Alternative option to register receiver -->
+        <!-- android:enabled="true" -->
+
     </application>
 
 </manifest>

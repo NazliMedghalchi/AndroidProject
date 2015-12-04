@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/linearLayout"
+        android:padding="2dp"
+        android:theme="@style/AppTheme">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="226dp"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:id="@+id/textView_group"
+                android:text="@string/action_groups"
+                android:theme="@style/AppTheme.UWECEApp"
+                android:textSize="20dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                style="@style/AppTheme.UWECEApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/show_group"
+                android:id="@+id/showGroup"
+                android:layout_gravity="right"
+                android:clickable="true"
+                android:layout_weight="1" />
+
+            <Button
+                style="@style/AppTheme.UWECEApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_group"
+                android:id="@+id/addGroup"
+                android:layout_gravity="right"
+                android:clickable="true"
+                android:layout_weight="1" />
+
+            <Button
+                style="@style/AppTheme.UWECEApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/quit_group"
+                android:id="@+id/quitGroup"
+                android:layout_gravity="right"
+                android:clickable="true"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listView_groups"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:entries="@+id/listView_item" />
+
+    </LinearLayout>
+</LinearLayout>

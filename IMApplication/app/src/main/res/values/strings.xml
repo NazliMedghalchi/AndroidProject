@@ -1,4 +1,51 @@
 <resources>
-    <string name="app_name">IMApplication</string>
+    <string name="app_name">iMessage</string>
+    <string name="welcome_app">Welcome to iMessaging</string>
     <string name="action_settings">Settings</string>
+    <string name="action_friends">Friends</string>
+    <string name="action_groups">Groups</string>
+    <string name="action_conv">Conversations</string>
+    <string name="logout">Log Out</string>
+
+    <!--Login layout -->
+    <string name="login">Log In</string>
+    <string name="username">Username:</string>
+    <string name="password">Password:</string>
+    <string name="uname_hint">Please Enter your Username</string>
+    <string name="pass_hint">Please Enter your Password</string>
+
+    <!-- Text on menu-->
+    <string name="menu_chats">Recent chats</string>
+    <string name="menu_friends">Friends list</string>
+    <string name="menu_setting">Settings</string>
+
+    <!--Buttons-->
+    <string name="signin_btn">Sign In</string>
+    <string name="search">Search</string>
+    <string name="send_btn">Send</string>
+
+    <!--Feature Title-->
+    <string name="conversation">Conversations</string>
+
+    <!--AlretDialogebOx on failed login-->
+    <string name="alert_title">Incorrect username or password</string>
+    <string name="alert_message">Please Try Again!</string>
+
+    <!--Conversation activity string (text&btn)-->
+    <string name="add_conv">Create new</string>
+    <string name="send_to">To:</string>
+
+    <!-- Friend List-->
+    <string name="contact_list_title">Contacts</string>
+
+    <!-- Group layout strings and buttons-->
+    <string name="create_group">Add Group</string>
+    <string name="quit_group">Leave Group</string>
+    <string name="join_group">Join Group</string>
+    <string name="show_group">Show Group</string>
+
+    <!-- Host / server IP based on DNS-->
+    <string name="server_ip">Server IP:</string>
+    <string name="receiver_permission"></string>
+
 </resources>

@@ -1,0 +1,10 @@
+{
+  "applications": {
+    "IPmessage": {
+      "applicationId": "2taQ6fZk3RUzudxHfKGxOFechcgvmFsUQJylhfah"
+    },
+    "_default": {
+      "link": "IPmessage"
+    }
+  }
+}
