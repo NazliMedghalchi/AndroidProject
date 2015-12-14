@@ -1,7 +1,5 @@
 package com.androidsrc.server;
 
-import android.util.JsonReader;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,9 +21,18 @@ public class Server {
 	MainActivity activity;
 	ServerSocket serverSocket;
 	String message = "";
+
 	InputStreamReader inputStreamReader;
 	InputStream inputStream;
 	BufferedReader bufferedReader;
+
+	OutputStream outputStream;
+	OutputStreamWriter outputStreamWriter;
+	BufferedWriter bufferedWriter;
+
+	Socket hostThreadSocket;
+
+
 	static final int socketServerPORT = 6443; //6000
 
 	PrintStream printStream;
@@ -60,7 +67,7 @@ public class Server {
 							socket, count);
 					socketServerReplyThread.run();
 					}
-			} catch (IOException e) {
+			} catch ( IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -69,7 +76,6 @@ public class Server {
 
 	// Server replies to what client sent on inputStream
 	private class SocketServerReplyThread extends Thread {
-		Socket hostThreadSocket;
 		int cnt;
 		SocketServerReplyThread(Socket socket, int c) {
 			hostThreadSocket = socket;
@@ -80,16 +86,12 @@ public class Server {
 		public void run() {
 			OutputStream outputStream;
 			BufferedWriter bufferedWriter;
-			JSONArray jArray = new JSONArray(); //Array of all passed messages in every conversation
-			JSONObject jObj = new JSONObject();
 				try {
 					while (inputStream != null){
-					outputStream = hostThreadSocket.getOutputStream();
-					bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
-					printStream = new PrintStream(outputStream);
-					message = bufferedWriter.toString();
-					printStream.append(jObj.toString());
-					jArray.put(jObj);
+						outputStream = hostThreadSocket.getOutputStream();
+						bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
+						printStream = new PrintStream(outputStream);
+						message = bufferedWriter.toString();
 					}
 				}catch (IOException e) {
 					e.printStackTrace();
@@ -97,39 +99,24 @@ public class Server {
 
 
 			String msgReply = "Hello from Server, you are #" + cnt;
-
-			try {
-				while (hostThreadSocket.isConnected()){ // hostThreadSocket.isConnected
+			while (hostThreadSocket.isConnected()) {
+				try {
+					// hostThreadSocket.isConnected
 					inputStreamReader = new InputStreamReader
-								(hostThreadSocket.getInputStream());
+							(hostThreadSocket.getInputStream());
 					printStream.print("From client:" + "\n");
-						activity.runOnUiThread(new Runnable() {
-							@Override
-							public void run() {
-								activity.msg.setText(message);
-							}
-						});
-					inputStream =hostThreadSocket.getInputStream();
-//					msgReply += bufferedReader.readLine();
-					bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-					JsonReader jsonReader = new JsonReader(bufferedReader);
-					StringBuilder stringBuilder = new
-							StringBuilder();
-					String line = jsonReader.toString();
-					while (line != null) {
-						stringBuilder.append(line);
-						message += line;
-					}
-					if (inputStreamReader == null){
-						activity.msg.setText("printStream and socket are closed by Client" + cnt);
-//					message += "Client replayed: " + msgReply + "\n";
-//				System.out.print(message);
-					}
+					activity.runOnUiThread(new Runnable() {
+						@Override
+						public void run() {
+							activity.msg.setText(message);
+						}
+					});
+//
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					message += "Something wrong in! " + e.toString() + "\n";
 				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				message += "Something wrong in! " + e.toString() + "\n";
 			}
 
 			activity.runOnUiThread(	new Runnable() {
@@ -144,6 +131,29 @@ public class Server {
 		}
 	}
 
+	public void getInputThread () throws IOException {
+		JSONArray jArray = new JSONArray(); //Array of all passed messages in every conversation
+		JSONObject jObj = new JSONObject();
+		printStream.append(jObj.toString());
+		jArray.put(jObj);
+		inputStream = hostThreadSocket.getInputStream();
+////					msgReply += bufferedReader.readLine();
+//					bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+//					JsonReader jsonReader = new JsonReader(bufferedReader);
+//					StringBuilder stringBuilder = new
+//							StringBuilder();
+//					String line = jsonReader.toString();
+//
+//						while (line != null) {
+//							stringBuilder.append(line);
+//							message += line;
+//					}
+//					if (inputStreamReader == null) {
+//		activity.msg.setText("printStream and socket are closed by Client" );
+//					message += "Client replayed: " + msgReply + "\n";
+//				System.out.print(message);
+//					}
+	}
 
 	public String getIpAddress() {
 		String ip = "";
@@ -173,6 +183,8 @@ public class Server {
 		}
 		return ip;
 	}
+
+
 
 	public void onDestroy() {
 		if (serverSocket != null) {

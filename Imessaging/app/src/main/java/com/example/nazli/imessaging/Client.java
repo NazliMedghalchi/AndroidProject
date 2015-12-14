@@ -4,16 +4,19 @@ import android.os.AsyncTask;
 
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import static com.example.nazli.imessaging.ChatActivity.chatMessage;
 import static com.example.nazli.imessaging.ChatActivity.fromServer;
 import static com.example.nazli.imessaging.ChatActivity.from_server;
+import static com.example.nazli.imessaging.ChatActivity.jsonObject;
 import static com.example.nazli.imessaging.ChatActivity.textView;
 
 /**
@@ -29,12 +32,14 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
 
     String destAddress;
     int destPort;
-    String response = "";
+    String response = "PreExecute";
     String txtResponse;
-    public Socket socket;
     ChatActivity chatActivity = new ChatActivity();
-    JSONObject jObj = new JSONObject();
-    JSONParser parser = new JSONParser();
+//    JSONParser jParser = new JSONParser();
+
+    InputStream in;
+    BufferedReader reader;
+    public Socket socket = null;
 
     Client(String address, int portNum, String txtRes) {
         destAddress = address;
@@ -44,19 +49,11 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
 
     @Override
     protected Socket doInBackground(JSONObject... params) {
-    Socket socket = null;
 
         try {
-            fromServer = "Check Socket";
-//            socket = new Socket(String.valueOf(
-//                    new InetSocketAddress(destAddress, destPort)), 30);
+//            fromServer = "Check Socket";
             socket = new Socket(destAddress, destPort);
-//            if (socket.isBound()) {
-                fromServer += "connected";
-//            }
-
-            // run sending message
-
+            fromServer += "connected";
         } catch (UnknownHostException e) {
             e.printStackTrace();
             response = "UnknownHostException: : " + e.toString();
@@ -81,8 +78,7 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
         fromServer += "Connected to Server on port: " + destPort;
         if (chatActivity.itemText != null){
             try {
-                textView.setText(chatMessage.toString());
-                ClientMessageThread(jObj);
+                ClientMessageThread();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -91,26 +87,26 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
     }
     @Override
     protected void onPostExecute(Socket socket) {
-        fromServer = "Server is ON";
         super.onPostExecute(socket);
+        fromServer += "Server is ON";
     }
 
     // created to check read and write
 
-    public void ClientMessageThread(JSONObject jObj) throws IOException {
-        JSONParser jParser = new JSONParser();
-        JSONObject jsonObj;
-        jsonObj = jObj;
-        ChatActivity chatActivity = new ChatActivity();
-        String jsonString = jsonObj.toString();
-        OutputStream out = socket.getOutputStream();
-        BufferedWriter write = new BufferedWriter(new OutputStreamWriter(out));
-        jParser.getJSONFromUrl(out.toString());
-        write.write(jsonString);
-        fromServer = "message Sent";
-        textView.setText(jsonString);
-//                    bWriter.flush();
+    public void ClientMessageThread() throws IOException {
 
+        OutputStream out = socket.getOutputStream();
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
+        writer.write(jsonObject.toString());
+
+        String jsonString;
+        in = socket.getInputStream();
+        reader = new BufferedReader(new InputStreamReader(in));
+        fromServer = "message Sent";
+        jsonString = jsonObject.toString();
+        textView.setText(jsonString);
+        in.close();
+        out.flush();
     }
 
 
