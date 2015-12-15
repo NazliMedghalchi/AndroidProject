@@ -16,6 +16,7 @@ import java.net.UnknownHostException;
 
 import static com.example.nazli.imessaging.ChatActivity.fromServer;
 import static com.example.nazli.imessaging.ChatActivity.from_server;
+import static com.example.nazli.imessaging.ChatActivity.jsonArray;
 import static com.example.nazli.imessaging.ChatActivity.jsonObject;
 import static com.example.nazli.imessaging.ChatActivity.textView;
 
@@ -76,7 +77,7 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
     }
     protected void onProgressUpdate(String...params) {
         fromServer += "Connected to Server on port: " + destPort;
-        if (chatActivity.itemText != null){
+            if (chatActivity.itemText != null){
             try {
                 ClientMessageThread();
             } catch (IOException e) {
@@ -88,7 +89,7 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
     @Override
     protected void onPostExecute(Socket socket) {
         super.onPostExecute(socket);
-        fromServer += "Server is ON";
+        fromServer = "Server is ON";
     }
 
     // created to check read and write
@@ -103,7 +104,7 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
         in = socket.getInputStream();
         reader = new BufferedReader(new InputStreamReader(in));
         fromServer = "message Sent";
-        jsonString = jsonObject.toString();
+        jsonString = jsonArray.toString();
         textView.setText(jsonString);
         in.close();
         out.flush();

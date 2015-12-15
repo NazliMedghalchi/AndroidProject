@@ -123,25 +123,26 @@ public class ChatActivity extends Activity {
             @Override
             public void onClick(View arg0) {
                 // send message on outputstream to socket
-                try {
+                while (itemText != null) {
                     try {
-                        if (itemText!=null) {
-                            jsonObject.put("message", itemText.toString());
-                            jsonObject.put("userid", search.toString());
-                            jsonArray.put(jsonObject);
+                        try {
+                            if (itemText != null) {
+                                jsonObject.put("message", itemText.toString());
+                                jsonObject.put("userid", search.toString());
+                                jsonArray.put(jsonObject);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
-                    } catch (JSONException e){
+                        sendMessageToServer();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    sendMessageToServer();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
                 // clear text field after sending
-                message.setText("");
+                message.setText(" ");
             }
         });
 
@@ -194,7 +195,7 @@ public class ChatActivity extends Activity {
 //        ChatMessage messageObj = new ChatMessage(true, message.getText().toString(), "10");
 //        chatArrayAdapter.addAll();
         client.ClientMessageThread();
-        message.setText("");
+        message.setText(" ");
 //        side = !side;
         return true;
     }
