@@ -16,6 +16,7 @@ import java.net.UnknownHostException;
 
 import static com.example.nazli.imessaging.ChatActivity.fromServer;
 import static com.example.nazli.imessaging.ChatActivity.from_server;
+import static com.example.nazli.imessaging.ChatActivity.itemText;
 import static com.example.nazli.imessaging.ChatActivity.jsonArray;
 import static com.example.nazli.imessaging.ChatActivity.jsonObject;
 import static com.example.nazli.imessaging.ChatActivity.textView;
@@ -32,7 +33,7 @@ import static com.example.nazli.imessaging.ChatActivity.textView;
 public class Client extends AsyncTask<JSONObject, String , Socket> {
 
     String destAddress;
-    int destPort;
+    Integer destPort;
     String response = "PreExecute";
     String txtResponse;
     ChatActivity chatActivity = new ChatActivity();
@@ -53,7 +54,7 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
 
         try {
 //            fromServer = "Check Socket";
-            socket = new Socket(destAddress, destPort);
+            socket = new Socket(destAddress, Integer.parseInt(Integer.toString(destPort)));
             fromServer += "connected";
         } catch (UnknownHostException e) {
             e.printStackTrace();
@@ -76,8 +77,8 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
         super.onPreExecute();
     }
     protected void onProgressUpdate(String...params) {
-        fromServer += "Connected to Server on port: " + destPort;
-            if (chatActivity.itemText != null){
+        fromServer += "Connected to Server on port: " + Integer.toString(destPort);
+            if (itemText != null){
             try {
                 ClientMessageThread();
             } catch (IOException e) {
@@ -99,6 +100,7 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
         OutputStream out = socket.getOutputStream();
         BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
         writer.write(jsonObject.toString());
+        out.flush();
 
         String jsonString;
         in = socket.getInputStream();
@@ -107,7 +109,7 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
         jsonString = jsonArray.toString();
         textView.setText(jsonString);
         in.close();
-        out.flush();
+
     }
 
 

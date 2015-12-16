@@ -183,7 +183,12 @@ public class Server {
 		}
 		return ip;
 	}
-
+// Added to ckeck server connection on pause
+	public void onPause() throws IOException {
+		if (serverSocket.isBound()) {
+			serverSocket.accept();
+		}
+	}
 
 
 	public void onDestroy() {

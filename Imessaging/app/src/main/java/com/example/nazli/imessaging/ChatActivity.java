@@ -123,7 +123,7 @@ public class ChatActivity extends Activity {
             @Override
             public void onClick(View arg0) {
                 // send message on outputstream to socket
-                while (itemText != null) {
+                while (itemText == null) {
                     try {
                         try {
                             if (itemText != null) {
