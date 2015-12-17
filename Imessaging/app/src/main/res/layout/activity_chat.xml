@@ -89,7 +89,7 @@
             android:fastScrollAlwaysVisible="false"
             android:fastScrollEnabled="true"
             android:layout_margin="10dp"
-            android:layout_weight="0.69" />
+            android:layout_weight="0.28" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -97,12 +97,19 @@
             android:id="@+id/scrollView"
             android:layout_gravity="center_horizontal"
             android:textAlignment="center"
-            android:visibility="visible">
+            android:visibility="visible"
+            android:layout_weight="0.57"
+            android:fillViewport="true"
+            android:longClickable="false"
+            android:layoutMode="opticalBounds"
+            android:theme="@style/AppTheme.UWECEApp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView_message" />
+                android:id="@+id/textView_message"
+                android:textSize="20dp"
+                android:textColor="#5b5858" />
         </ScrollView>
 
     </LinearLayout>

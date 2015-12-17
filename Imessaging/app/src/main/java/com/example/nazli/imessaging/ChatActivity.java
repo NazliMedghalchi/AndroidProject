@@ -81,13 +81,15 @@ public class ChatActivity extends Activity {
         search = (EditText) findViewById(R.id.editText_search); // search contact here
         searchBTN = (Button) findViewById(R.id.search_btn);
         title = (EditText) findViewById(R.id.editText_conv_title);
-        sendBTN = (Button) findViewById(R.id.btn_send); // on click on sendBTN the message will be sent to recipient (user)
-        message = (EditText) findViewById(R.id.editText_msg); // sent from user
         itemText = (TextView) findViewById(R.id.convFirstLine);
         threadsList = (ListView) findViewById(R.id.listView_chat);
+
+        sendBTN = (Button) findViewById(R.id.btn_send); // on click on sendBTN the message will be sent to recipient (user)
+        textView = (TextView) findViewById(R.id.textView_message);
+        message = (EditText) findViewById(R.id.editText_msg); // sent from user
+
         side = false;
 
-        textView = (TextView) findViewById(R.id.textView_message);
         //DON'T move client call - it needs to be after instantiation
 
         fromS = (TextView) findViewById(R.id.fromS);
@@ -161,14 +163,15 @@ public class ChatActivity extends Activity {
  // TODO: 2015-11-19 destroy server socket
     @Override
     protected void onDestroy(){
-        if (!socket.isClosed()) {
+//        if (!socket.isClosed()) {
             try {
                 socket.close();
                 fromServer = "Disconnected";
+                newChat();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
+//        }
         super.onDestroy();
     }
 

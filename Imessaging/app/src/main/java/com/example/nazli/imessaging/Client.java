@@ -18,6 +18,7 @@ import static com.example.nazli.imessaging.ChatActivity.fromServer;
 import static com.example.nazli.imessaging.ChatActivity.from_server;
 import static com.example.nazli.imessaging.ChatActivity.itemText;
 import static com.example.nazli.imessaging.ChatActivity.jsonArray;
+import static com.example.nazli.imessaging.ChatActivity.textView;
 
 /**
  * Created by nazlimedghalchi on 2015-11-21.
@@ -55,6 +56,7 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
 //            fromServer = "Check Socket";
             socket = new Socket(destAddress, Integer.parseInt(Integer.toString(destPort)));
             fromServer += "connected";
+            publishProgress();
         } catch (UnknownHostException e) {
             e.printStackTrace();
             response = "UnknownHostException: : " + e.toString();
@@ -64,7 +66,6 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
             e.printStackTrace();
             response += "IOException: " + e.toString();
         }
-        publishProgress();
         return socket;
     }
 
@@ -78,11 +79,11 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
     protected void onProgressUpdate(String...params) {
         fromServer += "Connected to Server on port: " + Integer.toString(destPort);
             if (itemText != null){
-            try {
-                ClientMessageThread();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                ClientMessageThread();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
         }
         super.onProgressUpdate();
     }
@@ -90,11 +91,7 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
     @Override
     protected void onPostExecute(Socket socket) {
         super.onPostExecute(socket);
-        if (socket.isClosed()) {
-            fromServer = "Server is ON";
-        }
-        else
-            fromServer = "Server is Down";
+        fromServer = "Server is ON";
     }
 
     // created to check read and write
@@ -102,18 +99,19 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
         // listen on connected socket port
         String jsonString;
 
-         while (socket.isConnected()){
+//         while (socket.isConnected()){
              out = socket.getOutputStream();
              PrintWriter writer = new PrintWriter(new OutputStreamWriter(out));
-             writer.write(jsonArray.toString());
-
+             writer.write(jsonArray.toString() + "\n");
+        System.out.println(writer.toString() + "\n");
+        textView.setText(writer.toString() + "\n");
              in = socket.getInputStream();
              reader = new BufferedReader(new InputStreamReader(in));
              fromServer = "message Sent";
-//             textView.setText(reader.toString());
+             textView.setText(reader.toString());
              out.flush();
-         }
-            in.close();
+//         }
+//            in.close();
 
     }
 

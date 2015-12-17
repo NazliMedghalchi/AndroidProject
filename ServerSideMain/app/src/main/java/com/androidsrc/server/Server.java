@@ -1,7 +1,5 @@
 package com.androidsrc.server;
 
-import android.util.JsonReader;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -86,15 +84,13 @@ public class Server {
 
 		@Override
 		public void run() {
-			OutputStream outputStream;
-			BufferedWriter bufferedWriter;
 				try {
-//					while (inputStream != null){
-						outputStream = hostThreadSocket.getOutputStream();
+					outputStream = hostThreadSocket.getOutputStream();
+					while (outputStream != null){
 						bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
 						printStream = new PrintStream(outputStream);
 						message = bufferedWriter.toString();
-//					}
+					}
 				}catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -142,14 +138,16 @@ public class Server {
 		jArray.put(jObj);
 		inputStream = hostThreadSocket.getInputStream();
 		bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-		JsonReader jsonReader = new JsonReader(bufferedReader);
-		StringBuilder stringBuilder = new
-				StringBuilder();
-		String line = jsonReader.toString();
-		while (line != null) {
-			stringBuilder.append(line);
-			message += line;
-		}
+		message += bufferedReader.toString();
+
+//		JsonReader jsonReader = new JsonReader(bufferedReader);
+//		StringBuilder stringBuilder = new
+//				StringBuilder();
+//		String line = jsonReader.toString();
+//		while (line != null) {
+//			stringBuilder.append(line);
+//			message += line;
+//		}
 		if (inputStreamReader == null) {
 			activity.msg.setText("printStream and socket are closed by Client" );
 					message += "Client replayed: " + "\n";
