@@ -1,10 +1,10 @@
 package com.androidsrc.server;
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 import android.widget.TextView;
 
-import java.util.Timer;
+import java.io.IOException;
 
 public class MainActivity extends Activity {
 
@@ -27,6 +27,16 @@ public class MainActivity extends Activity {
 	protected void onDestroy() {
 		server.onDestroy();
 		super.onDestroy();
+	}
+
+	@Override
+	protected void onPause(){
+		try {
+			server.onPause();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		super.onPause();
 	}
 
 }

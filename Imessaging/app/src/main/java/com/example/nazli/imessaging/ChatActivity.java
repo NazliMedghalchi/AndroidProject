@@ -101,13 +101,6 @@ public class ChatActivity extends Activity {
 
 //        textView.setText(message.toString());
 
-
-
-    } //end of onCreate
-
-    @Override
-    protected void onStart(){
-        super.onStart();
         client = new Client(ip, port, from_server.toString());
         client.execute();
         searchBTN.setOnClickListener(new View.OnClickListener() {
@@ -122,24 +115,22 @@ public class ChatActivity extends Activity {
         sendBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                // send message on outputstream to socket
-                while (itemText == null) {
+                // send message on outputStream to socket
+                try {
                     try {
-                        try {
-                            if (itemText != null) {
-                                jsonObject.put("message", itemText.toString());
-                                jsonObject.put("userid", search.toString());
-                                jsonArray.put(jsonObject);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                        if (itemText != null) {
+                            jsonObject.put("message", itemText.toString());
+                            jsonObject.put("userid", search.toString());
+                            jsonArray.put(jsonObject);
                         }
-                        sendMessageToServer();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
+                    } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    sendMessageToServer();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
                 // clear text field after sending
                 message.setText(" ");
@@ -159,13 +150,17 @@ public class ChatActivity extends Activity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    } //end of onCreate
 
-    }
+    @Override
+    protected void onStart(){
+        super.onStart();
+
+    } // End of onStart
 
  // TODO: 2015-11-19 destroy server socket
     @Override
     protected void onDestroy(){
-        super.onDestroy();
         if (!socket.isClosed()) {
             try {
                 socket.close();
@@ -174,6 +169,7 @@ public class ChatActivity extends Activity {
                 e.printStackTrace();
             }
         }
+        super.onDestroy();
     }
 
     public void newChat(){
