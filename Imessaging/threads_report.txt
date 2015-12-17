@@ -1,0 +1,105 @@
+"AsyncTask #1@3635" prio=5 waiting
+  java.lang.Thread.State: WAITING
+	 blocks AsyncTask #1@3635
+	  at java.lang.Object.wait(Object.java:-1)
+	  at java.lang.Thread.parkFor(Thread.java:1220)
+	  - locked <0xe78> (a java.lang.Object)
+	  at sun.misc.Unsafe.park(Unsafe.java:299)
+	  at java.util.concurrent.locks.LockSupport.park(LockSupport.java:157)
+	  at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2016)
+	  at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:410)
+	  at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1035)
+	  at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1097)
+	  at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:587)
+	  at java.lang.Thread.run(Thread.java:818)
+
+"AsyncTask #2@3638" prio=5 waiting
+  java.lang.Thread.State: WAITING
+	 blocks AsyncTask #2@3638
+	  at java.lang.Object.wait(Object.java:-1)
+	  at java.lang.Thread.parkFor(Thread.java:1220)
+	  - locked <0xe79> (a java.lang.Object)
+	  at sun.misc.Unsafe.park(Unsafe.java:299)
+	  at java.util.concurrent.locks.LockSupport.park(LockSupport.java:157)
+	  at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2016)
+	  at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:410)
+	  at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1035)
+	  at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1097)
+	  at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:587)
+	  at java.lang.Thread.run(Thread.java:818)
+
+"main@3589" prio=5 runnable
+  java.lang.Thread.State: RUNNABLE
+	  at android.os.MessageQueue.nativePollOnce(MessageQueue.java:-1)
+	  at android.os.MessageQueue.next(MessageQueue.java:143)
+	  at android.os.Looper.loop(Looper.java:122)
+	  at android.app.ActivityThread.main(ActivityThread.java:5254)
+	  at java.lang.reflect.Method.invoke(Method.java:-1)
+	  at java.lang.reflect.Method.invoke(Method.java:372)
+	  at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:903)
+	  at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:698)
+
+"FinalizerDaemon@3695" daemon prio=5 waiting
+  java.lang.Thread.State: WAITING
+	 blocks FinalizerDaemon@3695
+	  at java.lang.Object.wait(Object.java:-1)
+	  at java.lang.Object.wait(Object.java:422)
+	  at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:101)
+	  - locked <0xe74> (a java.lang.ref.ReferenceQueue)
+	  at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:72)
+	  at java.lang.Daemons$FinalizerDaemon.run(Daemons.java:174)
+	  at java.lang.Thread.run(Thread.java:818)
+
+"FinalizerWatchdogDaemon@3696" daemon prio=5 waiting
+  java.lang.Thread.State: WAITING
+	 blocks FinalizerWatchdogDaemon@3696
+	  at java.lang.Object.wait(Object.java:-1)
+	  at java.lang.Daemons$FinalizerWatchdogDaemon.waitForObject(Daemons.java:240)
+	  - locked <0xe75> (a java.lang.Daemons$FinalizerWatchdogDaemon)
+	  at java.lang.Daemons$FinalizerWatchdogDaemon.run(Daemons.java:212)
+	  at java.lang.Thread.run(Thread.java:818)
+
+"ReferenceQueueDaemon@3694" daemon prio=5 waiting
+  java.lang.Thread.State: WAITING
+	 blocks ReferenceQueueDaemon@3694
+	  at java.lang.Object.wait(Object.java:-1)
+	  at java.lang.Daemons$ReferenceQueueDaemon.run(Daemons.java:134)
+	  - locked <0xa9e> (a java.lang.Class)
+	  at java.lang.Thread.run(Thread.java:818)
+
+"HeapTrimmerDaemon@3697" daemon prio=5 waiting
+  java.lang.Thread.State: WAITING
+	 blocks HeapTrimmerDaemon@3697
+	  at java.lang.Object.wait(Object.java:-1)
+	  at java.lang.Daemons$HeapTrimmerDaemon.run(Daemons.java:311)
+	  - locked <0xe76> (a java.lang.Daemons$HeapTrimmerDaemon)
+	  at java.lang.Thread.run(Thread.java:818)
+
+"GCDaemon@3698" daemon prio=5 waiting
+  java.lang.Thread.State: WAITING
+	 blocks GCDaemon@3698
+	  at java.lang.Object.wait(Object.java:-1)
+	  at java.lang.Daemons$GCDaemon.run(Daemons.java:344)
+	  - locked <0xe77> (a java.lang.Daemons$GCDaemon)
+	  at java.lang.Thread.run(Thread.java:818)
+
+"Signal Catcher@3693" daemon prio=5 waiting
+  java.lang.Thread.State: WAITING
+	 Incompatible thread state: thread not suspended
+
+"Binder_1@3699" prio=5 runnable
+  java.lang.Thread.State: RUNNABLE
+	 Incompatible thread state: thread not suspended
+
+"Binder_2@3671" prio=5 runnable
+  java.lang.Thread.State: RUNNABLE
+	 Incompatible thread state: thread not suspended
+
+"RenderThread@3622" prio=5 runnable
+  java.lang.Thread.State: RUNNABLE
+	 Incompatible thread state: thread not suspended
+
+"hwuiTask1@3646" prio=5 runnable
+  java.lang.Thread.State: RUNNABLE
+	 Incompatible thread state: thread not suspended
+

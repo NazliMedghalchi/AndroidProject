@@ -1,5 +1,7 @@
 package com.androidsrc.server;
 
+import android.util.JsonReader;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -30,6 +32,9 @@ public class Server {
 	OutputStreamWriter outputStreamWriter;
 	BufferedWriter bufferedWriter;
 
+	JSONArray jArray = null;
+	JSONObject jObj = null;
+
 	Socket hostThreadSocket;
 
 
@@ -48,7 +53,6 @@ public class Server {
 
 	// Client sends ...
 	private class SocketServerThread extends Thread {
-
 		int count = 0;
 
 		@Override
@@ -56,16 +60,20 @@ public class Server {
 			try {
 				serverSocket = new ServerSocket(socketServerPORT);
 				Socket socket;
+				SocketServerReplyThread socketServerReplyThread;
 				while (true) {
 					socket = serverSocket.accept(); //supporting multiple clients
 					count++;
 					message += "#" + count + " from "
 							+ socket.getInetAddress() + ":"
 							+ socket.getPort() + "\n";
-//					activity.msg.set  Text(message + line);
-					SocketServerReplyThread socketServerReplyThread = new SocketServerReplyThread(
+//					activity.msg.setText(message + line);
+					socketServerReplyThread = new SocketServerReplyThread(
 							socket, count);
+					//for every client get the input thread
 					socketServerReplyThread.run();
+					GetInputThread getInputThread = new GetInputThread(hostThreadSocket);
+					getInputThread.run();
 					}
 			} catch ( IOException e) {
 				// TODO Auto-generated catch block
@@ -84,29 +92,20 @@ public class Server {
 
 		@Override
 		public void run() {
-				try {
-					outputStream = hostThreadSocket.getOutputStream();
-					while (outputStream != null){
-						bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
-						printStream = new PrintStream(outputStream);
-						message = bufferedWriter.toString();
-					}
-				}catch (IOException e) {
-					e.printStackTrace();
-				}
 
 			final String msgReply = "Hello from Server, you are #" + cnt;
 			while (hostThreadSocket.isConnected()) {
 				try {
 					inputStreamReader = new InputStreamReader
 							(hostThreadSocket.getInputStream());
-//					printStream.print("From client:" + "\n");
-					activity.runOnUiThread(new Runnable() {
-						@Override
-						public void run() {
-							activity.msg.setText(message + msgReply);
-						}
-					});
+					printStream.print("From client:" + "\n");
+					activity.msg.setText(message + msgReply);
+//					activity.runOnUiThread(new Runnable() {
+//						@Override
+//						public void run() {
+//
+//						}
+//					});
 //
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -118,41 +117,54 @@ public class Server {
 					@Override
 					public void run() {
 						activity.msg.setText(message);
-
-						try {
-							getInputThread();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
+//						try {
+//
+//						} catch (IOException e) {
+//							e.printStackTrace();
+//						}
 					}
 				});
+			}
+			try {
+				outputStream = hostThreadSocket.getOutputStream();
+				while (outputStream != null){
+					bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream));
+					message += bufferedWriter.toString();
+					printStream.print(message + bufferedWriter + "\n");
+				}
+			}catch (IOException e) {
+				e.printStackTrace();
 			}
 			printStream.close();
 		}
 	}
 
-	public void getInputThread () throws IOException {
-		JSONArray jArray = new JSONArray(); //Array of all passed messages in every conversation
-		JSONObject jObj = new JSONObject();
-//		printStream.append(jObj.toString());
-		jArray.put(jObj);
-		inputStream = hostThreadSocket.getInputStream();
-		bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-		message += bufferedReader.toString();
+	public class GetInputThread extends Thread {
+		GetInputThread (Socket hostSocket) throws IOException {
+			jArray = new JSONArray(); //Array of all passed messages in every conversation
+			jObj = new JSONObject();
+			printStream.append(jObj.toString());
+			jArray.put(jObj);
+			inputStream = hostSocket.getInputStream();
+			bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+			message += bufferedReader.readLine();
 
-//		JsonReader jsonReader = new JsonReader(bufferedReader);
-//		StringBuilder stringBuilder = new
-//				StringBuilder();
-//		String line = jsonReader.toString();
-//		while (line != null) {
-//			stringBuilder.append(line);
-//			message += line;
-//		}
-		if (inputStreamReader == null) {
-			activity.msg.setText("printStream and socket are closed by Client" );
-					message += "Client replayed: " + "\n";
+			JsonReader jsonReader = new JsonReader(bufferedReader);
+			StringBuilder stringBuilder = new
+					StringBuilder();
+			String line = jsonReader.toString();
+			while (line != null) {
+				stringBuilder.append(line);
+				message += line;
+			}
+
+			if (inputStreamReader == null) {
+				activity.msg.setText("printStream and socket are closed by Client" );
+				message += "Client replayed: " + "\n";
 				System.out.print(message);
+			}
 		}
+
 	}
 
 	public String getIpAddress() {
@@ -189,7 +201,6 @@ public class Server {
 			serverSocket.accept();
 		}
 	}
-
 
 	public void onDestroy() {
 		if (serverSocket != null) {

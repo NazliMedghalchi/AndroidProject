@@ -26,7 +26,6 @@ public class ContactsList extends Activity{
         public void onCreate(Bundle savedInstance) {
                 super.onCreate(savedInstance);
                 setContentView(R.layout.list_of_contacts);
-
                 showAllAccounts(getApplicationContext());
 
         }

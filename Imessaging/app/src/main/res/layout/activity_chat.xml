@@ -102,7 +102,7 @@
             android:fillViewport="true"
             android:longClickable="false"
             android:layoutMode="opticalBounds"
-            android:theme="@style/AppTheme.UWECEApp">
+            android:theme="@style/thread_text">
 
             <TextView
                 android:layout_width="wrap_content"
