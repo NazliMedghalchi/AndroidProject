@@ -12,7 +12,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 import static com.example.nazli.imessaging.ChatActivity.fromServer;
-import static com.example.nazli.imessaging.ChatActivity.textView;
 
 // created to check read and write
 public class ClientMessageThread extends Thread {
@@ -33,7 +32,6 @@ public class ClientMessageThread extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         readFromSocket();
         writeOnSocket();
     }
@@ -45,7 +43,6 @@ public class ClientMessageThread extends Thread {
             e.printStackTrace();
         }
         writer.println(jsonObject.toString() + "\n");
-        fromServer = "message Sent";
 //            in.close();
 
 //        }
@@ -56,8 +53,9 @@ public class ClientMessageThread extends Thread {
         try {
             in = socket.getInputStream();
             reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
-            System.out.println(reader);
-            textView.setText(reader.readLine() + reader.readLine().toString());
+            System.out.println(reader.readLine());
+            fromServer += "message Sent";
+//            textView.setText(reader.readLine() + reader.readLine().toString());
         }catch (IOException e){
             e.printStackTrace();
         }

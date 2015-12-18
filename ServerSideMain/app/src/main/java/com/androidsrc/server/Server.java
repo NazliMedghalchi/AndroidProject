@@ -66,7 +66,6 @@ public class Server {
 					message += "#" + count + " from "
 							+ socket.getInetAddress() + ":"
 							+ socket.getPort() + "\n";
-//					activity.msg.setText(message + line);
 					socketServerReplyThread = new SocketServerReplyThread(
 							socket, count);
 					//for every client get the input thread
@@ -98,14 +97,14 @@ public class Server {
 							(hostThreadSocket.getInputStream());
 					getInputThread = new GetInputThread(hostThreadSocket);
 					getInputThread.run();
-
-					activity.msg.setText(message + msgReply);
 					activity.runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
 							try {
-								printStream = new PrintStream(hostThreadSocket.getOutputStream());
-								printStream.print("From client:" + "\n");
+								message += msgReply;
+								activity.msg.setText(message);
+								printStream = new PrintStream(hostThreadSocket.getOutputStream() + "From client: " + "\n");
+								printStream.print("From client: " + "\n");
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
@@ -126,15 +125,15 @@ public class Server {
 				});
 			try {
 				outputStream = hostThreadSocket.getOutputStream();
-				while (outputStream != null){
+				if (outputStream != null){
 					bufferedReader = new BufferedReader(new InputStreamReader(hostThreadSocket.getInputStream()));
-					message += bufferedWriter.toString();
-					printStream.print(message + bufferedWriter + "\n");
+					message += bufferedReader.toString();
+//					printStream.print(message + bufferedWriter + "\n");
 				}
 			}catch (IOException e) {
 				e.printStackTrace();
 			}
-			printStream.close();
+//			printStream.close();
 		}
 	}
 

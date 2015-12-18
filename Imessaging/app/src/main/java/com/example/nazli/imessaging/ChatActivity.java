@@ -60,17 +60,17 @@ public class ChatActivity extends Activity {
     public static TextView itemText;
     Boolean side = false;
 
+    Boolean clickedSent = false;
+
     ListView threadsList;
     public ChatArrayAdapter chatArrayAdapter;
     Utils utils;
     Socket socket;
     Client client;
 
-
     final String ip = "10.0.2.2"; //turn it back to 10.0.2.15 /
     final int port = 8080; //back to 5554 to connect to emulator server app - 6000
     TextView fromS;
-
 
     @Override
     public void onCreate(Bundle savaedInstance) {
@@ -113,18 +113,20 @@ public class ChatActivity extends Activity {
         client.execute();
         fromServer = "Connected to Server";
 
-        ClientMessageThread clientMessageThread = new ClientMessageThread(socket, jsonObject);
         sendBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 // send message on outputStream to socket
+                clickedSent = true;
                 try {
                     try {
-                        if (sendBTN.isActivated()) {
+                        if (clickedSent == true) {
                             jsonObject.put("message", itemText.toString());
                             jsonObject.put("userid", search.toString());
                             jsonArray.put(jsonObject);
-//                            client.ClientMessageThread(jsonObject);
+//                            ClientMessageThread clientMessageThread = new ClientMessageThread(socket, jsonObject);
+//                            clientMessageThread.run();
+                            textView.setText(itemText.toString());
                             sendMessageToServer();
                         }
                     } catch (JSONException e) {
@@ -187,18 +189,19 @@ public class ChatActivity extends Activity {
     }
 
     // check socket
-    private void sendMessageToServer() throws IOException, InterruptedException {
-            sendChatMessage();
-    }
-
-    //send message on output stream
-    public boolean sendChatMessage() throws IOException, InterruptedException {
+    private boolean sendMessageToServer() throws IOException, InterruptedException {
         // TODO: 2015-11-11 chat message to send:
         // Check out: https://trinitytuts.com/simple-chat-application-using-listview-in-android/
 
         ClientMessageThread clientMessageThread = new ClientMessageThread(socket, jsonObject);
         message.setText(" ");
         return true;
+//            sendChatMessage();
+    }
+
+    //send message on output stream
+    public void sendChatMessage() throws IOException, InterruptedException {
+
     }
 //    public String  sendChatMessageToServer(String msg){
 //        return msg;
