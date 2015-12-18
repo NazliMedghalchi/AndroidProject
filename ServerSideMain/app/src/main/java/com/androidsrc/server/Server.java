@@ -70,7 +70,7 @@ public class Server {
 							socket, count);
 					//for every client get the input thread
 					socketServerReplyThread.run();
-//					GetInputThread getInputThread = new GetInputThread(hostThreadSocket);
+	//					GetInputThread getInputThread = new GetInputThread(hostThreadSocket);
 //					getInputThread.run();
 					}
 			} catch ( IOException e) {

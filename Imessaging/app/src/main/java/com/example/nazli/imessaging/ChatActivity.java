@@ -53,10 +53,13 @@ public class ChatActivity extends Activity {
     public static JSONArray jsonArray;
 
     EditText title;
-    EditText search; // search contact here
+    // search contact here
+    EditText search;
     Button searchBTN;
-    Button sendBTN; // on click on sendBTN the message will be sent to recipient (user)
-    EditText message; // sent from user
+    // on click on sendBTN the message will be sent to recipient (user)
+    Button sendBTN;
+    // sent from user
+    EditText message;
     public static TextView itemText;
     Boolean side = false;
 
@@ -70,7 +73,7 @@ public class ChatActivity extends Activity {
 
     final String ip = "10.0.2.2"; //turn it back to 10.0.2.15 /
     final int port = 8080; //back to 5554 to connect to emulator server app - 6000
-    TextView fromS;
+    TextView socketIP;
 
     @Override
     public void onCreate(Bundle savaedInstance) {
@@ -92,7 +95,7 @@ public class ChatActivity extends Activity {
 
         //DON'T move client call - it needs to be after instantiation
 
-        fromS = (TextView) findViewById(R.id.fromS);
+        socketIP = (TextView) findViewById(R.id.socketIP);
         newChat();
 
         jsonArray = new JSONArray();
@@ -109,37 +112,18 @@ public class ChatActivity extends Activity {
     @Override
     protected void onStart(){
         super.onStart();
+
         client = new Client(ip, port, from_server.toString());
         client.execute();
         fromServer = "Connected to Server";
+        from_server.setText(fromServer);
+        socketIP.setText(ip);
 
         sendBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 // send message on outputStream to socket
                 clickedSent = true;
-                try {
-                    try {
-                        if (clickedSent == true) {
-                            jsonObject.put("message", itemText.toString());
-                            jsonObject.put("userid", search.toString());
-                            jsonArray.put(jsonObject);
-//                            ClientMessageThread clientMessageThread = new ClientMessageThread(socket, jsonObject);
-//                            clientMessageThread.run();
-                            textView.setText(itemText.toString());
-                            sendMessageToServer();
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    sendMessageToServer();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                // clear text field after sending
-                message.setText(" ");
             }
         });
 
@@ -152,23 +136,33 @@ public class ChatActivity extends Activity {
             }
         }); // first clickListener
 
+        if (clickedSent) {
+            try {
+                try {
+                    jsonObject.put("message", itemText.toString());
+                    jsonObject.put("userid", search.toString());
+                    jsonArray.put(jsonObject);
+                    textView.setText(jsonObject.toString());
+                    sendMessageToServer();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                sendMessageToServer();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // clear text field after sending
+            message.setText(" ");
+        }
+
         if (client.getStatus() == AsyncTask.Status.PENDING){
             fromServer += "Pending for server connection";
         }
-
-        from_server.setText(fromServer);
-        fromS.setText(ip);
-//        try {
-//            if (sendBTN.isPressed()){
-//                sendChatMessage();
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
     } // End of onStart
 
- // TODO: 2015-11-19 destroy server socket
     @Override
     protected void onDestroy(){
 //        if (!socket.isClosed()) {
@@ -189,23 +183,13 @@ public class ChatActivity extends Activity {
     }
 
     // check socket
-    private boolean sendMessageToServer() throws IOException, InterruptedException {
-        // TODO: 2015-11-11 chat message to send:
-        // Check out: https://trinitytuts.com/simple-chat-application-using-listview-in-android/
+    // Check out: https://trinitytuts.com/simple-chat-application-using-listview-in-android/
 
+    private boolean sendMessageToServer() throws IOException, InterruptedException {
         ClientMessageThread clientMessageThread = new ClientMessageThread(socket, jsonObject);
+        clientMessageThread.start();
         message.setText(" ");
         return true;
-//            sendChatMessage();
     }
-
-    //send message on output stream
-    public void sendChatMessage() throws IOException, InterruptedException {
-
-    }
-//    public String  sendChatMessageToServer(String msg){
-//        return msg;
-//    }
-
 }
 

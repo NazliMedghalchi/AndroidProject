@@ -55,7 +55,7 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
         try {
 //            fromServer = "Check Socket";
             socket = new Socket(destAddress, destPort);
-//            publishProgress();
+            publishProgress();
             readFromSocket();
             writeOnSocket();
         } catch (UnknownHostException e) {
@@ -77,7 +77,7 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
     // show the connection
     protected void onProgressUpdate(String...params) {
         super.onProgressUpdate();
-        fromServer += String.format("Connected to Server on port: %s", Integer.toString(destPort));
+        fromServer += String.format("Connected to Server on port: %s", destPort);
     }
     // Show that server is running
     @Override
