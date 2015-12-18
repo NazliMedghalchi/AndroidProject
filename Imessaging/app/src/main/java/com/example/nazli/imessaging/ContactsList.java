@@ -1,17 +1,18 @@
 package com.example.nazli.imessaging;
 
         import android.app.Activity;
-        import android.content.ContentValues;
-        import android.content.Context;
-        import android.content.Intent;
-        import android.database.Cursor;
-        import android.os.Bundle;
-        import android.provider.ContactsContract;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.provider.ContactsContract;
+        import android.view.MenuItem;
         import android.view.View;
-        import android.widget.AdapterView;
-        import android.widget.ListView;
-        import android.widget.SimpleCursorAdapter;
-        import android.widget.TextView;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 /**
  * Created by nazlimedghalchi on 2015-11-03.
@@ -19,13 +20,16 @@ package com.example.nazli.imessaging;
 public class ContactsList extends Activity{
 
         ContactsContract contactsContract = new ContactsContract();
-        ListView accountsList = (ListView) findViewById(R.id.contacts);
+        ListView accountsList;
         public static final String SENDER = "sender";
 
         @Override
         public void onCreate(Bundle savedInstance) {
                 super.onCreate(savedInstance);
                 setContentView(R.layout.list_of_contacts);
+
+                accountsList = (ListView) findViewById(R.id.contacts);
+
                 showAllAccounts(getApplicationContext());
 
         }
@@ -41,6 +45,13 @@ public class ContactsList extends Activity{
                         R.layout.list_contact_selector,cursorAdapter, fromDB, toGUI, 0);
                 accountsList.setAdapter(simpleCursorAdapter);
         }
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+                selectAccount();
+                return super.onOptionsItemSelected(item);
+        }
+
         public void selectAccount(){
                 accountsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override

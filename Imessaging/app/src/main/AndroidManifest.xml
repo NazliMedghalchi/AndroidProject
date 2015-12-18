@@ -71,12 +71,18 @@
         <!-- show all accounts saved in the app and friend list that are imported from contacts
         from user phone-->
         <activity
-            android:name=".ContactList"
+            android:name=".ContactsList"
             android:label="@string/app_name" >
             <intent-filter>
                 <category android:name="android.intent.category.NORMAL" />
+            </intent-filter>
+        </activity>
 
-                <data android:scheme="@string/send_to" />
+        <activity
+            android:name=".ContactList"
+            android:label="@string/action_friends">
+            <intent-filter>
+                <category android:name="android.intent.category.NORMAL"/>
             </intent-filter>
         </activity>
 

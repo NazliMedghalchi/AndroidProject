@@ -36,7 +36,6 @@ public class MainActivity extends Activity{
         signin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 logIn();
             }
         });
@@ -54,7 +53,6 @@ public class MainActivity extends Activity{
             setContentView(R.layout.activity_chat);
             Intent intentChat = new Intent(this, ChatActivity.class);
             startActivity(intentChat);
-
             loginStatus = true;
         }
         else {
@@ -124,13 +122,15 @@ public class MainActivity extends Activity{
             startActivity(intent);
             exit();
         }
+        else {
+            Toast.makeText(getApplicationContext(), "You have to login first!" , Toast.LENGTH_LONG).show();
+        }
         return super.onOptionsItemSelected(item);
     }
     @Override
     protected void onPause(){
         super.onPause();
         // TODO: 2015-11-06 unregister bCastReceiver
-
     }
 
 //        Register BroadcastReceiver
