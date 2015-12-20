@@ -40,21 +40,35 @@ public class ClientMessageThread extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        try {
-            readFromSocket();
-        } catch (IOException e) {
-            e.printStackTrace();
+        while (true) {
+            out = socket.getOutputStream();
+            reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+            // in this try block the content of readFromSocket is rolled out
+            try {
+                reader.read();
+                System.out.println(reader);
+                reader.reset();
+            }catch (IOException e) {
+                e.printStackTrace();
+            }
+//                readFromSocket();
+            // the content of writeOnSocket is rolled out
+            try {
+                fromServer += reader.readLine() + "message Sent";
+                writer = new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
+                writer.write(jsonObject.toString());
+                textView.append(writer.toString());
+                writer.flush();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+//            writeOnSocket();
         }
-        writeOnSocket();
+
     }
 
     public void readFromSocket() throws IOException {
-        try {
-            reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
-            System.out.println(reader);
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
+
 //        System.out.println(writer.toString() + "\n");
     }
 
@@ -79,8 +93,7 @@ public class ClientMessageThread extends Thread {
 
     public void writeOnSocket() {
 //        JsonWriter jsonWriter;
-        try {
-//            jsonWriter = new JsonWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"));
+//        jsonWriter = new JsonWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"));
 //            jsonWriter.setIndent(" ");
 //
 //            jsonWriter.beginArray();
@@ -88,14 +101,7 @@ public class ClientMessageThread extends Thread {
 //                writeJSON(jsonWriter, jsonArray);
 //            }
 //            jsonWriter.endArray();
-            out = socket.getOutputStream();
-            fromServer += reader.readLine() + "message Sent";
-            writer = new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
-            writer.write(jsonObject.toString());
-            textView.append(writer.toString());
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+
     }
 
     private void writeJSON(JsonWriter jsonWriter, JSONArray jsonArray) throws IOException {

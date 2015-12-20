@@ -60,7 +60,6 @@ public class Client extends AsyncTask<JSONArray, String , Socket> {
 //            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 //            writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
             publishProgress();
-
         } catch (UnknownHostException e) {
             e.printStackTrace();
             response = "UnknownHostException: : " + e.toString();
@@ -80,12 +79,6 @@ public class Client extends AsyncTask<JSONArray, String , Socket> {
     // show the connection
     protected void onProgressUpdate(String...params) {
         super.onProgressUpdate();
-        fromServer += String.format("Connected to Server on port: %s", destPort);
-    }
-    // Show that server is running
-    @Override
-    protected void onPostExecute(Socket socket) {
-        fromServer += response + "Server is ON";
         ClientMessageThread clientMsg = null;
         try {
             clientMsg = new ClientMessageThread(socket, jsonArray);
@@ -93,26 +86,29 @@ public class Client extends AsyncTask<JSONArray, String , Socket> {
             e.printStackTrace();
         }
         clientMsg.run();
-
+        fromServer += String.format("Connected to Server on port: %s", destPort);
+    }
+    // Show that server is running
+    @Override
+    protected void onPostExecute(Socket socket) {
+        fromServer += response + "Server is ON";
         super.onPostExecute(socket);
         fromServer += "Server is ON";
-        try {
-            writeOnSocket();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            writeOnSocket();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         readFromSocket();
     }
 
     public void writeOnSocket() throws IOException {
-        try {
-            if (socket.isConnected()) {
+            try {
                 writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
                 System.out.println(writer);
+            }catch (IOException e) {
+                e.printStackTrace();
             }
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
 //        writer.println(jsonObject.toString() + "\n");
         fromServer = "message Sent";
 //        System.out.println(writer + "\n");
@@ -127,7 +123,6 @@ public class Client extends AsyncTask<JSONArray, String , Socket> {
             }
             else {
                 textView.append("Nothing to Read!!");
-                writeOnSocket();
             }
 //            textView.setText(reader.readLine() + reader.readLine().toString());
         }catch (IOException e){

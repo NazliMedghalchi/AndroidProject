@@ -148,7 +148,7 @@ public class Server {
 		GetInputThread (Socket hostSocket) throws IOException {
 			inputStream = hostSocket.getInputStream();
 			bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-			message += bufferedReader.readLine();
+			message += bufferedReader.read();
 			if (inputStreamReader == null) {
 //				activity.msg.setText("printStream and socket are closed by Client" );
 				message += "Client replayed: " + "\n";
