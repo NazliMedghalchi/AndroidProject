@@ -1,8 +1,10 @@
 package com.example.nazli.imessaging;
 
 import android.os.AsyncTask;
+import android.util.JsonReader;
+import android.util.JsonWriter;
 
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,7 +17,8 @@ import java.net.UnknownHostException;
 
 import static com.example.nazli.imessaging.ChatActivity.fromServer;
 import static com.example.nazli.imessaging.ChatActivity.from_server;
-import static com.example.nazli.imessaging.ChatActivity.jsonObject;
+import static com.example.nazli.imessaging.ChatActivity.jsonArray;
+import static com.example.nazli.imessaging.ChatActivity.textView;
 
 /**
  * Created by nazlimedghalchi on 2015-11-21.
@@ -26,7 +29,7 @@ import static com.example.nazli.imessaging.ChatActivity.jsonObject;
 * however ClientServer is using ClientServer and Server
 * */
 
-public class Client extends AsyncTask<JSONObject, String , Socket> {
+public class Client extends AsyncTask<JSONArray, String , Socket> {
 
     String destAddress;
     Integer destPort;
@@ -36,10 +39,8 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
     BufferedReader reader;
     PrintWriter writer;
     InputStream in;
-
-//    ChatActivity chatActivity = new ChatActivity();
-//    JSONParser jParser = new JSONParser();
-
+    JsonWriter jsonWriter;
+    JsonReader jsonReader;
 
     public Socket socket;
 
@@ -49,15 +50,17 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
         this.txtResponse = txtRes;
     }
 
-    // Connect to socket in doinBackground
+    // Connect to socket in doInBackground
     @Override
-    protected Socket doInBackground(JSONObject... params) {
+    protected Socket doInBackground(JSONArray... params) {
+        boolean c;
         try {
 //            fromServer = "Check Socket";
             socket = new Socket(destAddress, destPort);
+//            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//            writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
             publishProgress();
-            readFromSocket();
-            writeOnSocket();
+
         } catch (UnknownHostException e) {
             e.printStackTrace();
             response = "UnknownHostException: : " + e.toString();
@@ -83,33 +86,49 @@ public class Client extends AsyncTask<JSONObject, String , Socket> {
     @Override
     protected void onPostExecute(Socket socket) {
         fromServer += response + "Server is ON";
-//        ClientMessageThread clientMsg = new ClientMessageThread(socket, jsonObject);
-//        clientMsg.run();
+        ClientMessageThread clientMsg = null;
+        try {
+            clientMsg = new ClientMessageThread(socket, jsonArray);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        clientMsg.run();
 
         super.onPostExecute(socket);
-//        fromServer += "Server is ON";
+        fromServer += "Server is ON";
+        try {
+            writeOnSocket();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        readFromSocket();
     }
 
-    public void readFromSocket(){
+    public void writeOnSocket() throws IOException {
         try {
-            writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"));
-            System.out.println(writer);
+            if (socket.isConnected()) {
+                writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+                System.out.println(writer);
+            }
         }catch (IOException e) {
             e.printStackTrace();
         }
-        writer.println(jsonObject.toString() + "\n");
+//        writer.println(jsonObject.toString() + "\n");
         fromServer = "message Sent";
-//            in.close();
-
-//        }
-//        System.out.println(writer.toString() + "\n");
+//        System.out.println(writer + "\n");
     }
 
-    public void writeOnSocket() {
+    public void readFromSocket() {
         try {
-            in = socket.getInputStream();
-            reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
-            System.out.println(reader.readLine());
+            if (reader != null) {
+                in = socket.getInputStream();
+                reader = new BufferedReader(new InputStreamReader(in));
+                textView.append(reader.readLine());
+            }
+            else {
+                textView.append("Nothing to Read!!");
+                writeOnSocket();
+            }
 //            textView.setText(reader.readLine() + reader.readLine().toString());
         }catch (IOException e){
             e.printStackTrace();

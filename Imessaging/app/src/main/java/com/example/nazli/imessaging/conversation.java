@@ -166,7 +166,7 @@ public class Conversation extends ListActivity {
         // REf: http://www.programcreek.com/java-api-examples/android.net.ConnectivityManager
 
         if (!networkInfo.isAvailable())
-            networkInfo = connection.getNetworkInfo(connection.TYPE_WIFI);
+            networkInfo = connection.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         if (connection != null && networkInfo.isConnected()) {
             displayConversationAll();
         }

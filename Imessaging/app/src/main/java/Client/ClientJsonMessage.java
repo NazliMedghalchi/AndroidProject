@@ -25,8 +25,8 @@ public class ClientJsonMessage {
     static int port = 0;
     String fromServer = "";
     public ClientJsonMessage(String ip, int port, String receiveServer) {
-        this.ip = ip;
-        this.port = port;
+        ClientJsonMessage.ip = ip;
+        ClientJsonMessage.port = port;
         this.fromServer = receiveServer;
     }
 

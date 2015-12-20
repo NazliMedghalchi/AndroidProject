@@ -70,8 +70,6 @@ public class Server {
 							socket, count);
 					//for every client get the input thread
 					socketServerReplyThread.run();
-	//					GetInputThread getInputThread = new GetInputThread(hostThreadSocket);
-//					getInputThread.run();
 					}
 			} catch ( IOException e) {
 				// TODO Auto-generated catch block
@@ -90,22 +88,29 @@ public class Server {
 
 		@Override
 		public void run() {
-			GetInputThread getInputThread;
+			GetInputThread getInputThread = null;
+			try {
+				getInputThread = new GetInputThread(hostThreadSocket);
+				getInputThread.start();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			final String msgReply = "Hello from Server, you are #" + cnt;
 				try {
 					inputStreamReader = new InputStreamReader
 							(hostThreadSocket.getInputStream());
-					getInputThread = new GetInputThread(hostThreadSocket);
-					getInputThread.run();
+					bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+					bufferedReader.readLine();
+					message +=
+					printStream = new PrintStream(hostThreadSocket.getOutputStream() + "From client: " + "\n");
+					printStream.print("From client: " + "\n");
 					activity.runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
 							try {
 								message += msgReply;
 								activity.msg.setText(message);
-								printStream = new PrintStream(hostThreadSocket.getOutputStream() + "From client: " + "\n");
-								printStream.print("From client: " + "\n");
-							} catch (IOException e) {
+							} catch (Exception e) {
 								e.printStackTrace();
 							}
 						}
@@ -127,8 +132,10 @@ public class Server {
 				outputStream = hostThreadSocket.getOutputStream();
 				if (outputStream != null){
 					bufferedReader = new BufferedReader(new InputStreamReader(hostThreadSocket.getInputStream()));
+					printStream = new PrintStream(String.valueOf(new OutputStreamWriter(hostThreadSocket.getOutputStream())));
 					message += bufferedReader.toString();
-//					printStream.print(message + bufferedWriter + "\n");
+					printStream.print(message + bufferedWriter + "\n");
+					printStream.flush();
 				}
 			}catch (IOException e) {
 				e.printStackTrace();
@@ -142,9 +149,8 @@ public class Server {
 			inputStream = hostSocket.getInputStream();
 			bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 			message += bufferedReader.readLine();
-
 			if (inputStreamReader == null) {
-				activity.msg.setText("printStream and socket are closed by Client" );
+//				activity.msg.setText("printStream and socket are closed by Client" );
 				message += "Client replayed: " + "\n";
 				System.out.print(message);
 			}
@@ -187,14 +193,14 @@ public class Server {
 	}
 
 	public void onDestroy() {
-		if (serverSocket != null) {
-			try {
-				printStream.close();
-				serverSocket.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			outputStream.close();
+			inputStream.close();
+			hostThreadSocket.close();
+			serverSocket.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

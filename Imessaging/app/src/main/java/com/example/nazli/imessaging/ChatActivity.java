@@ -51,16 +51,17 @@ public class ChatActivity extends Activity {
     public static ChatMessage chatMessage;
     public static JSONObject jsonObject;
     public static JSONArray jsonArray;
+    public static EditText search;
+    public static TextView itemText;
+
 
     EditText title;
     // search contact here
-    EditText search;
     Button searchBTN;
     // on click on sendBTN the message will be sent to recipient (user)
     Button sendBTN;
     // sent from user
     EditText message;
-    public static TextView itemText;
     Boolean side = false;
 
     Boolean clickedSent = false;
@@ -76,8 +77,8 @@ public class ChatActivity extends Activity {
     TextView socketIP;
 
     @Override
-    public void onCreate(Bundle savaedInstance) {
-        super.onCreate(savaedInstance);
+    public void onCreate(Bundle savedInstance) {
+        super.onCreate(savedInstance);
         setContentView(R.layout.activity_chat);
 
         from_server = (TextView) findViewById(R.id.from_server);
@@ -100,25 +101,19 @@ public class ChatActivity extends Activity {
 
         jsonArray = new JSONArray();
         jsonObject = new JSONObject();
+        textView.setText(message.toString());
 
-//        chatArrayAdapter = new ChatArrayAdapter(getApplicationContext(),
-//                R.layout.chat_item_right);
-
-//        textView.setText(message.toString());
-
-
+        client = new Client(ip, port, from_server.toString());
+        client.execute();
+        socketIP.setText(ip + ": " + port);
+        fromServer = "Connected to Server";
+        from_server.setText(fromServer);
     } //end of onCreate
 
     @Override
     protected void onStart(){
         super.onStart();
-
-        client = new Client(ip, port, from_server.toString());
-        client.execute();
-        fromServer = "Connected to Server";
-        from_server.setText(fromServer);
-        socketIP.setText(ip);
-
+        clickedSent = false;
         sendBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -132,18 +127,17 @@ public class ChatActivity extends Activity {
             public void onClick(View v) {
                 Intent i = new Intent(getApplicationContext(), ContactsList.class);
                 i.putExtra("userID", search.toString());
-                startActivity(i);
             }
         }); // first clickListener
 
-        if (clickedSent) {
+        while (clickedSent) {
             try {
                 try {
                     jsonObject.put("message", itemText.toString());
                     jsonObject.put("userid", search.toString());
                     jsonArray.put(jsonObject);
-                    textView.setText(jsonObject.toString());
                     sendMessageToServer();
+                    textView.setText(jsonObject.getString("message" + "userid"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -165,16 +159,14 @@ public class ChatActivity extends Activity {
 
     @Override
     protected void onDestroy(){
-//        if (!socket.isClosed()) {
-            try {
-                fromServer = "Disconnected";
-                newChat();
-                socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-//        }
         super.onDestroy();
+        try {
+            fromServer = "Disconnected";
+            newChat();
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void newChat(){
@@ -186,7 +178,7 @@ public class ChatActivity extends Activity {
     // Check out: https://trinitytuts.com/simple-chat-application-using-listview-in-android/
 
     private boolean sendMessageToServer() throws IOException, InterruptedException {
-        ClientMessageThread clientMessageThread = new ClientMessageThread(socket, jsonObject);
+        ClientMessageThread clientMessageThread = new ClientMessageThread(socket, jsonArray);
         clientMessageThread.start();
         message.setText(" ");
         return true;
