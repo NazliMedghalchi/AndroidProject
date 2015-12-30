@@ -42,12 +42,16 @@ public class ClientMessageThread extends Thread {
         }
         while (true) {
             out = socket.getOutputStream();
-            reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
+            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             // in this try block the content of readFromSocket is rolled out
             try {
-                reader.read();
-                System.out.println(reader);
-                reader.reset();
+                String readString;
+                while (true){
+                    reader.read();
+                    System.out.println(reader);
+                    reader.close();
+                }
+//                reader.close();
             }catch (IOException e) {
                 e.printStackTrace();
             }

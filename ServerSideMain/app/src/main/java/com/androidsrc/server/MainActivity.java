@@ -25,18 +25,18 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onDestroy() {
-		server.onDestroy();
 		super.onDestroy();
+		server.onDestroy();
 	}
 
 	@Override
 	protected void onPause(){
+		super.onPause();
 		try {
 			server.onPause();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		super.onPause();
 	}
 
 }

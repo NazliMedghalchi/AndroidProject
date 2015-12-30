@@ -85,7 +85,6 @@ public class Server {
 			hostThreadSocket = socket;
 			cnt = c;
 		}
-
 		@Override
 		public void run() {
 			GetInputThread getInputThread = null;
@@ -100,10 +99,11 @@ public class Server {
 					inputStreamReader = new InputStreamReader
 							(hostThreadSocket.getInputStream());
 					bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-					bufferedReader.readLine();
-					message +=
-					printStream = new PrintStream(hostThreadSocket.getOutputStream() + "From client: " + "\n");
-					printStream.print("From client: " + "\n");
+					while ((message = bufferedReader.readLine()) != null){
+						message += bufferedReader.readLine();
+					}
+//					printStream = new PrintStream(hostThreadSocket.getOutputStream() + "From client: " + "\n");
+//					printStream.print("From client: " + "\n");
 					activity.runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
@@ -132,10 +132,11 @@ public class Server {
 				outputStream = hostThreadSocket.getOutputStream();
 				if (outputStream != null){
 					bufferedReader = new BufferedReader(new InputStreamReader(hostThreadSocket.getInputStream()));
-					printStream = new PrintStream(String.valueOf(new OutputStreamWriter(hostThreadSocket.getOutputStream())));
-					message += bufferedReader.toString();
-					printStream.print(message + bufferedWriter + "\n");
-					printStream.flush();
+//					outputStreamWriter = new OutputStreamWriter(outputStream);
+//					printStream = new PrintStream(String.valueOf(outputStreamWriter));
+					message += bufferedReader.readLine();
+//					printStream.print(message + bufferedWriter + "\n");
+//					printStream.flush();
 				}
 			}catch (IOException e) {
 				e.printStackTrace();
@@ -150,9 +151,8 @@ public class Server {
 			bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 			message += bufferedReader.read();
 			if (inputStreamReader == null) {
-//				activity.msg.setText("printStream and socket are closed by Client" );
 				message += "Client replayed: " + "\n";
-				System.out.print(message);
+				System.out.println(message);
 			}
 		}
 	}
