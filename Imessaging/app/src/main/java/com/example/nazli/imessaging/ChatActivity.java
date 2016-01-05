@@ -2,6 +2,7 @@ package com.example.nazli.imessaging;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,7 +48,7 @@ import other.Utils;
     Otherwise it is not clickable
     The listener for sendBTN takes message and pass it to upStream*/
 
-public class ChatActivity extends Activity {
+public class ChatActivity extends Activity implements InterfaceInOut {
 
     public static String fromServer = null;
     public static TextView from_server;
@@ -70,11 +75,16 @@ public class ChatActivity extends Activity {
     public ChatArrayAdapter chatArrayAdapter;
     Utils utils;
     Socket socket;
-    Client client;
 
     final String ip = "10.0.2.2"; //turn it back to 10.0.2.15 /
     final int port = 8080; //back to 5554 to connect to emulator server app - 6000
     TextView socketIP;
+    Client client;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client2;
 
     @Override
     public void onCreate(Bundle savedInstance) {
@@ -104,15 +114,23 @@ public class ChatActivity extends Activity {
         textView.setText(message.toString());
 
         client = new Client(ip, port, from_server.toString());
+        client.interfaceInOut = this;
         client.execute();
         socketIP.setText(ip + ": " + port);
         fromServer = "Connected to Server";
         from_server.setText(fromServer);
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client2 = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     } //end of onCreate
 
     @Override
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client2.connect();
         clickedSent = false;
         sendBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,7 +155,7 @@ public class ChatActivity extends Activity {
                     jsonObject.put("userid", search.toString());
                     jsonArray.put(jsonObject);
                     sendMessageToServer();
-                    textView.setText(jsonObject.getString("message" + "userid"));
+                    textView.setText(jsonObject.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -147,18 +165,30 @@ public class ChatActivity extends Activity {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
             // clear text field after sending
             message.setText(" ");
         }
 
-        if (client.getStatus() == AsyncTask.Status.PENDING){
+        if (client.getStatus() == AsyncTask.Status.PENDING) {
             fromServer += "Pending for server connection";
         }
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Chat Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.example.nazli.imessaging/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client2, viewAction);
     } // End of onStart
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         try {
             fromServer = "Disconnected";
@@ -169,7 +199,7 @@ public class ChatActivity extends Activity {
         }
     }
 
-    public void newChat(){
+    public void newChat() {
         message.setText("");
         search.setText("");
     }
@@ -182,6 +212,31 @@ public class ChatActivity extends Activity {
         clientMessageThread.start();
         message.setText(" ");
         return true;
+    }
+
+    @Override
+    public void resultAsync(String result) {
+        client.readFromSocket();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Chat Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.example.nazli.imessaging/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client2, viewAction);
+        client2.disconnect();
     }
 }
 

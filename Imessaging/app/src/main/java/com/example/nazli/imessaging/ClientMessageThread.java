@@ -45,10 +45,9 @@ public class ClientMessageThread extends Thread {
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             // in this try block the content of readFromSocket is rolled out
             try {
-                String readString;
-                while (true){
-                    reader.read();
-                    System.out.println(reader);
+                while (reader!=null){
+                    reader.readLine();
+//                    System.out.println(reader);
                     reader.close();
                 }
 //                reader.close();
@@ -72,7 +71,6 @@ public class ClientMessageThread extends Thread {
     }
 
     public void readFromSocket() throws IOException {
-
 //        System.out.println(writer.toString() + "\n");
     }
 

@@ -17,7 +17,7 @@ import java.net.UnknownHostException;
 
 import static com.example.nazli.imessaging.ChatActivity.fromServer;
 import static com.example.nazli.imessaging.ChatActivity.from_server;
-import static com.example.nazli.imessaging.ChatActivity.jsonArray;
+import static com.example.nazli.imessaging.ChatActivity.itemText;
 import static com.example.nazli.imessaging.ChatActivity.textView;
 
 /**
@@ -33,7 +33,7 @@ public class Client extends AsyncTask<JSONArray, String , Socket> {
 
     String destAddress;
     Integer destPort;
-    String response;
+    String response = "Before BG task";
     String txtResponse;
 
     BufferedReader reader;
@@ -43,6 +43,9 @@ public class Client extends AsyncTask<JSONArray, String , Socket> {
     JsonReader jsonReader;
 
     public Socket socket;
+
+//    http://stackoverflow.com/questions/12575068/how-to-get-the-result-of-onpostexecute-to-main-activity-because-asynctask-is-a
+    public InterfaceInOut interfaceInOut = null;
 
     Client(String address, int portNum, String txtRes) {
         destAddress = address;
@@ -55,10 +58,7 @@ public class Client extends AsyncTask<JSONArray, String , Socket> {
     protected Socket doInBackground(JSONArray... params) {
         boolean c;
         try {
-//            fromServer = "Check Socket";
             socket = new Socket(destAddress, destPort);
-//            reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//            writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
             publishProgress();
         } catch (UnknownHostException e) {
             e.printStackTrace();
@@ -78,34 +78,39 @@ public class Client extends AsyncTask<JSONArray, String , Socket> {
     }
     // show the connection
     protected void onProgressUpdate(String...params) {
-        super.onProgressUpdate();
-        ClientMessageThread clientMsg = null;
-        try {
-            clientMsg = new ClientMessageThread(socket, jsonArray);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        clientMsg.run();
         fromServer += String.format("Connected to Server on port: %s", destPort);
+        super.onProgressUpdate();
     }
     // Show that server is running
     @Override
     protected void onPostExecute(Socket socket) {
-        fromServer += response + "Server is ON";
-        super.onPostExecute(socket);
-        fromServer += "Server is ON";
+//        ClientMessageThread clientMsg = null;
 //        try {
-//            writeOnSocket();
+//            clientMsg = new ClientMessageThread(socket, jsonArray);
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+//        clientMsg.run();
+        fromServer += response + "Server is ON";
+        interfaceInOut.resultAsync(fromServer);
+
+        try {
+//           Write on socket
+            writeOnSocket();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        Read from socket
         readFromSocket();
+        super.onPostExecute(socket);
     }
 
     public void writeOnSocket() throws IOException {
             try {
-                writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
-                System.out.println(writer);
+                if (itemText != null){
+                    writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream()));
+                    System.out.println(writer);
+                }
             }catch (IOException e) {
                 e.printStackTrace();
             }
@@ -124,14 +129,10 @@ public class Client extends AsyncTask<JSONArray, String , Socket> {
             else {
                 textView.append("Nothing to Read!!");
             }
-//            textView.setText(reader.readLine() + reader.readLine().toString());
         }catch (IOException e){
             e.printStackTrace();
         }
     }
 }
-
-
-
 
 

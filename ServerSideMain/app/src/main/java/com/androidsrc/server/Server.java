@@ -102,14 +102,13 @@ public class Server {
 					while ((message = bufferedReader.readLine()) != null){
 						message += bufferedReader.readLine();
 					}
-//					printStream = new PrintStream(hostThreadSocket.getOutputStream() + "From client: " + "\n");
-//					printStream.print("From client: " + "\n");
+					printStream = new PrintStream( "From client: " + hostThreadSocket.getOutputStream() + "\n", String.valueOf(true));
 					activity.runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
 							try {
-								message += msgReply;
 								activity.msg.setText(message);
+								printStream.print("Client: " + "\n");
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
