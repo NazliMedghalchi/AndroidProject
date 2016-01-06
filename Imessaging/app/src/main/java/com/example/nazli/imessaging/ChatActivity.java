@@ -191,9 +191,10 @@ public class ChatActivity extends Activity implements InterfaceInOut {
     protected void onDestroy() {
         super.onDestroy();
         try {
+            if (socket != null)
+                socket.close();
             fromServer = "Disconnected";
             newChat();
-            socket.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

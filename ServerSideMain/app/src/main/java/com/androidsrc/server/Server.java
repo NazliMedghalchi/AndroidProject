@@ -5,6 +5,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -31,6 +32,7 @@ public class Server {
 	BufferedWriter bufferedWriter;
 	PrintStream printStream;
 
+	File file;
 
 	JSONArray jArray = null;
 	JSONObject jObj = null;
@@ -44,6 +46,7 @@ public class Server {
 		this.activity = activity;
 		Thread socketServerThread = new Thread(new SocketServerThread());
 		socketServerThread.start();
+		file = new File("fileOut.txt");
 	}
 
 	public int getPort() {
@@ -88,37 +91,38 @@ public class Server {
 		@Override
 		public void run() {
 			GetInputThread getInputThread = null;
-			try {
-				getInputThread = new GetInputThread(hostThreadSocket);
-				getInputThread.start();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+
 			final String msgReply = "Hello from Server, you are #" + cnt;
 				try {
 					inputStreamReader = new InputStreamReader
 							(hostThreadSocket.getInputStream());
 					bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 					while ((message = bufferedReader.readLine()) != null){
-						message += bufferedReader.readLine();
+						message += msgReply + bufferedReader.readLine();
 					}
-					printStream = new PrintStream( "From client: " + hostThreadSocket.getOutputStream() + "\n", String.valueOf(true));
+					printStream = new PrintStream(file);
 					activity.runOnUiThread(new Runnable() {
 						@Override
 						public void run() {
 							try {
 								activity.msg.setText(message);
 								printStream.print("Client: " + "\n");
+
 							} catch (Exception e) {
 								e.printStackTrace();
 							}
 						}
 					});
-
+					try {
+						getInputThread = new GetInputThread(hostThreadSocket);
+						getInputThread.start();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
-					message += "Something wrong in! " + e.toString() + "\n";
+					message += "Something is wrong Input! " + e.toString() + "\n";
 				}
 				activity.runOnUiThread(new Runnable() {
 					// this is where I can pass message to other client
